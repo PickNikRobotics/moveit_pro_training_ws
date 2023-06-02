@@ -4,6 +4,7 @@ ROS 2 Node with a service client to test AprilTag detections.
 
 from apriltag_ros_msgs.srv import GetAprilTagDetections
 import rclpy
+from rclpy.executors import ExternalShutdownException
 from rclpy.node import Node
 from rclpy.qos import qos_profile_sensor_data
 from sensor_msgs.msg import CameraInfo, Image
@@ -11,8 +12,11 @@ from threading import Thread
 
 
 class AprilTagDetectionClient(Node):
-    def __init__(self, test_mode=False):
+    def __init__(self, camera_info_topic, image_topic, test_mode=False):
         super().__init__("apriltag_detection_client")
+
+        self.camera_info_topic = camera_info_topic
+        self.image_topic = image_topic
         self.test_mode = test_mode
 
         self.client = self.create_client(GetAprilTagDetections, "detect_apriltags")
@@ -26,20 +30,23 @@ class AprilTagDetectionClient(Node):
 
         # Get camera info
         self.camera_info = None
-        self.camera_info_sub = self.create_subscription(
-            CameraInfo,
-            "/wrist_mounted_camera/color/camera_info",  # TODO: Do not hardcode
-            self.camera_info_callback,
-            qos_profile_sensor_data,
-        )
-        self.get_logger().info("Waiting for camera info...")
+        if not self.test_mode:
+            self.camera_info_sub = self.create_subscription(
+                CameraInfo,
+                self.camera_info_topic,
+                self.camera_info_callback,
+                qos_profile_sensor_data,
+            )
+            self.get_logger().info("Waiting for camera info...")
+        else:
+            self.camera_info = self.load_test_camera_info()
 
         # Get image from camera or from a test image
         if not self.test_mode:
             self.latest_image = None
             self.image_sub = self.create_subscription(
                 Image,
-                "/wrist_mounted_camera/color/image_raw",  # TODO: Do not hardcode
+                self.image_topic,
                 self.image_callback,
                 qos_profile_sensor_data,
             )
@@ -79,12 +86,16 @@ class AprilTagDetectionClient(Node):
         self.latest_image = msg
         self.destroy_subscription(self.image_sub)
 
+    def load_test_camera_info(self):
+        """Loads test camera info."""
+        return CameraInfo(k=(554.25, 0.0, 320.5, 0.0, 554.25, 240.5, 0.0, 0.0, 1.0))
+
     def load_test_image(self):
         """Loads a test image with AprilTags."""
+        from ament_index_python.packages import get_package_share_directory
         import cv2
         import cv_bridge
         import os
-        from ament_index_python.packages import get_package_share_directory
 
         data_dir = os.path.join(
             get_package_share_directory("apriltag_ros_python"), "data"
@@ -98,13 +109,22 @@ class AprilTagDetectionClient(Node):
 def main():
     rclpy.init()
 
-    node = AprilTagDetectionClient(test_mode=True)
+    node = AprilTagDetectionClient(
+        camera_info_topic="/wrist_mounted_camera/color/camera_info",
+        image_topic="/wrist_mounted_camera/color/image_raw",
+        test_mode=False,
+    )
 
     Thread(target=node.send_request).start()
     rclpy.spin(node)
 
-    node.destroy_node()
-    rclpy.shutdown()
+    try:
+        rclpy.spin(node)
+    except (KeyboardInterrupt, ExternalShutdownException):
+        pass
+    finally:
+        node.destroy_node()
+        rclpy.try_shutdown()
 
 
 if __name__ == "__main__":
