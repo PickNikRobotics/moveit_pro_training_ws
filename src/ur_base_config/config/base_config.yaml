@@ -11,13 +11,12 @@ hardware:
   # You can change this to another UR model but you must update any configuration affected by the different arm size.
   # UR models in the ur_description package are ur3, ur3e, ur5, ur5e, ur10, ur10e, and ur16e.
   # [Required]
-  type: ${UR_HARDWARE_TYPE:-ur5e}
+  type: "ur5e"
 
   # Set simulated to false if you are using this as a configuration for real hardware.
-  # Override-able by setting the $MOCK_HARDWARE environment variable to 'True'.
   # This allows users to switch between mock and real hardware using the same configuration.
   # [Required]
-  simulated: ${MOCK_HARDWARE:-true}
+  simulated: True
 
   # If the MoveIt Studio Agent should launch the ros2 controller node.
   # [Optional, default=True]
@@ -60,7 +59,7 @@ hardware:
     path: "launch/sim/robot_drivers_to_restart_sim.launch.py"
   simulated_hardware_launch_file:
     package: "ur_base_config"
-    path: "launch/sim/hardware_sim.launch.py"
+    path: "launch/hardware.launch.py"
 
   # Configuration details for cameras and scene planning.
   # [Required]
@@ -85,9 +84,7 @@ hardware:
       - name: "%>> hardware.type"
       - prefix: ""
       - use_fake_hardware: "%>> hardware.simulated"
-      - use_pinch_link: "true"
       - fake_sensor_commands: "false"
-      - headless_mode: "true"
       - robot_ip: "%>> hardware.ip"
       - joint_limits_parameters_file:
           package: "ur_base_config"
@@ -114,13 +111,6 @@ ros_global_params:
   # Whether or not to use simulated time.
   # [Optional, default=False]
   use_sim_time: False
-
-# Configure additional, optional features in MoveIt Studio.
-# [Optional]
-optional_feature_params:
-  # Whether or not to use the Formant bridge for over-the-internet comms.
-  # [Optional, default=False]
-  use_formant_bridge: False
 
 # Configuration files for MoveIt.
 # For more information, refer to https://moveit.picknik.ai/humble/doc/examples/examples.html#configuration
