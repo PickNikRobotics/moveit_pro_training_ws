@@ -84,7 +84,6 @@ hardware:
       - name: "%>> hardware.type"
       - prefix: ""
       - use_fake_hardware: "%>> hardware.simulated"
-      - fake_sensor_commands: "false"
       - robot_ip: "%>> hardware.ip"
       - joint_limits_parameters_file:
           package: "ur_base_config"
