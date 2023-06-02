@@ -44,7 +44,7 @@ def generate_launch_description():
     nodes_to_launch = []
 
     # Do not launch any nodes if there are no configured cameras.
-    if cameras_config is None:
+    if not cameras_config:
         print(
             "No camera configuration found. Not launching any camera transform nodes."
         )

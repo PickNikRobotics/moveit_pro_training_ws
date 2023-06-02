@@ -34,7 +34,7 @@ hardware:
 
   # The robot's IP address.
   # [Required]
-  ip: "!!! Please set the IP address of the robot"
+  ip: "0.0.0.0"  # !!! Please set the IP address of the robot
 
   # Specify additional launch files for running the robot with real hardware.
   # [Required]
@@ -73,10 +73,10 @@ hardware:
   robot_description:
     urdf:
       package: "ur_base_config"
-      path: "description/picknik_ur5e.xacro"
+      path: "description/ur5e.xacro"
     srdf:
       package: "ur_base_config"
-      path: "config/moveit/picknik_ur5e.srdf"
+      path: "config/moveit/ur5e.srdf"
     # Specify any additional parameters required for the URDF.
     # Many of these are specific to the UR descriptions packages, and can be customized as needed.
     # [Optional]
@@ -164,7 +164,7 @@ ui_params:
 ros2_control:
   config:
     package: "ur_base_config"
-    path: "config/control/picknik_ur5e.ros2_control.yaml"
+    path: "config/control/ur5e.ros2_control.yaml"
   # MoveIt Studio will load and activate these controllers at start up to ensure they are available.
   # If not specified, it is up to the user to ensure the appropriate controllers are active and available
   # for running the application.
@@ -195,7 +195,7 @@ octomap_manager:
   # the Octomap manager node is defined in sensors_3d.yaml.
   input_point_cloud_topic: "/wrist_mounted_camera/depth/color/points"
 
-# Configuration for loading behaviors and objectives. 
+# Configuration for loading behaviors and objectives.
 # [Required]
 objectives:
   # List of plugins for loading custom behaviors.
