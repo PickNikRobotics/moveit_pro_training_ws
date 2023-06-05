@@ -40,8 +40,8 @@ class AprilTagDetectionClient(Node):
         self.image_topic = self.get_parameter("image_topic").value
 
         # Get camera info
-        self.camera_info = None
         if not self.test_mode:
+            self.camera_info = None
             self.camera_info_sub = self.create_subscription(
                 CameraInfo,
                 self.camera_info_topic,
