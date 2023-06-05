@@ -205,6 +205,8 @@ objectives:
     # Add additional plugin loaders as needed.
     core:
       - "moveit_studio::behaviors::CoreBehaviorsLoader"
+    moveit_studio_training:
+      - "moveit_studio_training_behaviors::MoveItStudioTrainingBehaviorsLoader"
   # Specify source folder for objectives
   # [Required]
   objective_library_paths:

@@ -1,0 +1,14 @@
+<root>
+    <TreeNodesModel>
+        <Action ID="GetAprilTagDetectionPose">
+            <description>
+                <p>
+                    Gets an AprilTag detection pose, if any, given a specific ID to filter by.
+                </p>
+            </description>
+            <input_port name="apriltag_id" default="0">ID of AprilTag to look for.</input_port>
+            <input_port name="camera_info" default="{camera_info}">Camera information ROS message.</input_port>
+            <input_port name="image" default="{image}">Image ROS message.</input_port>
+        </Action>
+    </TreeNodesModel>
+</root>

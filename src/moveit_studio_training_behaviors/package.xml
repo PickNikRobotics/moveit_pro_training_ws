@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<package format="3">
+  <name>moveit_studio_training_behaviors</name>
+  <version>1.0.0</version>
+  <description>Solution Behaviors for MoveIt Studio training.</description>
+
+  <maintainer email="sebastian.castro@picknik.ai">Sebastian Castro</maintainer>
+  <author email="sebastian.castro@picknik.ai">Sebastian Castro</author>
+
+  <license>BSD 3-Clause</license>
+
+  <buildtool_depend>ament_cmake</buildtool_depend>
+
+  <build_depend>moveit_common</build_depend>
+
+  <depend>apriltag_ros_msgs</depend>
+  <depend>geometry_msgs</depend>
+  <depend>moveit_studio_behavior_interface</depend>
+  <depend>sensor_msgs</depend>
+
+  <test_depend>ament_lint_auto</test_depend>
+  <test_depend>ament_cmake_gtest</test_depend>
+  <test_depend>ament_clang_format</test_depend>
+  <test_depend>ament_clang_tidy</test_depend>
+  <test_depend>ament_cmake_lint_cmake</test_depend>
+
+  <export>
+    <build_type>ament_cmake</build_type>
+  </export>
+</package>
