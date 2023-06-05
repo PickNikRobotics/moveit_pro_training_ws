@@ -10,8 +10,22 @@ pip3 install dt_apriltags
 
 Then, you can run the nodes directly:
 
-```
-ros2 run apriltag_ros_python apriltag_detection_server
+Server node:
 
-ros2 run apriltag_ros_python apriltag_detection_client
+```
+# Default args
+ros2 launch apriltag_ros_python apriltag_detection_server.launch.py
+
+# Other args
+ros2 launch apriltag_ros_python apriltag_detection_server.launch.py visualize:=True apriltag_family:=tag36h11 apriltag_size:=0.2
+```
+
+Client node:
+
+```
+# Test mode
+ros2 launch apriltag_ros_python apriltag_detection_client.launch.py test_mode:=true
+
+# Run with real topics
+ros2 launch apriltag_ros_python apriltag_detection_client.launch.py test_mode:=false camera_info_topic:=/wrist_mounted_camera/color/camera_info image_topic:=/wrist_mounted_camera/color/image_raw
 ```

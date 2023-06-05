@@ -12,13 +12,19 @@ from threading import Thread
 
 
 class AprilTagDetectionClient(Node):
-    def __init__(self, camera_info_topic, image_topic, test_mode=False):
+    def __init__(self):
         super().__init__("apriltag_detection_client")
 
-        self.camera_info_topic = camera_info_topic
-        self.image_topic = image_topic
-        self.test_mode = test_mode
+        # Declare parameters
+        self.declare_parameter("test_mode", value=False)
+        self.declare_parameter(
+            "camera_info_topic", value="/wrist_mounted_camera/color/camera_info"
+        )
+        self.declare_parameter(
+            "image_topic", value="/wrist_mounted_camera/color/image_raw"
+        )
 
+        # Create service client
         self.client = self.create_client(GetAprilTagDetections, "detect_apriltags")
         while not self.client.wait_for_service(timeout_sec=2.0):
             self.get_logger().info("Waiting for service...")
@@ -27,6 +33,11 @@ class AprilTagDetectionClient(Node):
 
     def send_request(self):
         self.get_logger().info("Requesting AprilTag detection...")
+
+        # Get parameter values
+        self.test_mode = self.get_parameter("test_mode").value
+        self.camera_info_topic = self.get_parameter("camera_info_topic").value
+        self.image_topic = self.get_parameter("image_topic").value
 
         # Get camera info
         self.camera_info = None
@@ -88,7 +99,11 @@ class AprilTagDetectionClient(Node):
 
     def load_test_camera_info(self):
         """Loads test camera info."""
-        return CameraInfo(k=(554.25, 0.0, 320.5, 0.0, 554.25, 240.5, 0.0, 0.0, 1.0))
+        camera_info = CameraInfo(
+            k=(554.25, 0.0, 320.5, 0.0, 554.25, 240.5, 0.0, 0.0, 1.0)
+        )
+        camera_info.header.frame_id = "wrist_mounted_camera_color_optical_frame"
+        return camera_info
 
     def load_test_image(self):
         """Loads a test image with AprilTags."""
@@ -109,11 +124,7 @@ class AprilTagDetectionClient(Node):
 def main():
     rclpy.init()
 
-    node = AprilTagDetectionClient(
-        camera_info_topic="/wrist_mounted_camera/color/camera_info",
-        image_topic="/wrist_mounted_camera/color/image_raw",
-        test_mode=False,
-    )
+    node = AprilTagDetectionClient()
 
     Thread(target=node.send_request).start()
     rclpy.spin(node)

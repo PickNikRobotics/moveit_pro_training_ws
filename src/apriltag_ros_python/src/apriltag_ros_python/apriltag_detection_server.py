@@ -26,13 +26,23 @@ except ModuleNotFoundError:
 
 
 class AprilTagDetectionServer(Node):
-    def __init__(self, visualize=False):
+    def __init__(self):
         super().__init__("apriltag_detection_server")
-        self.visualize = visualize
 
+        # Declare parameters
+        self.declare_parameter("visualize", value=False)
+        self.declare_parameter("apriltag_family", value="tag36h11")
+        self.declare_parameter("apriltag_size", value=0.2)
+
+        # Get parameter values
+        self.visualize = self.get_parameter("visualize").value
+        self.apriltag_family = self.get_parameter("apriltag_family").value
+        self.apriltag_size = self.get_parameter("apriltag_size").value
+
+        # Initialize detectors and conversion tools
         self.bridge = cv_bridge.CvBridge()
         self.detector = dt_apriltags.Detector(
-            families="tag36h11",
+            families=self.apriltag_family,
             nthreads=1,
             quad_decimate=2.0,
             quad_sigma=0.0,
@@ -40,8 +50,8 @@ class AprilTagDetectionServer(Node):
             decode_sharpening=0.25,
             debug=0,
         )
-        self.apriltag_size = 1.0
 
+        # Initialize service server
         self.server = self.create_service(
             GetAprilTagDetections, "detect_apriltags", self.get_detections_callback
         )
@@ -106,6 +116,7 @@ class AprilTagDetectionServer(Node):
                     tuple(tag.corners[idx - 1, :].astype(int)),
                     tuple(tag.corners[idx, :].astype(int)),
                     (0, 255, 0),
+                    2,
                 )
 
             cv2.putText(
@@ -120,20 +131,21 @@ class AprilTagDetectionServer(Node):
                 color=(0, 0, 255),
             )
 
-        cv2.imshow("Detected tags", img)
-        cv2.waitKey(1000)  # Small delay to show the window
+        cv2.imshow("Detected AprilTags", img)
+        cv2.waitKey(1000)  # Delay to show the window
 
 
 def main(args=None):
     rclpy.init(args=args)
 
-    node = AprilTagDetectionServer(visualize=True)
+    node = AprilTagDetectionServer()
 
     try:
         rclpy.spin(node)
     except (KeyboardInterrupt, ExternalShutdownException):
         pass
     finally:
+        cv2.destroyAllWindows()
         node.destroy_node()
         rclpy.try_shutdown()
 
