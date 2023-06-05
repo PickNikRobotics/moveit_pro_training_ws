@@ -10,7 +10,4 @@
   <xacro:picknik_switch_panel parent="world" >
     <origin xyz="-0.8 0.0 0" rpy="0 0 -0.44"/>
   </xacro:picknik_switch_panel>
-
-  <!-- TODO: Add AprilTags -->
-
 </robot>
