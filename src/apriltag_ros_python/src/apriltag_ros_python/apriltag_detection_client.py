@@ -48,7 +48,6 @@ class AprilTagDetectionClient(Node):
                 self.camera_info_callback,
                 qos_profile_sensor_data,
             )
-            self.get_logger().info("Waiting for camera info...")
         else:
             self.camera_info = self.load_test_camera_info()
 
