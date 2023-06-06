@@ -81,6 +81,7 @@ namespace moveit_studio_training_behaviors
     std::cout << "  Orientation: " << q_out.x() << " " << q_out.y() << " " << q_out.z() << " " << q_out.w() << std::endl;
 
     // Return SUCCESS once the work has been completed.
+    setOutput(kPortIDOutputPose, output_pose);
     return BT::NodeStatus::SUCCESS;
   }
 } // namespace moveit_studio_training_behaviors

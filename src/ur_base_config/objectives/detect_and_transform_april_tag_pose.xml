@@ -1,11 +1,18 @@
-<root BTCPP_format="4" main_tree_to_execute="Detect and Transform April Tag Pose">
-  <!-- ////////// -->
-  <BehaviorTree ID="Detect and Transform April Tag Pose" _description="Detects the pose of an AprilTag given a target ID and size, and transforms it to a grasp target pose.">
-    <Control ID="Sequence" name="TopLevelSequence">
-      <Action ID="GetCameraInfo" topic_name="/wrist_mounted_camera/color/camera_info" message_out="{camera_info}"/>
-      <Action ID="GetImage" topic_name="/wrist_mounted_camera/color/image_raw" message_out="{image}"/>
-      <Action ID="GetAprilTagDetectionPose" apriltag_id="1" apriltag_size="0.05" camera_info="{camera_info}" image="{image}" detection_pose="{detection_pose}"/>
-      <Action ID="TransformPose" input_pose="{detection_pose}" translation_x="0.0" translation_y="0.0" translation_z="0.0" quaternion_xyzw="0.0;0.0;0.0;1.0" output_pose="{target_pose}"/>
-    </Control>
-  </BehaviorTree>
+<?xml version="1.0"?>
+  <root BTCPP_format="4" main_tree_to_execute="Detect and Transform April Tag Pose">
+    <!-- ////////// -->
+    <BehaviorTree ID="Detect and Transform April Tag Pose">
+        <Control ID="Sequence" name="TopLevelSequence">
+            <Action ID="GetCameraInfo" topic_name="/wrist_mounted_camera/color/camera_info" message_out="{camera_info}"/>
+            <Action ID="GetImage" topic_name="/wrist_mounted_camera/color/image_raw" message_out="{image}"/>
+            <Action ID="GetAprilTagDetectionPose" apriltag_id="1" apriltag_size="0.08" camera_info="{camera_info}" image="{image}" detection_pose="{detection_pose}"/>
+            <Action ID="TransformPose" input_pose="{detection_pose}" translation_x="0.1" translation_y="0.0" translation_z="-0.05" quaternion_xyzw="0.0;0.0;-0.707;0.707" output_pose="{target_pose}"/>
+            <!-- NOTE: The following Behaviors will be removed once we have a full MTC solution -->
+            <Action ID="InitializeMTCTask" task_id="grasp_task" controller_names="/joint_trajectory_controller" task="{grasp_task}"/>
+            <Action ID="SetupMTCCurrentState" task="{grasp_task}"/>
+            <Action ID="SetupMTCMoveToPose" ik_frame="manual_grasp_link" planning_group_name="manipulator" target_pose="{target_pose}" task="{grasp_task}"/>
+            <Action ID="PlanMTCTask" solution="{grasp_task_solution}" task="{grasp_task}"/>
+            <Action ID="ExecuteMTCTask" solution="{grasp_task_solution}"/>
+        </Control>
+    </BehaviorTree>
 </root>
