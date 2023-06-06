@@ -11,12 +11,14 @@ namespace moveit_studio_training_behaviors
 using GetDetectionsService = apriltag_ros_msgs::srv::GetAprilTagDetections;
 
 /**
- * @brief 
+ * @brief Calls an external ROS 2 service that detects AprilTags and
+ * returns the pose of the first detection that matches the target AprilTag ID.
  * 
  * @details
  * | Data Port Name | Port Type | Object Type                     |
  * | -------------- | --------- | --------------------------------|
  * | apriltag_id    | input     | int                             |
+ * | apriltag_size  | input     | double                          |
  * | file_prefix    | input     | sensor_msgs::msg::CameraInfo    |
  * | image          | input     | sensor_msgs::msg::Image         |
  * | detection_pose | output    | geometry_msgs::msg::PoseStamped |
@@ -24,36 +26,26 @@ using GetDetectionsService = apriltag_ros_msgs::srv::GetAprilTagDetections;
 class GetAprilTagDetectionPose : public moveit_studio::behaviors::ServiceClientBehaviorBase<GetDetectionsService>
 {
 public:
-  /**
-   * @brief Constructor for the get_apriltag_detections behavior.
-   * @param name The name of a particular instance of this Behavior. This will be set by the behavior tree factory when this Behavior is created within a new behavior tree.
-   * @param config This contains runtime configuration info for this Behavior, such as the mapping between the Behavior's data ports on the behavior tree's blackboard. This will be set by the behavior tree factory when this Behavior is created within a new behavior tree.
-   * @details An important limitation is that the members of the base Behavior class are not instantiated until after the initialize() function is called, so these classes should not be used within the constructor.
-   */
+  /** @brief Constructor for the get_apriltag_detections behavior. */
   GetAprilTagDetectionPose(const std::string &name, const BT::NodeConfiguration &config, const std::shared_ptr<moveit_studio::behaviors::BehaviorContext> &shared_resources);
 
-  /**
-   * @brief Implementation of the required providedPorts() function for the get_apriltag_detections Behavior.
-   * @details The BehaviorTree.CPP library requires that Behaviors must implement a static function named providedPorts() which defines their input and output ports. If the Behavior does not use any ports, this function must return an empty BT::PortsList.
-   * This function returns a list of ports with their names and port info, which is used internally by the behavior tree.
-   * @return get_apriltag_detections does not use expose any ports, so this function returns an empty list.
-   */
+  /** @brief Implementation of the required providedPorts() function for this Behavior. */
   static BT::PortsList providedPorts();
 
 private:
-  /**
-   * @brief TODO 
-   */
+  /** @brief Returns the AprilTag detection service name. */
   fp::Result<std::string> getServiceName() override;
 
-  /**
-   * @brief TODO 
+  /** 
+   * @brief Packages the service request.
+   * @details This request takes camera info and image messages from the blackboard input ports to this Behavior.
    */
   fp::Result<GetDetectionsService::Request> createRequest() override;
 
   /**
-   * @brief TODO 
-   */
+   * @brief Processes the service response.
+   * @details Looks for the first detection instance that matches the specified ID, and if available sets its pose to the blackboard output port.
+  */
   fp::Result<bool> processResponse(const GetDetectionsService::Response& response) override;
 
   /** @brief Classes derived from AsyncBehaviorBase must implement getFuture() so that it returns a shared_future class member */
@@ -65,5 +57,7 @@ private:
   /** @brief Holds the result of calling the service asynchronously. */
   std::shared_future<fp::Result<bool>> response_future_;
 
+  /** @brief The target AprilTag ID to look for. */
+  int target_id_;
 };
 }  // namespace moveit_studio_training_behaviors

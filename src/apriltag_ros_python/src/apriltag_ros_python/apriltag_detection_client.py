@@ -23,6 +23,7 @@ class AprilTagDetectionClient(Node):
         self.declare_parameter(
             "image_topic", value="/wrist_mounted_camera/color/image_raw"
         )
+        self.declare_parameter("apriltag_size", value=0.05)
 
         # Create service client
         self.client = self.create_client(GetAprilTagDetections, "detect_apriltags")
@@ -38,6 +39,7 @@ class AprilTagDetectionClient(Node):
         self.test_mode = self.get_parameter("test_mode").value
         self.camera_info_topic = self.get_parameter("camera_info_topic").value
         self.image_topic = self.get_parameter("image_topic").value
+        self.apriltag_size = self.get_parameter("apriltag_size").value
 
         # Get camera info
         if not self.test_mode:
@@ -75,6 +77,7 @@ class AprilTagDetectionClient(Node):
         request = GetAprilTagDetections.Request(
             camera_info=self.camera_info,
             image=self.latest_image,
+            apriltag_size=self.apriltag_size,
         )
         self.future = self.client.call_async(request)
         while not self.future.done():

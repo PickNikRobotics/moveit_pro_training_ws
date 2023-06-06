@@ -7,6 +7,7 @@
 namespace
 {
   constexpr auto kPortIDAprilTagId = "apriltag_id";
+  constexpr auto kPortIDAprilTagSize = "apriltag_size";
   constexpr auto kPortIDCameraInfo = "camera_info";
   constexpr auto kPortIDImage = "image";
   constexpr auto kPortIDDetectionPose = "detection_pose";
@@ -26,6 +27,7 @@ BT::PortsList GetAprilTagDetectionPose::providedPorts()
 {
   return {
     BT::InputPort<int>(kPortIDAprilTagId),
+    BT::InputPort<double>(kPortIDAprilTagSize),
     BT::InputPort<sensor_msgs::msg::CameraInfo>(kPortIDCameraInfo),
     BT::InputPort<sensor_msgs::msg::Image>(kPortIDImage),
     BT::OutputPort<geometry_msgs::msg::PoseStamped>(kPortIDDetectionPose),
@@ -38,17 +40,20 @@ fp::Result<std::string> GetAprilTagDetectionPose::getServiceName() {
 
 fp::Result<GetDetectionsService::Request> GetAprilTagDetectionPose::createRequest()
 {
-  const auto apriltag_id = getInput<std::string>(kPortIDAprilTagId);
+  // Check that all required input data ports were set.
+  const auto apriltag_id = getInput<int>(kPortIDAprilTagId);
+  const auto apriltag_size = getInput<double>(kPortIDAprilTagSize);
   const auto camera_info = getInput<sensor_msgs::msg::CameraInfo>(kPortIDCameraInfo);
   const auto image = getInput<sensor_msgs::msg::Image>(kPortIDImage);
-
-  // Check that all required input data ports were set
-  if (const auto error = moveit_studio::behaviors::maybe_error(apriltag_id, camera_info, image); error)
+  if (const auto error = moveit_studio::behaviors::maybe_error(apriltag_id, apriltag_size, camera_info, image); error)
   {
     return tl::make_unexpected(fp::Internal("Missing input port: " + error.value()));
   }
+  target_id_ = apriltag_id.value();
 
+  // Create and return the service request.
   GetDetectionsService::Request request;
+  request.apriltag_size = apriltag_size.value();
   request.camera_info = camera_info.value();
   request.image = image.value();
   return request;
@@ -56,13 +61,19 @@ fp::Result<GetDetectionsService::Request> GetAprilTagDetectionPose::createReques
 
 fp::Result<bool> GetAprilTagDetectionPose::processResponse(const GetDetectionsService::Response &response)
 {
-  // TODO: Filter by detection ID
+  // Filter by detection ID. Simply get the first instance of a particular ID, if one is found.
   for (const auto& detection : response.detections)
   {
-    std::cout << "Got detection with ID " << detection.id << std::endl;
+    if (detection.id == target_id_)
+    {
+      setOutput(kPortIDDetectionPose, detection.pose);
+      return true;
+    }
   }
 
-  return true;
+  // If no matching detections were found, this Behavior should fail.
+  return tl::make_unexpected(fp::Internal(
+      std::string("Did not find any AprilTag detections with ID: ").append(std::to_string(target_id_))));
 }
 
 }  // namespace moveit_studio_training_behaviors

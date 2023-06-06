@@ -32,12 +32,10 @@ class AprilTagDetectionServer(Node):
         # Declare parameters
         self.declare_parameter("visualize", value=False)
         self.declare_parameter("apriltag_family", value="tag36h11")
-        self.declare_parameter("apriltag_size", value=0.2)
 
         # Get parameter values
         self.visualize = self.get_parameter("visualize").value
         self.apriltag_family = self.get_parameter("apriltag_family").value
-        self.apriltag_size = self.get_parameter("apriltag_size").value
 
         # Initialize detectors and conversion tools
         self.bridge = cv_bridge.CvBridge()
@@ -67,7 +65,7 @@ class AprilTagDetectionServer(Node):
             img_gray,
             estimate_tag_pose=True,
             camera_params=self.msg_to_camera_params(request.camera_info),
-            tag_size=self.apriltag_size,
+            tag_size=request.apriltag_size,
         )
         self.get_logger().info(f"Detected {len(tags)} AprilTags.")
         if self.visualize:

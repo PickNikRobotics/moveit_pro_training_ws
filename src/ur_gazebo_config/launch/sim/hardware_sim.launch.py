@@ -294,6 +294,19 @@ def generate_launch_description():
         + init_pose_args,
     )
 
+    # AprilTag detection node
+    apriltag_server_node = Node(
+        package="apriltag_ros_python",
+        executable="apriltag_detection_server",
+        output="both",
+        parameters=[
+            {
+                "visualize": False,
+                "apriltag_family": "tag36h11",
+            }
+        ],
+    )
+
     return LaunchDescription(
         [
             scene_image_rgb_gazebo_bridge,
@@ -309,5 +322,6 @@ def generate_launch_description():
             spawn_robot,
             spawn_scene,
             camera_transforms_node,
+            apriltag_server_node,
         ]
     )

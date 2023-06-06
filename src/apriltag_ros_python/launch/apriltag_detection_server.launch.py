@@ -20,11 +20,6 @@ def generate_launch_description():
                 default_value=TextSubstitution(text="tag36h11"),
                 description="AprilTag family type.",
             ),
-            DeclareLaunchArgument(
-                "apriltag_size",
-                default_value=TextSubstitution(text="0.2"),
-                description="AprilTag size, in meters.",
-            ),
             # Main node
             Node(
                 package="apriltag_ros_python",
@@ -35,7 +30,6 @@ def generate_launch_description():
                     {
                         "visualize": LaunchConfiguration("visualize"),
                         "apriltag_family": LaunchConfiguration("apriltag_family"),
-                        "apriltag_size": LaunchConfiguration("apriltag_size"),
                     }
                 ],
             ),
