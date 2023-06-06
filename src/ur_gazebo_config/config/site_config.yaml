@@ -81,9 +81,9 @@ ros2_control:
 
 objectives:
   # Override with a new set of waypoints based on the Gazebo world.
-  # waypoints_file:
-  #   package_name: "ur_gazebo_config"
-  #   relative_path: "waypoints/waypoints.yaml"
+  waypoints_file:
+    package_name: "ur_gazebo_config"
+    relative_path: "waypoints/waypoints.yaml"
   # Add new simulation Objectives in addition to the one in the base config package.
   objective_library_paths:
     sim:
