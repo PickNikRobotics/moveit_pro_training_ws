@@ -80,6 +80,9 @@ class AprilTagDetectionServer(Node):
     def msg_to_camera_params(self, msg):
         """
         Converts a ROS CameraInfo message to AprilTag detector camera parameters.
+
+        The order expected is (0,0), (1,1), (0,2), and (1,2),
+        and the ROS CameraInfo message represents the 3x3 matrix in row-major order.
         """
         return (msg.k[0], msg.k[4], msg.k[2], msg.k[5])
 
