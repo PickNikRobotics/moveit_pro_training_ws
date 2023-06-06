@@ -10,6 +10,7 @@ find_package(geometry_msgs REQUIRED)
 find_package(moveit_studio_behavior_interface REQUIRED)
 find_package(pluginlib REQUIRED)
 find_package(sensor_msgs REQUIRED)
+find_package(yaml-cpp REQUIRED)
 
 set(
   THIS_PACKAGE_INCLUDE_DEPENDS
@@ -18,6 +19,7 @@ set(
   moveit_studio_behavior_interface
   pluginlib
   sensor_msgs
+  yaml-cpp
 )
 
 # AprilTag Behavior
@@ -33,6 +35,7 @@ target_include_directories(
   PUBLIC $<INSTALL_INTERFACE:include>
 )
 ament_target_dependencies(moveit_studio_training_behaviors ${THIS_PACKAGE_INCLUDE_DEPENDS})
+target_link_libraries(moveit_studio_training_behaviors ${YAML_CPP_LIBRARIES})
 
 # Install Libraries
 install(

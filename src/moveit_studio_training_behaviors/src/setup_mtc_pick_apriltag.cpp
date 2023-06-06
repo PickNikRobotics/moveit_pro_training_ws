@@ -9,6 +9,7 @@
 #include <moveit_studio_behavior_interface/parameter_tools.hpp>
 #include <sensor_msgs/msg/joint_state.hpp>
 #include <tf2_eigen/tf2_eigen.hpp>
+#include <yaml-cpp/yaml.h>
 
 namespace
 {
