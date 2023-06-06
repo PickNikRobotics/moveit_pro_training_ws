@@ -1,0 +1,4 @@
+objectives:
+  behavior_loader_plugins:
+    moveit_studio_training:
+      - "moveit_studio_training_behaviors::MoveItStudioTrainingBehaviorsLoader"

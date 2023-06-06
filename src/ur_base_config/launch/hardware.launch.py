@@ -64,4 +64,19 @@ def generate_launch_description():
         )
         nodes_to_launch.append(camera_transforms_node)
 
+    # AprilTag detection node
+    nodes_to_launch.append(
+        Node(
+            package="apriltag_ros_python",
+            executable="apriltag_detection_server",
+            output="both",
+            parameters=[
+                {
+                    "visualize": False,
+                    "apriltag_family": "tag36h11",
+                }
+            ],
+        )
+    )
+
     return LaunchDescription(nodes_to_launch)

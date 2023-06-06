@@ -29,6 +29,11 @@ def generate_launch_description():
                 ),
                 description="Topic containing images from camera.",
             ),
+            DeclareLaunchArgument(
+                "apriltag_size",
+                default_value=TextSubstitution(text="0.05"),
+                description="AprilTag size, in meters.",
+            ),
             # Main node
             Node(
                 package="apriltag_ros_python",
@@ -40,6 +45,7 @@ def generate_launch_description():
                         "test_mode": LaunchConfiguration("test_mode"),
                         "camera_info_topic": LaunchConfiguration("camera_info_topic"),
                         "image_topic": LaunchConfiguration("image_topic"),
+                        "apriltag_size": LaunchConfiguration("apriltag_size"),
                     }
                 ],
             ),
