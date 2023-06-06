@@ -26,6 +26,8 @@ TEST(BehaviorTests, test_load_behavior_plugins)
   // Test that ClassLoader is able to find and instantiate each behavior using the package's plugin description info.
   factory.instantiateTreeNode("test_behavior_name", "GetAprilTagDetectionPose",
                               BT::NodeConfiguration());
+  factory.instantiateTreeNode("test_behavior_name", "SetupMTCPickAprilTag",
+                              BT::NodeConfiguration());
 }
 
 int main(int argc, char** argv)

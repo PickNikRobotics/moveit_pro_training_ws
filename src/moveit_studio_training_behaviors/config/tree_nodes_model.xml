@@ -13,5 +13,16 @@
             <input_port name="image" default="{image}">Image ROS message.</input_port>
             <output_port name="detection_pose" default="{detection_pose}">Pose of the detected AprilTag.</output_port>
         </Action>
+        <Action ID="SetupMTCPickAprilTag">
+            <metadata subcategory="MTC"/>
+            <description>
+                <p>
+                    Given an existing MTC Task object and a target grasp pose, appends MTC stages to describe a motion plan to approach, grasp and lift an AprilTag annotated object at that pose.
+                </p>
+            </description>
+            <input_port name="parameters" default="{parameters}">Behavior parameters stored in a common configuration file for the objective.</input_port>
+            <input_port name="grasp_pose" default="{grasp_pose}">End-effector grasping pose.</input_port>
+            <inout_port name="task" default="{mtc_task}">MoveIt Task Constructor task.</inout_port>
+        </Action>
     </TreeNodesModel>
 </root>
