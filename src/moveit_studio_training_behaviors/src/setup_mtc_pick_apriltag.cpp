@@ -1,4 +1,4 @@
-#include <moveit_studio_behavior/behaviors/mtc_task_setup/setup_mtc_pick_apriltag.hpp>
+#include <moveit_studio_training_behaviors/setup_mtc_pick_apriltag.hpp>
 
 #include <behaviortree_cpp/bt_factory.h>
 #include <moveit/task_constructor/stages.h>
@@ -39,13 +39,13 @@ constexpr auto kSceneObjectNameOctomap = "<octomap>";
 
 namespace moveit_studio::behaviors
 {
-SetupMTCPickObject::SetupMTCPickObject(const std::string& name, const BT::NodeConfiguration& config,
+SetupMTCPickAprilTag::SetupMTCPickAprilTag(const std::string& name, const BT::NodeConfiguration& config,
                                        const std::shared_ptr<BehaviorContext>& shared_resources)
   : SharedResourcesNode<BT::SyncActionNode>(name, config, shared_resources)
 {
 }
 
-BT::PortsList SetupMTCPickObject::providedPorts()
+BT::PortsList SetupMTCPickAprilTag::providedPorts()
 {
   return {
     BT::BidirectionalPort<moveit::task_constructor::TaskPtr>(kPortIDTask),
@@ -54,7 +54,7 @@ BT::PortsList SetupMTCPickObject::providedPorts()
   };
 }
 
-BT::NodeStatus SetupMTCPickObject::tick()
+BT::NodeStatus SetupMTCPickAprilTag::tick()
 {
   // ----------------------------------------
   // Load data from the behavior input ports.
