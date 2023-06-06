@@ -10,6 +10,7 @@ find_package(geometry_msgs REQUIRED)
 find_package(moveit_studio_behavior_interface REQUIRED)
 find_package(pluginlib REQUIRED)
 find_package(sensor_msgs REQUIRED)
+find_package(tf2_eigen REQUIRED)
 find_package(yaml-cpp REQUIRED)
 
 set(
@@ -19,6 +20,7 @@ set(
   moveit_studio_behavior_interface
   pluginlib
   sensor_msgs
+  tf2_eigen
   yaml-cpp
 )
 
@@ -27,6 +29,7 @@ add_library(
   moveit_studio_training_behaviors SHARED
   src/get_apriltag_detection_pose.cpp
   src/setup_mtc_pick_apriltag.cpp
+  src/transform_pose.cpp
   src/register_behaviors.cpp
 )
 target_include_directories(

@@ -4,6 +4,7 @@
 
 #include <moveit_studio_training_behaviors/get_apriltag_detection_pose.hpp>
 #include <moveit_studio_training_behaviors/setup_mtc_pick_apriltag.hpp>
+#include <moveit_studio_training_behaviors/transform_pose.hpp>
 
 #include <pluginlib/class_list_macros.hpp>
 
@@ -19,6 +20,7 @@ public:
 
     registerBehavior<GetAprilTagDetectionPose>(factory, "GetAprilTagDetectionPose", shared_resources);
     registerBehavior<SetupMTCPickAprilTag>(factory, "SetupMTCPickAprilTag", shared_resources);
+    registerBehavior<TransformPose>(factory, "TransformPose");
   }
 };
 }  // namespace moveit_studio_training_behaviors

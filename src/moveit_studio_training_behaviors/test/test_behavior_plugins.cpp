@@ -3,7 +3,8 @@
 #include <behaviortree_cpp/bt_factory.h>
 #include <moveit_studio_behavior_interface/shared_resources_node_loader.hpp>
 #include <pluginlib/class_loader.hpp>
-#include <rclcpp/node.hpp>
+
+#include <moveit_studio_training_behaviors/transform_pose.hpp>
 
 /**
  * @brief This test makes sure that the Behaviors provided in this package can be successfully registered and
@@ -28,6 +29,77 @@ TEST(BehaviorTests, test_load_behavior_plugins)
                               BT::NodeConfiguration());
   factory.instantiateTreeNode("test_behavior_name", "SetupMTCPickAprilTag",
                               BT::NodeConfiguration());
+  factory.instantiateTreeNode("test_behavior_name", "TransformPose", BT::NodeConfiguration());
+}
+
+/** @brief Creates a test input pose for the TransformPose Behavior. */
+geometry_msgs::msg::PoseStamped createTestPose()
+{
+  geometry_msgs::msg::PoseStamped test_pose;
+  test_pose.header.frame_id = "camera_frame";
+  test_pose.pose.position.x = 1.0;
+  test_pose.pose.position.y = 2.0;
+  test_pose.pose.position.z = 3.0;
+  test_pose.pose.orientation.w = 1.0;
+  return test_pose;
+}
+
+/** @brief Tests that an input pose is transformed with valid input. */
+TEST(BehaviorTests, test_transform_pose_valid_input)
+{
+  // Initialize the blackboard and parameters.
+  BT::NodeConfiguration config;
+  config.blackboard = BT::Blackboard::create();
+  config.blackboard->set("input_pose", createTestPose());
+  config.blackboard->set("translation_x", 0.1);
+  config.blackboard->set("translation_y", 0.2);
+  config.blackboard->set("translation_z", 0.3);
+  config.blackboard->set("quaternion_xyzw", std::vector<double>{0.707, 0.0, 0.707, 0.0});
+  config.input_ports.insert(std::make_pair("input_pose", "="));
+  config.input_ports.insert(std::make_pair("translation_x", "="));
+  config.input_ports.insert(std::make_pair("translation_y", "="));
+  config.input_ports.insert(std::make_pair("translation_z", "="));
+  config.input_ports.insert(std::make_pair("quaternion_xyzw", "="));
+  config.output_ports.insert(std::make_pair("output_pose", "="));
+
+  // Initialize and tick the Behavior. This should succeed.
+  moveit_studio_training_behaviors::TransformPose transform_pose_behavior("TransformPose", config);
+  ASSERT_EQ(transform_pose_behavior.executeTick(), BT::NodeStatus::SUCCESS);
+
+  // Check the output data against expected outputs.
+  const double tol = 1e-3;
+  const auto transformed_pose = config.blackboard->get<geometry_msgs::msg::PoseStamped>("output_pose");
+  EXPECT_EQ(transformed_pose.header.frame_id, "camera_frame");
+  EXPECT_NEAR(transformed_pose.pose.position.x, 1.1, tol);
+  EXPECT_NEAR(transformed_pose.pose.position.y, 2.2, tol);
+  EXPECT_NEAR(transformed_pose.pose.position.z, 3.3, tol);
+  EXPECT_NEAR(transformed_pose.pose.orientation.x, 0.707, tol);
+  EXPECT_NEAR(transformed_pose.pose.orientation.y, 0.0, tol);
+  EXPECT_NEAR(transformed_pose.pose.orientation.z, 0.707, tol);
+  EXPECT_NEAR(transformed_pose.pose.orientation.w, 0.0, tol);
+}
+
+/** @brief Tests that an input pose fails to be transformed with invalid input. */
+TEST(BehaviorTests, test_transform_pose_invalid_input)
+{
+  // Initialize the blackboard and parameters.
+  BT::NodeConfiguration config;
+  config.blackboard = BT::Blackboard::create();
+  config.blackboard->set("input_pose", createTestPose());
+  config.blackboard->set("translation_x", 0.1);
+  config.blackboard->set("translation_y", 0.2);
+  config.blackboard->set("translation_z", 0.3);
+  config.blackboard->set("quaternion_xyzw", std::vector<double>{0.0, 0.0, 0.0}); // Missing a fourth element.
+  config.input_ports.insert(std::make_pair("input_pose", "="));
+  config.input_ports.insert(std::make_pair("translation_x", "="));
+  config.input_ports.insert(std::make_pair("translation_y", "="));
+  config.input_ports.insert(std::make_pair("translation_z", "="));
+  config.input_ports.insert(std::make_pair("quaternion_xyzw", "="));
+  config.output_ports.insert(std::make_pair("output_pose", "="));
+
+  // Initialize and tick the Behavior. This should fail.
+  moveit_studio_training_behaviors::TransformPose transform_pose_behavior("TransformPose", config);
+  ASSERT_EQ(transform_pose_behavior.executeTick(), BT::NodeStatus::FAILURE);
 }
 
 int main(int argc, char** argv)
