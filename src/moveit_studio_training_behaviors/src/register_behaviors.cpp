@@ -3,6 +3,7 @@
 #include <moveit_studio_behavior_interface/shared_resources_node_loader.hpp>
 
 #include <moveit_studio_training_behaviors/get_apriltag_detection_pose.hpp>
+#include <moveit_studio_training_behaviors/setup_mtc_pick_apriltag.hpp>
 
 #include <pluginlib/class_list_macros.hpp>
 
@@ -17,6 +18,7 @@ public:
     using namespace moveit_studio::behaviors;
 
     registerBehavior<GetAprilTagDetectionPose>(factory, "GetAprilTagDetectionPose", shared_resources);
+    registerBehavior<SetupMTCPickAprilTag>(factory, "SetupMTCPickAprilTag", shared_resources);
   }
 };
 }  // namespace moveit_studio_training_behaviors
