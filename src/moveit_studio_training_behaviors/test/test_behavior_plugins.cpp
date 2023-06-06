@@ -29,6 +29,22 @@ TEST(BehaviorTests, test_load_behavior_plugins)
   factory.instantiateTreeNode("test_behavior_name", "TransformPose", BT::NodeConfiguration());
 }
 
+/**
+ * @brief TODO
+*/
+TEST(BehaviorTests, test_transform_pose_valid_input)
+{
+  return;
+}
+
+/**
+ * @brief TODO
+*/
+TEST(BehaviorTests, test_transform_pose_invalid_input)
+{
+  return;
+}
+
 int main(int argc, char** argv)
 {
   rclcpp::init(argc, argv);
