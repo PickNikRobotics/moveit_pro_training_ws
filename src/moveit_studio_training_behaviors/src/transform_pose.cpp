@@ -10,7 +10,7 @@ namespace
   constexpr auto kPortIDTranslationX = "translation_x";
   constexpr auto kPortIDTranslationY = "translation_y";
   constexpr auto kPortIDTranslationZ = "translation_z";
-  constexpr auto kPortIDQuaternionXyzw = "quaternion_xyzw";
+  constexpr auto kPortIDQuaternionXYZW = "quaternion_xyzw";
   constexpr auto kPortIDOutputPose = "output_pose";
 }  // namespace
 
@@ -29,7 +29,7 @@ namespace moveit_studio_training_behaviors
       BT::InputPort<double>(kPortIDTranslationX),
       BT::InputPort<double>(kPortIDTranslationY),
       BT::InputPort<double>(kPortIDTranslationZ),
-      BT::InputPort<std::vector<double>>(kPortIDQuaternionXyzw),
+      BT::InputPort<std::vector<double>>(kPortIDQuaternionXYZW),
       BT::OutputPort<geometry_msgs::msg::PoseStamped>(kPortIDOutputPose),
     };
   }
@@ -41,7 +41,7 @@ namespace moveit_studio_training_behaviors
     const auto translation_x = getInput<double>(kPortIDTranslationX);
     const auto translation_y = getInput<double>(kPortIDTranslationY);
     const auto translation_z = getInput<double>(kPortIDTranslationZ);
-    const auto quaternion_xyzw = getInput<std::vector<double>>(kPortIDQuaternionXyzw);
+    const auto quaternion_xyzw = getInput<std::vector<double>>(kPortIDQuaternionXYZW);
     if (const auto error = moveit_studio::behaviors::maybe_error(input_pose, translation_z, translation_y, translation_z, quaternion_xyzw); error)
     {
       std::cout << "Failed to get required value from input data port: " << error.value() << std::endl;
