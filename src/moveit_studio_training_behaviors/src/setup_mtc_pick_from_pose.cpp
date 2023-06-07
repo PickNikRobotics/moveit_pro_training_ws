@@ -40,9 +40,9 @@ constexpr auto kSceneObjectNameOctomap = "<octomap>";
 
 namespace moveit_studio_training_behaviors
 {
-SetupMTCPickFromPose::SetupMTCPickFromPose(const std::string& name, const BT::NodeConfiguration& config,
-                                       const std::shared_ptr<BehaviorContext>& shared_resources)
-  : SharedResourcesNode<BT::SyncActionNode>(name, config, shared_resources)
+SetupMTCPickFromPose::SetupMTCPickFromPose(const std::string &name, const BT::NodeConfiguration &config,
+                                           const std::shared_ptr<moveit_studio::behaviors::BehaviorContext> &shared_resources)
+    : moveit_studio::behaviors::SharedResourcesNode<BT::SyncActionNode>(name, config, shared_resources)
 {
 }
 
@@ -57,6 +57,8 @@ BT::PortsList SetupMTCPickFromPose::providedPorts()
 
 BT::NodeStatus SetupMTCPickFromPose::tick()
 {
+  using namespace moveit_studio::behaviors;
+
   // ----------------------------------------
   // Load data from the behavior input ports.
   // ----------------------------------------
@@ -102,7 +104,7 @@ BT::NodeStatus SetupMTCPickFromPose::tick()
     return BT::NodeStatus::FAILURE;
   }
 
-  auto container = std::make_unique<moveit::task_constructor::SerialContainer>("Pick AprilTag");
+  auto container = std::make_unique<moveit::task_constructor::SerialContainer>("Pick From Pose");
   container->properties().set(kPropertyNameTrajectoryExecutionInfo,
                               boost::any_cast<moveit::task_constructor::TrajectoryExecutionInfo>(
                                   task.value()->properties().get(kPropertyNameTrajectoryExecutionInfo)));
@@ -148,7 +150,7 @@ BT::NodeStatus SetupMTCPickFromPose::tick()
     container->add(std::move(stage));
   }
 
-  Eigen::Vector3d approach_vector{ 0.0, 0.0, approach_distance.value() };
+  const Eigen::Vector3d approach_vector{ 0.0, 0.0, approach_distance.value() };
 
   /** Approach Grasp **/
   {
@@ -181,10 +183,13 @@ BT::NodeStatus SetupMTCPickFromPose::tick()
     container->insert(std::move(stage));
   }
 
-  // Generate Pose at Selected Point
+  // Generate the Inverse Kinematic (IK) solutions to move to the pose specified in the "grasp_pose" input port.
+  // This will generate up to kMaxIKSolutions IK solution candidates to sample from, unless the timeout specified in
+  // kIKTimeoutSeconds is reached first.
   // Collision checking is ignored for IK pose generation. Solutions that result in forbidden collisions will be
   // eliminated by failures in the stages before and after this one.
   {
+    // Specify pose to generate for
     auto stage = std::make_unique<moveit::task_constructor::stages::GeneratePose>("generate pose");
     stage->properties().configureInitFrom(moveit::task_constructor::Stage::PARENT);
     stage->properties().set("marker_ns", "grasp_frame");
@@ -249,7 +254,7 @@ BT::NodeStatus SetupMTCPickFromPose::tick()
 
     geometry_msgs::msg::Vector3Stamped retreat_vector_msg;
     tf2::toMsg(approach_vector * -1, retreat_vector_msg.vector);
-    retreat_vector.header.frame_id = hand_frame_name.value();
+    retreat_vector_msg.header.frame_id = hand_frame_name.value();
 
     stage->setDirection(retreat_vector_msg);
     container->add(std::move(stage));
