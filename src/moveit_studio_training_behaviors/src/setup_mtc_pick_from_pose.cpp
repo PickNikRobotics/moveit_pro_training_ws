@@ -40,9 +40,9 @@ constexpr auto kSceneObjectNameOctomap = "<octomap>";
 
 namespace moveit_studio_training_behaviors
 {
-SetupMTCPickFromPose::SetupMTCPickFromPose(const std::string& name, const BT::NodeConfiguration& config,
-                                       const std::shared_ptr<BehaviorContext>& shared_resources)
-  : SharedResourcesNode<BT::SyncActionNode>(name, config, shared_resources)
+SetupMTCPickFromPose::SetupMTCPickFromPose(const std::string &name, const BT::NodeConfiguration &config,
+                                           const std::shared_ptr<moveit_studio::behaviors::BehaviorContext> &shared_resources)
+    : moveit_studio::behaviors::SharedResourcesNode<BT::SyncActionNode>(name, config, shared_resources)
 {
 }
 
@@ -57,6 +57,8 @@ BT::PortsList SetupMTCPickFromPose::providedPorts()
 
 BT::NodeStatus SetupMTCPickFromPose::tick()
 {
+  using namespace moveit_studio::behaviors;
+
   // ----------------------------------------
   // Load data from the behavior input ports.
   // ----------------------------------------
@@ -252,7 +254,7 @@ BT::NodeStatus SetupMTCPickFromPose::tick()
 
     geometry_msgs::msg::Vector3Stamped retreat_vector_msg;
     tf2::toMsg(approach_vector * -1, retreat_vector_msg.vector);
-    retreat_vector.header.frame_id = hand_frame_name.value();
+    retreat_vector_msg.header.frame_id = hand_frame_name.value();
 
     stage->setDirection(retreat_vector_msg);
     container->add(std::move(stage));
