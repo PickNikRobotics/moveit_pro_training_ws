@@ -1,4 +1,4 @@
-#include <moveit_studio_training_behaviors/setup_mtc_pick_apriltag.hpp>
+#include <moveit_studio_training_behaviors/setup_mtc_pick_from_pose.hpp>
 
 #include <behaviortree_cpp/bt_factory.h>
 #include <moveit/task_constructor/stages.h>
@@ -13,7 +13,7 @@
 
 namespace
 {
-const auto kLogger = rclcpp::get_logger("SetupMTCPickAprilTag");
+const auto kLogger = rclcpp::get_logger("SetupMTCPickFromPose");
 using MoveItErrorCodes = moveit_msgs::msg::MoveItErrorCodes;
 
 // Port names for input and output ports.
@@ -40,13 +40,13 @@ constexpr auto kSceneObjectNameOctomap = "<octomap>";
 
 namespace moveit_studio::behaviors
 {
-SetupMTCPickAprilTag::SetupMTCPickAprilTag(const std::string& name, const BT::NodeConfiguration& config,
+SetupMTCPickFromPose::SetupMTCPickFromPose(const std::string& name, const BT::NodeConfiguration& config,
                                        const std::shared_ptr<BehaviorContext>& shared_resources)
   : SharedResourcesNode<BT::SyncActionNode>(name, config, shared_resources)
 {
 }
 
-BT::PortsList SetupMTCPickAprilTag::providedPorts()
+BT::PortsList SetupMTCPickFromPose::providedPorts()
 {
   return {
     BT::BidirectionalPort<moveit::task_constructor::TaskPtr>(kPortIDTask),
@@ -55,7 +55,7 @@ BT::PortsList SetupMTCPickAprilTag::providedPorts()
   };
 }
 
-BT::NodeStatus SetupMTCPickAprilTag::tick()
+BT::NodeStatus SetupMTCPickFromPose::tick()
 {
   // ----------------------------------------
   // Load data from the behavior input ports.

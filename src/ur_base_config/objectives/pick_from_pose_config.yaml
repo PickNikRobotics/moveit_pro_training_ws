@@ -1,4 +1,4 @@
-SetupMTCPickAprilTag:
+SetupMTCPickFromPose:
   # The lift vector points to the direction of the positive z-axis of the frame marked as the world frame.
   world_frame_name: "world"
   arm_group_name: "manipulator"

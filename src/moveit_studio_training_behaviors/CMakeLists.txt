@@ -28,7 +28,7 @@ set(
 add_library(
   moveit_studio_training_behaviors SHARED
   src/get_apriltag_detection_pose.cpp
-  src/setup_mtc_pick_apriltag.cpp
+  src/setup_mtc_pick_from_pose.cpp
   src/transform_pose.cpp
   src/register_behaviors.cpp
 )
