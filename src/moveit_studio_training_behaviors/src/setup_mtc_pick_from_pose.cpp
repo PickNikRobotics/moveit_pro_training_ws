@@ -102,7 +102,7 @@ BT::NodeStatus SetupMTCPickFromPose::tick()
     return BT::NodeStatus::FAILURE;
   }
 
-  auto container = std::make_unique<moveit::task_constructor::SerialContainer>("Pick AprilTag");
+  auto container = std::make_unique<moveit::task_constructor::SerialContainer>("Pick From Pose");
   container->properties().set(kPropertyNameTrajectoryExecutionInfo,
                               boost::any_cast<moveit::task_constructor::TrajectoryExecutionInfo>(
                                   task.value()->properties().get(kPropertyNameTrajectoryExecutionInfo)));
@@ -181,10 +181,13 @@ BT::NodeStatus SetupMTCPickFromPose::tick()
     container->insert(std::move(stage));
   }
 
-  // Generate Pose at Selected Point
+  // Generate the Inverse Kinematic (IK) solutions to move to the pose specified in the "grasp_pose" input port.
+  // This will generate up to kMaxIKSolutions IK solution candidates to sample from, unless the timeout specified in
+  // kIKTimeoutSeconds is reached first.
   // Collision checking is ignored for IK pose generation. Solutions that result in forbidden collisions will be
   // eliminated by failures in the stages before and after this one.
   {
+    // Specify pose to generate for
     auto stage = std::make_unique<moveit::task_constructor::stages::GeneratePose>("generate pose");
     stage->properties().configureInitFrom(moveit::task_constructor::Stage::PARENT);
     stage->properties().set("marker_ns", "grasp_frame");
