@@ -1,7 +1,7 @@
 #!/bin/bash -eux
 
 # This is a helper script to copy Picknik finished configs into a base/site config generated
-# by MSA.
+# by MoveIt Setup Assistant.
 
 SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 cd $SCRIPT_DIR
