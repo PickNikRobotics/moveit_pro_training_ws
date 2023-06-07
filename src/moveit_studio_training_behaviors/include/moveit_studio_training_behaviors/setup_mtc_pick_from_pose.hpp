@@ -18,11 +18,11 @@ namespace moveit_studio_training_behaviors
  * | grasp_pose     | Input         | geometry_msgs::msg::PoseStamped                 |
  * | parameters     | Input         | YAML::Node                                      |
  */
-class SetupMTCPickFromPose final : public SharedResourcesNode<BT::SyncActionNode>
+class SetupMTCPickFromPose final : public moveit_studio::behaviors::SharedResourcesNode<BT::SyncActionNode>
 {
 public:
-  SetupMTCPickFromPose(const std::string& name, const BT::NodeConfiguration& config,
-                     const std::shared_ptr<BehaviorContext>& shared_resources);
+  SetupMTCPickFromPose(const std::string &name, const BT::NodeConfiguration &config,
+                       const std::shared_ptr<moveit_studio::behaviors::BehaviorContext> &shared_resources);
 
   static BT::PortsList providedPorts();
 

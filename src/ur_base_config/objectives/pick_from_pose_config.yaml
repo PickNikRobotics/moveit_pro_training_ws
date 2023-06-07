@@ -1,11 +1,19 @@
 SetupMTCPickFromPose:
-  # The lift vector points to the direction of the positive z-axis of the frame marked as the world frame.
+  # The lift vector points to the direction of the positive z-axis of the frame specified in "world_frame_name".
   world_frame_name: "world"
+  # Name of the SRDF planning group for the arm.
+  # "manipulator" is a chain from the base link of the robot to the end effector link.
   arm_group_name: "manipulator"
+  # Name of the SRDF planning group for the end effector.
   end_effector_group_name: "gripper"
+  # Name of the end effector (internally specified in the SRDF as a parent link and the end effector planning group).
   end_effector_name: "moveit_ee"
+  # Name of the frame of the end effector / hand. Used during IK pose generation and relative moves.
   hand_frame_name: "manual_grasp_link"
+  # Name of the SRDF group state that corresponds to the closed end effector joint values.
   end_effector_closed_pose_name: "close"
 
+  # Distance (in meters) to approach an object from before grabbing it.
   approach_distance: 0.1
+  # Distance (in meters) to lift an object after grabbing it.
   lift_distance: 0.1
