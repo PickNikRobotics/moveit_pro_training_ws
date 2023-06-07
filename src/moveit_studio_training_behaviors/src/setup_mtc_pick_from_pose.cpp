@@ -150,7 +150,7 @@ BT::NodeStatus SetupMTCPickFromPose::tick()
     container->add(std::move(stage));
   }
 
-  Eigen::Vector3d approach_vector{ 0.0, 0.0, approach_distance.value() };
+  const Eigen::Vector3d approach_vector{ 0.0, 0.0, approach_distance.value() };
 
   /** Approach Grasp **/
   {
