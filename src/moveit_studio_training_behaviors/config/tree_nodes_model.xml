@@ -21,7 +21,7 @@
                 </p>
             </description>
             <input_port name="parameters" default="{parameters}">Behavior parameters stored in a common configuration file for the objective.</input_port>
-            <input_port name="grasp_pose" default="{grasp_pose}">End-effector grasping pose.</input_port>
+            <input_port name="grasp_pose" default="{grasp_pose}">Target grasp pose for the end effector.</input_port>
             <inout_port name="task" default="{mtc_task}">MoveIt Task Constructor task.</inout_port>
         <Action ID="TransformPose">
             <description>

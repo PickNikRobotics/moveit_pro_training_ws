@@ -38,7 +38,7 @@ constexpr int kMaxIKSolutions = 20;
 constexpr auto kSceneObjectNameOctomap = "<octomap>";
 }  // namespace
 
-namespace moveit_studio::behaviors
+namespace moveit_studio_training_behaviors
 {
 SetupMTCPickFromPose::SetupMTCPickFromPose(const std::string& name, const BT::NodeConfiguration& config,
                                        const std::shared_ptr<BehaviorContext>& shared_resources)
@@ -148,7 +148,7 @@ BT::NodeStatus SetupMTCPickFromPose::tick()
     container->add(std::move(stage));
   }
 
-  Eigen::Vector3d approach{ 0.0, 0.0, approach_distance.value() };
+  Eigen::Vector3d approach_vector{ 0.0, 0.0, approach_distance.value() };
 
   /** Approach Grasp **/
   {
@@ -158,11 +158,11 @@ BT::NodeStatus SetupMTCPickFromPose::tick()
     stage->setGroup(arm_group_name.value());
     stage->setIKFrame(hand_frame_name.value());
 
-    geometry_msgs::msg::Vector3Stamped approach_vector;
-    tf2::toMsg(approach, approach_vector.vector);
-    approach_vector.header.frame_id = hand_frame_name.value();
+    geometry_msgs::msg::Vector3Stamped approach_vector_msg;
+    tf2::toMsg(approach_vector, approach_vector_msg.vector);
+    approach_vector_msg.header.frame_id = hand_frame_name.value();
 
-    stage->setDirection(approach_vector);
+    stage->setDirection(approach_vector_msg);
     container->add(std::move(stage));
   }
 
@@ -232,11 +232,11 @@ BT::NodeStatus SetupMTCPickFromPose::tick()
     stage->setGroup(arm_group_name.value());
     stage->setIKFrame(hand_frame_name.value());
 
-    geometry_msgs::msg::Vector3Stamped lift_vector;
-    lift_vector.header.frame_id = world_frame_name.value();
-    lift_vector.vector.z = lift_distance.value();
+    geometry_msgs::msg::Vector3Stamped lift_vector_msg;
+    lift_vector_msg.header.frame_id = world_frame_name.value();
+    lift_vector_msg.vector.z = lift_distance.value();
 
-    stage->setDirection(lift_vector);
+    stage->setDirection(lift_vector_msg);
     container->add(std::move(stage));
   }
 
@@ -247,11 +247,11 @@ BT::NodeStatus SetupMTCPickFromPose::tick()
     stage->setGroup(arm_group_name.value());
     stage->setIKFrame(hand_frame_name.value());
 
-    geometry_msgs::msg::Vector3Stamped retreat_vector;
-    tf2::toMsg(approach * -1, retreat_vector.vector);
+    geometry_msgs::msg::Vector3Stamped retreat_vector_msg;
+    tf2::toMsg(approach_vector * -1, retreat_vector_msg.vector);
     retreat_vector.header.frame_id = hand_frame_name.value();
 
-    stage->setDirection(retreat_vector);
+    stage->setDirection(retreat_vector_msg);
     container->add(std::move(stage));
   }
 

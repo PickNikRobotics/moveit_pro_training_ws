@@ -5,7 +5,7 @@
 #include <moveit_studio_behavior_interface/behavior_context.hpp>
 #include <moveit_studio_behavior_interface/shared_resources_node.hpp>
 
-namespace moveit_studio::behaviors
+namespace moveit_studio_training_behaviors
 {
 /**
  * @brief Given an existing MTC Task object and a target grasp pose, appends MTC stages to describe a motion plan to
