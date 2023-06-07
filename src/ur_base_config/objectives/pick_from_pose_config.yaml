@@ -13,7 +13,7 @@ SetupMTCPickFromPose:
   # Name of the SRDF group state that corresponds to the closed end effector joint values.
   end_effector_closed_pose_name: "close"
 
-  # Distance to approach an object from before grabbing it.
+  # Distance (in meters) to approach an object from before grabbing it.
   approach_distance: 0.1
-  # Distance to lift an object after grabbing it.
+  # Distance (in meters) to lift an object after grabbing it.
   lift_distance: 0.1
