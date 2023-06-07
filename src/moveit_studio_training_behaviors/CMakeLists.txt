@@ -11,6 +11,7 @@ find_package(moveit_studio_behavior_interface REQUIRED)
 find_package(pluginlib REQUIRED)
 find_package(sensor_msgs REQUIRED)
 find_package(tf2_eigen REQUIRED)
+find_package(yaml-cpp REQUIRED)
 
 set(
   THIS_PACKAGE_INCLUDE_DEPENDS
@@ -20,12 +21,14 @@ set(
   pluginlib
   sensor_msgs
   tf2_eigen
+  yaml-cpp
 )
 
 # AprilTag Behavior
 add_library(
   moveit_studio_training_behaviors SHARED
   src/get_apriltag_detection_pose.cpp
+  src/setup_mtc_pick_from_pose.cpp
   src/transform_pose.cpp
   src/register_behaviors.cpp
 )
@@ -35,6 +38,7 @@ target_include_directories(
   PUBLIC $<INSTALL_INTERFACE:include>
 )
 ament_target_dependencies(moveit_studio_training_behaviors ${THIS_PACKAGE_INCLUDE_DEPENDS})
+target_link_libraries(moveit_studio_training_behaviors ${YAML_CPP_LIBRARIES})
 
 # Install Libraries
 install(
