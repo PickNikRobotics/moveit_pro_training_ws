@@ -1,13 +1,13 @@
 # Installing MoveIt Studio
 
-#### Installation
+### Installation
 
 ```bash
 curl -sq https://docs.picknik.ai/en/latest/install_moveit_studio.py --output installer.py && python3 installer.py
 ```
 Then follow the prompts, including entering your license.
 
-#### Configuration
+### Configuration
 
 Next, we need to install the tutorial repo to use as a User Workspace:
 ```bash
@@ -24,7 +24,7 @@ This command sets the default MoveIt Studio Configuration to the `picknik_ur_sit
 The purpose of using this tutorial as the workspace is to enable writing and executing custom written code against MoveIt Studio.
 Next, you can simply follow the prompts; leaving the default values for the workspace containing user-defined packages and the Site configuration package.
 
-#### Running MoveIt Studio
+### Running MoveIt Studio
 
 Now that MoveIt Studio is configured, we just need to run it:
 ```bash

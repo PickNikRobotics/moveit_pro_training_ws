@@ -1,3 +1,5 @@
 # Working with MoveIt Studio Configuration Packages
 
-TODO: Fill out steps
+### Modifying a URDF
+
+### Adding a Custom Service as a ROS Node to a Launch Configuration
