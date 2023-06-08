@@ -74,9 +74,9 @@ namespace moveit_studio_training_behaviors
     output_pose.pose = tf2::toMsg(output_pose_eigen);
   
     // Print the transformed pose for debugging purposes.
-    std::cout << "Transformed pose" << std::endl;
-    std::cout << "  Frame ID: " << output_pose.header.frame_id;
-    std::cout << "  Translation: " << output_pose_eigen.translation().x() << " " << output_pose_eigen.translation().y() << " " << output_pose_eigen.translation().z() << std::endl;
+    std::cout << "Transformed pose" << "\n";
+    std::cout << "  Frame ID: " << output_pose.header.frame_id << "\n";
+    std::cout << "  Translation: " << output_pose_eigen.translation().x() << " " << output_pose_eigen.translation().y() << " " << output_pose_eigen.translation().z() << "\n";
     Eigen::Quaterniond q_out(output_pose_eigen.linear());
     std::cout << "  Orientation: " << q_out.x() << " " << q_out.y() << " " << q_out.z() << " " << q_out.w() << std::endl;
 
