@@ -138,15 +138,11 @@ And finally, we add these nodes to our `Launch Description` so they are actually
 
 - description/ur5e_gazebo.xacro
 
-We first add an include to the hardware realsense_d435 macro (which is already found in the MoveIt Studio `picknik_accessories`) to the line after the realsense_d415 is added:
+We will add the hardware realsense_d435 to the simulation world by adding it to the simulation world xacro.
+To do this, we use the realsense_d435 xacro macro (which is found in the MoveIt Studio `picknik_accessories` package and is already included in the simulation world xacro).
 
-```xml
-  <xacro:include filename="$(find picknik_accessories)/descriptions/sensors/realsense_d415.urdf.xacro" />
-  <--! New include after this line -->
-  <xacro:include filename="$(find picknik_accessories)/descriptions/sensors/realsense_d435.urdf.xacro" />
-```
+To add an instance of this macro, after the `external_camera_link` (currently on line 104), add:
 
-After the `external_camera_link` (currently on line 104):
 ```xml
   <xacro:realsense_d435 parent="external_camera_link" name="scene_camera" visible="false" simulate_depth="true">
     <origin xyz="0 0 0" rpy="0 0 0" />
