@@ -65,7 +65,7 @@ def generate_simulation_description(context, *args, **settings):
 
     # Create a Gazebo world file that swaps out package:// paths with absolute path.
     original_world_file = os.path.join(
-        get_package_share_directory("solution_ur_gazebo_config"),
+        get_package_share_directory("ur_gazebo_config"),
         "description",
         "space_station_apriltag_world.sdf",
     )
@@ -274,7 +274,7 @@ def generate_launch_description():
     # Environment Scene #
     #####################
     scene_xacro_path = get_ros_path(
-        "solution_ur_gazebo_config", "description/simulation_scene.urdf.xacro"
+        "ur_gazebo_config", "description/simulation_scene.urdf.xacro"
     )
     scene_urdf = xacro_to_urdf(scene_xacro_path, None)
     scene_urdf_gazebo = replace_package_directives_with_full_path(scene_urdf)

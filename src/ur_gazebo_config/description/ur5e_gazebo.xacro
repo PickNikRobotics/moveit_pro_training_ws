@@ -21,7 +21,7 @@
   <xacro:include filename="$(find picknik_accessories)/descriptions/geometry/collision_and_visual/cube_collision_and_visual.urdf.xacro" />
 
   <!-- initial position for simulations (Fake Hardware and Gazebo) -->
-  <xacro:arg name="initial_positions_file" default="$(find picknik_ur_base_config)/config/initial_positions.yaml"/>
+  <xacro:arg name="initial_positions_file" default="$(find ur_base_config)/config/initial_positions.yaml"/>
 
   <!-- convert to properties to use substitution in function -->
   <xacro:property name="initial_positions_file" default="$(arg initial_positions_file)"/>
@@ -164,7 +164,7 @@
   <!-- Gazebo Plugins -->
   <gazebo>
     <plugin filename="ign_ros2_control-system" name="ign_ros2_control::IgnitionROS2ControlPlugin">
-      <parameters>$(find picknik_ur_gazebo_config)/config/control/picknik_ur5e.ros2_control.yaml</parameters>
+      <parameters>$(find ur_gazebo_config)/config/control/ur5e_gazebo.ros2_control.yaml</parameters>
       <ros>
         <remapping>/streaming_controller/commands:=/robot_controllers/commands</remapping>
         <remapping>/joint_trajectory_controller/joint_trajectory:=/robot_controllers/joint_trajectory</remapping>
