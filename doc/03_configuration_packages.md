@@ -149,17 +149,15 @@ To add an instance of this macro, after the `external_camera_link` (currently on
   </xacro:realsense_d435>
 
   <!-- Additional Camera -->
-  <xacro:if value="$(arg use_extra_camera)">
-    <link name="extra_scene_camera_link" />
-    <joint name="extra_scene_camera_joint" type="fixed">
-      <parent link="world" />
-      <child link="extra_scene_camera_link" />
-      <origin xyz="-0.3 0.3 0.5" rpy="0.0 0.0 -3.14" />
-    </joint>
-    <xacro:realsense_d435 parent="extra_scene_camera_link" name="extra_camera" visible="false" simulate_depth="false">
-      <origin xyz="0 0 0" rpy="0 0 0" />
-    </xacro:realsense_d435>
-  </xacro:if>
+  <link name="extra_scene_camera_link" />
+  <joint name="extra_scene_camera_joint" type="fixed">
+    <parent link="world" />
+    <child link="extra_scene_camera_link" />
+    <origin xyz="-0.3 0.3 0.5" rpy="0.0 0.0 -3.14" />
+  </joint>
+  <xacro:realsense_d435 parent="extra_scene_camera_link" name="extra_camera" visible="false" simulate_depth="false">
+    <origin xyz="0 0 0" rpy="0 0 0" />
+  </xacro:realsense_d435>
 
 ```
 
