@@ -165,3 +165,13 @@ Congratulations! You should now have a scene camera displayed in the MoveIt Stud
 Feel free to change the location of this camera by modifying the `extra_scene_camera_joint`'s `origin` `xyz` for translation (in meters) or `rpy` for roll pitch yaw rotations (in radians).
 
 
+### Cheatsheet
+
+If at anypoint you got lost or just want to skip to a working feature complete config, run:
+
+```bash
+cd ~/moveit_studio/moveit_studio_training_ws/src/ur_gazebo_config
+cp config/SOLUTION_cameras.yaml config/cameras.yaml && cp description/SOLUTION_ur5e_gazebo.xacro description/ur5e_gazebo.xacro && cp launch/sim/SOLUTION_hardware_sim.launch.py launch/sim/hardware_sim.launch.py
+```
+
+Or otherwise copy the `SOLUTION` files to their corresponding files.
