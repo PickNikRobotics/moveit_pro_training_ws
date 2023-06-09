@@ -126,48 +126,6 @@ def generate_launch_description():
     ########################
     # Camera Topic Bridges #
     ########################
-    # For the scene camera, enable RGB image topics only.
-    scene_image_rgb_gazebo_bridge = Node(
-        package="ros_gz_image",
-        executable="image_bridge",
-        name="scene_image_rgb_gazebo_bridge",
-        arguments=[
-            "/scene_camera/image",
-        ],
-        remappings=[
-            ("/scene_camera/image", "/scene_camera/color/image_raw"),
-        ],
-        output="both",
-    )
-    scene_image_depth_gazebo_bridge = Node(
-        package="ros_gz_image",
-        executable="image_bridge",
-        name="scene_image_depth_gazebo_bridge",
-        arguments=[
-            "/scene_camera/depth_image",
-        ],
-        remappings=[
-            (
-                "/scene_camera/depth_image",
-                "/scene_camera/depth/image_rect_raw",
-            ),
-        ],
-        output="both",
-    )
-
-    scene_camera_info_gazebo_bridge = Node(
-        package="ros_gz_bridge",
-        executable="parameter_bridge",
-        name="scene_camera_info_gazebo_bridge",
-        arguments=[
-            "/scene_camera/camera_info@sensor_msgs/msg/CameraInfo[ignition.msgs.CameraInfo",
-        ],
-        remappings=[
-            ("/scene_camera/camera_info", "/scene_camera/color/camera_info"),
-        ],
-        output="both",
-    )
-
     # For the wrist mounted camera, enable RGB and depth topics.
     wrist_image_rgb_gazebo_bridge = Node(
         package="ros_gz_image",
@@ -294,24 +252,8 @@ def generate_launch_description():
         + init_pose_args,
     )
 
-    # AprilTag detection node
-    apriltag_server_node = Node(
-        package="apriltag_ros_python",
-        executable="apriltag_detection_server",
-        output="both",
-        parameters=[
-            {
-                "visualize": False,
-                "apriltag_family": "tag36h11",
-            }
-        ],
-    )
-
     return LaunchDescription(
         [
-            scene_image_rgb_gazebo_bridge,
-            scene_image_depth_gazebo_bridge,
-            scene_camera_info_gazebo_bridge,
             wrist_image_rgb_gazebo_bridge,
             wrist_camera_info_gazebo_bridge,
             wrist_image_depth_gazebo_bridge,
@@ -322,6 +264,5 @@ def generate_launch_description():
             spawn_robot,
             spawn_scene,
             camera_transforms_node,
-            apriltag_server_node,
         ]
     )
