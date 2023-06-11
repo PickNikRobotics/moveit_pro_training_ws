@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
-  <root BTCPP_format="4" main_tree_to_execute="Detect and Transform April Tag Pose">
+  <root BTCPP_format="4" main_tree_to_execute="Solution Detect and Transform April Tag Pose">
     <!-- ////////// -->
-    <BehaviorTree ID="Detect and Transform April Tag Pose" _description="Detects the pose of an AprilTag given a target ID and size, and then transforms it to a grasp target pose.">
+    <BehaviorTree ID="Solution Detect and Transform April Tag Pose" _description="Detects the pose of an AprilTag given a target ID and size, and then transforms it to a grasp target pose.">
         <Control ID="Sequence" name="TopLevelSequence">
             <Action ID="GetCameraInfo" topic_name="/wrist_mounted_camera/color/camera_info" message_out="{camera_info}"/>
             <Action ID="GetImage" topic_name="/wrist_mounted_camera/color/image_raw" message_out="{image}"/>
