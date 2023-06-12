@@ -51,7 +51,7 @@ def generate_launch_description():
             output="both",
             parameters=[
                 {
-                    "visualize": False,
+                    "visualize": True,
                     "apriltag_family": "tag36h11",
                 }
             ],

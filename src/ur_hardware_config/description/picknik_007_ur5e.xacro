@@ -105,7 +105,7 @@
   <joint name="base_to_environment" type="fixed">
     <parent link="base" />
     <child link="environment" />
-    <origin rpy="0 0 0" xyz="0 0 0" />
+    <origin rpy="0 0 0" xyz="0 0 -0.09" />
   </joint>
 
   <!-- Camera External -->

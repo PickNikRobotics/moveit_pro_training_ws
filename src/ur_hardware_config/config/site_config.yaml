@@ -9,25 +9,25 @@ hardware:
   simulated: ${MOCK_HARDWARE:-true}
   ip: 192.10.0.11
   camera_config_file:
-    package: "picknik_007_ur5e_config"
+    package: "ur_hardware_config"
     path: "config/cameras.yaml"
   robot_description:
     urdf:
-      package: "picknik_007_ur5e_config"
+      package: "ur_hardware_config"
       path: "description/picknik_007_ur5e.xacro"
     srdf:
-      package: "picknik_007_ur5e_config"
+      package: "ur_hardware_config"
       path: "config/moveit/picknik_007_ur5e.srdf"
     urdf_params:
       - kinematics_parameters_file:
-          package: "picknik_007_ur5e_config"
+          package: "ur_hardware_config"
           path: "calibration/kinematic_calibration.yaml"
 
 objectives:
   waypoints_file:
-    package_name: "picknik_007_ur5e_config"
+    package_name: "ur_hardware_config"
     relative_path: "waypoints/waypoints.yaml"
   objective_library_paths:
     007:
-      package_name: "picknik_007_ur5e_config"
+      package_name: "ur_hardware_config"
       relative_path: "objectives"
