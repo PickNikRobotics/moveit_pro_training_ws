@@ -43,6 +43,9 @@ If you want to test that things are working as intended you can `docker exec` in
 
 ```console
 docker exec -it moveit_studio-agent-1 bash
+```
+
+```console
 studio-user@moveitstudio:/$ source /opt/overlay_ws/install/setup.bash
 studio-user@moveitstudio:/$ ros2 node list | grep apriltag
   /apriltag_detection_server
