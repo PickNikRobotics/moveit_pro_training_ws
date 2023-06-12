@@ -41,12 +41,6 @@ hardware:
   robot_driver_persist_launch_file:
     package: "ur_base_config"
     path: "launch/robot_drivers_to_persist.launch.py"
-  robot_driver_restart_launch_file:
-    package: "ur_base_config"
-    path: "launch/robot_drivers_to_restart.launch.py"
-  hardware_launch_file:
-    package: "ur_base_config"
-    path: "launch/hardware.launch.py"
 
   # Specify any additional launch files for running the robot in simulation mode.
   # Used when simulated is True.
@@ -54,9 +48,6 @@ hardware:
   simulated_robot_driver_persist_launch_file:
     package: "ur_base_config"
     path: "launch/sim/robot_drivers_to_persist_sim.launch.py"
-  simulated_robot_driver_restart_launch_file:
-    package: "ur_base_config"
-    path: "launch/sim/robot_drivers_to_restart_sim.launch.py"
   simulated_hardware_launch_file:
     package: "ur_base_config"
     path: "launch/hardware.launch.py"
@@ -122,7 +113,7 @@ moveit_params:
     path: "config/moveit/ompl_planning.yaml"
   kinematics:
     package: "ur_base_config"
-    path: "config/moveit/pick_ik_kinematics.yaml"
+    path: "config/moveit/kinematics.yaml"
   servo:
     package: "ur_base_config"
     path: "config/moveit/ur5e_servo.yaml"

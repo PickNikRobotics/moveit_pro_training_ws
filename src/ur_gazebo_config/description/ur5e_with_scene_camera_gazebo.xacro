@@ -100,6 +100,21 @@
     <origin xyz="0.3 -0.3 1.0" rpy="0.0 0.4 3.14" />
   </joint>
 
+  <xacro:realsense_d435 parent="external_camera_link" name="scene_camera" visible="false" simulate_depth="true" gazebo_camera_fps="15">
+    <origin xyz="0 0 0" rpy="0 0 0" />
+  </xacro:realsense_d435>
+
+  <!-- Additional Camera -->
+  <link name="extra_scene_camera_link" />
+  <joint name="extra_scene_camera_joint" type="fixed">
+    <parent link="world" />
+    <child link="extra_scene_camera_link" />
+    <origin xyz="-0.3 0.3 0.5" rpy="0.0 0.0 -3.14" />
+  </joint>
+  <xacro:realsense_d435 parent="extra_scene_camera_link" name="extra_camera" visible="false" simulate_depth="false">
+    <origin xyz="0 0 0" rpy="0 0 0" />
+  </xacro:realsense_d435>
+
   <!-- Force/Torque Sensor -->
   <link name="robot/wrist_3_joint/force_torque_sensor" />
   <joint name="wrist_to_fts" type="fixed">
