@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
-<root BTCPP_format="4" main_tree_to_execute="Detect AprilTag Pose">
+<root BTCPP_format="4" main_tree_to_execute="Solution Detect AprilTag Pose">
     <!--  //////////  -->
-    <BehaviorTree ID="Detect AprilTag Pose" _description="Detects the pose of an AprilTag given a target ID and size.">
+    <BehaviorTree ID="Solution Detect AprilTag Pose" _description="Detects the pose of an AprilTag given a target ID and size.">
         <Control ID="Sequence" name="TopLevelSequence">
             <Action ID="GetCameraInfo" topic_name="/wrist_mounted_camera/color/camera_info" message_out="{camera_info}"/>
             <Action ID="GetImage" topic_name="/wrist_mounted_camera/color/image_raw" message_out="{image}"/>

@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+  <root BTCPP_format="4" main_tree_to_execute="Solution Detect AprilTag Pose and Pick Object">
+    <!-- ////////// -->
+    <BehaviorTree ID="Solution Detect AprilTag Pose and Pick Object" _description="Detects the pose of an AprilTag given a target ID and size, transforms it to a grasp target pose, and moves to that pose.">
+        <Control ID="Sequence" name="TopLevelSequence">
+            <SubTree ID="Open Gripper"/>
+            <Action ID="GetCameraInfo" topic_name="/wrist_mounted_camera/color/camera_info" message_out="{camera_info}"/>
+            <Action ID="GetImage" topic_name="/wrist_mounted_camera/color/image_raw" message_out="{image}"/>
+            <Action ID="GetAprilTagDetectionPose" apriltag_id="1" apriltag_size="0.08" camera_info="{camera_info}" image="{image}" detection_pose="{detection_pose}"/>
+            <Action ID="TransformPose" input_pose="{detection_pose}" translation_x="0.1" translation_y="0.0" translation_z="-0.05" quaternion_xyzw="0.0;0.0;-0.707;0.707" output_pose="{target_pose}"/>
+            <Action ID="MoveToPose" target_pose="{target_pose}" ik_frame="manual_grasp_link" planning_group_name="manipulator" controller_names="/joint_trajectory_controller /robotiq_gripper_controller"/>
+            <SubTree ID="Close Gripper"/>
+        </Control>
+    </BehaviorTree>
+</root>

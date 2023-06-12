@@ -43,27 +43,6 @@ cameras_config = system_config_parser.get_cameras_config()
 def generate_launch_description():
     nodes_to_launch = []
 
-    # Do not launch any nodes if there are no configured cameras.
-    if not cameras_config:
-        print(
-            "No camera configuration found. Not launching any camera transform nodes."
-        )
-    else:
-        frame_pair_params = [
-            {
-                "world_frame": "world",
-                "camera_frames": generate_camera_frames(cameras_config),
-            }
-        ]
-        camera_transforms_node = Node(
-            package="moveit_studio_agent",
-            executable="camera_transforms_node",
-            name="camera_transforms_node",
-            output="both",
-            parameters=frame_pair_params,
-        )
-        nodes_to_launch.append(camera_transforms_node)
-
     # AprilTag detection node
     nodes_to_launch.append(
         Node(
@@ -72,7 +51,7 @@ def generate_launch_description():
             output="both",
             parameters=[
                 {
-                    "visualize": False,
+                    "visualize": True,
                     "apriltag_family": "tag36h11",
                 }
             ],
