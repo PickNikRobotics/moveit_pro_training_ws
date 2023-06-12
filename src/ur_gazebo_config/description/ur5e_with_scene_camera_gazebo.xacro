@@ -51,7 +51,7 @@
   <xacro:ur_realsense_camera_adapter prefix="" connected_to="tool_changer_tool0" rotation="0" />
   <!-- TODO: With ogre renderer and use_mesh="true",
   the camera image will be obstructed by the mesh-->
-  <xacro:realsense_d415 parent="d415_mount_link" name="wrist_mounted_camera" use_mesh="${gazebo_renderer == 'ogre2'}">
+  <xacro:realsense_d415 parent="d415_mount_link" name="wrist_mounted_camera" use_mesh="${gazebo_renderer == 'ogre2'}" gazebo_camera_fps="15">
     <origin xyz="0 0 0" rpy="0 0 0" />
   </xacro:realsense_d415>
 
@@ -100,7 +100,7 @@
     <origin xyz="0.3 -0.3 1.0" rpy="0.0 0.4 3.14" />
   </joint>
 
-  <xacro:realsense_d435 parent="external_camera_link" name="scene_camera" visible="false" simulate_depth="true">
+  <xacro:realsense_d435 parent="external_camera_link" name="scene_camera" visible="false" simulate_depth="true" gazebo_camera_fps="15">
     <origin xyz="0 0 0" rpy="0 0 0" />
   </xacro:realsense_d435>
 

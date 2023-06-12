@@ -42,8 +42,8 @@ class AprilTagDetectionServer(Node):
         self.detector = dt_apriltags.Detector(
             families=self.apriltag_family,
             nthreads=1,
-            quad_decimate=2.0,
-            quad_sigma=0.0,
+            quad_decimate=1.0,
+            quad_sigma=0.5,
             refine_edges=1,
             decode_sharpening=0.25,
             debug=0,
