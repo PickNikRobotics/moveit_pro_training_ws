@@ -69,6 +69,9 @@ moveit_params:
   servo:
     package: "ur_gazebo_config"
     path: "config/moveit/ur5e_servo.yaml"
+  kinematics:
+    package: "ur_gazebo_config"
+    path: "config/moveit/pick_ik_kinematics.yaml"
 
 # This configures what controllers gets run at startup
 ros2_control:
