@@ -42,7 +42,6 @@ from moveit_studio_utils_py.launch_common import (
     xacro_to_urdf,
 )
 from moveit_studio_utils_py.system_config import get_config_folder, SystemConfigParser
-from moveit_studio_utils_py.generate_camera_frames import generate_camera_frames
 
 
 def replace_package_directives_with_full_path(urdf_string):
@@ -96,7 +95,6 @@ def generate_simulation_description(context, *args, **settings):
 def generate_launch_description():
     system_config_parser = SystemConfigParser()
     optional_feature_setting = system_config_parser.get_optional_feature_configs()
-    cameras_config = system_config_parser.get_cameras_config()
 
     # The path to the auto_created urdf files
     robot_urdf = system_config_parser.get_processed_urdf()
@@ -254,22 +252,6 @@ def generate_launch_description():
         output="both",
     )
 
-    frame_pair_params = [
-        {
-            "world_frame": "world",
-            "camera_frames": generate_camera_frames(cameras_config),
-        }
-    ]
-
-    camera_transforms_node = Node(
-        package="moveit_studio_agent",
-        executable="camera_transforms_node",
-        name="camera_transforms_node",
-        output="both",
-        parameters=frame_pair_params,
-        arguments=["--ros-args"],
-    )
-
     #####################
     # Environment Scene #
     #####################
@@ -321,7 +303,6 @@ def generate_launch_description():
             gazebo,
             spawn_robot,
             spawn_scene,
-            camera_transforms_node,
             apriltag_server_node,
         ]
     )
