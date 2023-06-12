@@ -2,7 +2,7 @@
 
 ### Overriding a Kinematics Solver Plugin
 
-To change the Kinematics solver from the default (KDL IK) to another (such as Pick IK), add a `kinematics` override parameter to the `site_config.yaml` `moveit_params` portion so that it looks like this afterwards:
+To change the Kinematics solver from the default (KDL IK) to another (such as pick_ik), add a `kinematics` override parameter to the `moveit_params` section in the `site_config.yaml` file so that it looks like this afterwards:
 
 ```python
 # Override MoveIt parameters
@@ -16,12 +16,12 @@ moveit_params:
 
 ```
 
-This updates the path to the local config file for Pick IK kinematics for the Gazebo Site Config.
+This updates the Gazebo Site Config to use the pick_ik inverse kinematics plugin instead of the default one defined in the Base Config.
 
 ### Adding a Custom ROS Node Service to a Launch Configuration
 
 Consider if you needed another service to be available for a custom use-case.
-For example, to detect AprilTags, we would need a service like https://github.com/duckietown/lib-dt-apriltags to be available from within MoveIt Studio.  
+For example, to detect AprilTags, we could use a library like https://github.com/duckietown/lib-dt-apriltags from within MoveIt Studio.  
 The first step would be to adapt this into a ROS Service, which is already finished as an example here: [../src/apriltag_ros_python/](../src/apriltag_ros_python).
 
 To automatically make this service start on launch, we will add it to the launch file:
@@ -168,6 +168,7 @@ Next, we add the bridge for the Camera Info below these:
 ```
 
 And finally, we add these nodes to our `Launch Description` so they are actually launched:
+
 ```python
     return LaunchDescription
         [
