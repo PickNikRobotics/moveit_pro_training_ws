@@ -37,7 +37,7 @@ hardware:
   # the camera configuration and the robot description model.
   camera_config_file:
     package: "ur_gazebo_config"
-    path: "config/cameras.yaml"
+    path: "config/wrist_camera.yaml"
   robot_description:
     srdf:
       package: "ur_gazebo_config"
