@@ -1,0 +1,33 @@
+#
+#  This contains information for a unique instance of a robot.
+#
+
+# Name of the package to specialize
+based_on_package: "ur_base_config"
+
+hardware:
+  simulated: ${MOCK_HARDWARE:-true}
+  ip: 192.10.0.11
+  camera_config_file:
+    package: "picknik_007_ur5e_config"
+    path: "config/cameras.yaml"
+  robot_description:
+    urdf:
+      package: "picknik_007_ur5e_config"
+      path: "description/picknik_007_ur5e.xacro"
+    srdf:
+      package: "picknik_007_ur5e_config"
+      path: "config/moveit/picknik_007_ur5e.srdf"
+    urdf_params:
+      - kinematics_parameters_file:
+          package: "picknik_007_ur5e_config"
+          path: "calibration/kinematic_calibration.yaml"
+
+objectives:
+  waypoints_file:
+    package_name: "picknik_007_ur5e_config"
+    relative_path: "waypoints/waypoints.yaml"
+  objective_library_paths:
+    007:
+      package_name: "picknik_007_ur5e_config"
+      relative_path: "objectives"

@@ -1,0 +1,120 @@
+- name: Home
+  favorite: true
+  joint_state:
+    header:
+      frame_id: world
+      stamp:
+        nanosec: 0
+        sec: 0
+    name: [shoulder_pan_joint, shoulder_lift_joint, elbow_joint, wrist_1_joint, wrist_2_joint, wrist_3_joint]
+    position: [0.03, -0.75, -0.63, -1.86, 1.66, 0.02]
+    velocity: []
+    effort: []
+- name: Left Corner
+  favorite: false
+  joint_state:
+    header:
+      frame_id: world
+      stamp:
+        nanosec: 0
+        sec: 0
+    name: [shoulder_pan_joint, shoulder_lift_joint, elbow_joint, wrist_1_joint, wrist_2_joint, wrist_3_joint]
+    position: [0.28, -0.75, -0.63, -1.86, 1.66, 0.02]
+    velocity: []
+    effort: []
+- name: Pick
+  favorite: true
+  joint_state:
+    header:
+      frame_id: world
+      stamp:
+        nanosec: 0
+        sec: 0
+    name: [shoulder_pan_joint, shoulder_lift_joint, elbow_joint, wrist_1_joint, wrist_2_joint, wrist_3_joint]
+    position: [1.21, -1.97, -1.41, -1.28, 1.59, -0.16]
+    velocity: []
+    effort: []
+- name: Right Corner
+  favorite: false
+  joint_state:
+    header:
+      frame_id: world
+      stamp:
+        nanosec: 0
+        sec: 0
+    name: [shoulder_pan_joint, shoulder_lift_joint, elbow_joint, wrist_1_joint, wrist_2_joint, wrist_3_joint]
+    position: [-0.24, -0.75, -0.63, -1.86, 1.66, 0.02]
+    velocity: []
+    effort: []
+- name: Look at Cube
+  favorite: true
+  joint_state:
+    header:
+      frame_id: world
+      stamp:
+        nanosec: 0
+        sec: 0
+    name: [shoulder_pan_joint, shoulder_lift_joint, elbow_joint, wrist_1_joint, wrist_2_joint, wrist_3_joint]
+    position: [1.29, -1.73, -0.61, -2.08, 1.63, -0.23]
+    velocity: []
+    effort: []
+- name: Place
+  favorite: true
+  joint_state:
+    header:
+      frame_id: world
+      stamp:
+        nanosec: 0
+        sec: 0
+    name: [shoulder_pan_joint, shoulder_lift_joint, elbow_joint, wrist_1_joint, wrist_2_joint, wrist_3_joint]
+    position: [1.76, -1.89, -1.51, -1.25, 1.56, 0.39]
+    velocity: []
+    effort: []
+- name: Door
+  favorite: true
+  joint_state:
+    header:
+      frame_id: world
+      stamp:
+        nanosec: 0
+        sec: 0
+    name: [shoulder_pan_joint, shoulder_lift_joint, elbow_joint, wrist_1_joint, wrist_2_joint, wrist_3_joint]
+    position: [-1.11, -1.73, -2.6, 1.19, 0.95, 0]
+    velocity: []
+    effort: []
+- name: Place Left
+  favorite: true
+  joint_state:
+    header:
+      frame_id: world
+      stamp:
+        nanosec: 0
+        sec: 0
+    name: [shoulder_pan_joint, shoulder_lift_joint, elbow_joint, wrist_1_joint, wrist_2_joint, wrist_3_joint]
+    position: [1.86, -1.89, -1.51, -1.25, 1.56, 0.39]
+    velocity: []
+    effort: []
+- name: Place Right
+  favorite: true
+  joint_state:
+    header:
+      frame_id: world
+      stamp:
+        nanosec: 0
+        sec: 0
+    name: [shoulder_pan_joint, shoulder_lift_joint, elbow_joint, wrist_1_joint, wrist_2_joint, wrist_3_joint]
+    position: [1.66, -1.89, -1.51, -1.25, 1.56, 0.39]
+    velocity: []
+    effort: []
+- name: Look at Pick and Place Zone
+  favorite: true
+  joint_state:
+    header:
+      frame_id: world
+      stamp:
+        nanosec: 0
+        sec: 0
+    name: [shoulder_pan_joint, shoulder_lift_joint, elbow_joint, wrist_1_joint, wrist_2_joint, wrist_3_joint]
+    position: [1.29, -1.73, -0.61, -2.08, 1.63, -0.23]
+    velocity: []
+    effort: []
