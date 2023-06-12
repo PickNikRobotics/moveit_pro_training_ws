@@ -38,7 +38,7 @@ And finally, add it to the node list in `LaunchDescription`:
     )
 ```
 
-And that's it. Congratiulations: an AprilTag detection service is now present in the Gazebo site config, enabling AprilTag Behaviors to work.
+And that's it. Congratulations: an AprilTag detection service is now present in the Gazebo site config, enabling AprilTag Behaviors to work.
 If you want to test that things are working as intended you can `docker exec` into the container and check the ROS 2 node and service lists:
 
 ```console
@@ -61,7 +61,7 @@ studio-user@moveitstudio:/$ ros2 service list | grep apriltag
 We now consider the example of adding a Scene Camera to the site config.
 This camera will be a Realsense d435 camera and serves as an overhead camera that can see the scene of the robot.
 
-- config/cameras.yaml
+- config/wrist_camera.yaml
 
 We first add the configuration of the new Scene Camera to our Camera config file:
 
@@ -91,8 +91,9 @@ We first add the configuration of the new Scene Camera to our Camera config file
 We need to get the images from Gazebo to ROS. Luckily, there exists a package for just this thing:
 https://github.com/gazebosim/ros_gz/tree/ros2/ros_gz_image  
 We will add a bridge for our new scene camera, one for each topic we want.
-The remappings are simply to name the topics in a format that MoveIt Studio expects (specified above in cameras.yaml)
+The remappings are simply to name the topics in a format that MoveIt Studio expects (specified above in the Cameras yaml)
 The topics we care about are the RGB image, the depth image, and the Camera Info.
+
 First, the RGB and depth image topic bridges are added to the launch file under the `# Camera Topic Bridges #` comment:
 
 ```python
@@ -183,11 +184,15 @@ Feel free to change the location of this camera by modifying the `extra_scene_ca
 
 ### Cheatsheet
 
-If at anypoint you got lost or just want to skip to a working feature complete config, run:
+If at any point you got lost or just want to skip to a working feature complete config you can update your `site_config.yaml` to point to finished configs:
+
+- wrist_camera.yaml &rarr; wrist_and_scene_cameras.yaml
+- ur5e_gazebo.xacro &rarr; ur5e_with_scene_camera_gazebo.xacro
+- hardware_sim.launch.py &rarr; hardware_sim_cameras_apriltag.launch.py
+
+Or if you want to skip this straight to the finished working site_config.yaml:
 
 ```bash
 cd ~/moveit_studio/moveit_studio_training_ws/src/ur_gazebo_config
-cp config/SOLUTION_cameras.yaml config/cameras.yaml && cp description/SOLUTION_ur5e_gazebo.xacro description/ur5e_gazebo.xacro && cp launch/sim/SOLUTION_hardware_sim.launch.py launch/sim/hardware_sim.launch.py
+cp config/SOLUTION_site_config.yaml config/site_config.yaml
 ```
-
-Or otherwise copy the `SOLUTION` files to their corresponding files.
