@@ -1,6 +1,6 @@
 # Running Objectives using Python
 
-For more information on this subject please see the [Interact with the Objective Server Directly](https://docs.picknik.ai/en/latest/how_to/interact_with_the_objective_server_directly/interact_with_the_objective_server_directly.html) docs.
+For more information on this subject please see the [Interact with the Objective Server Directly](https://docs.picknik.ai/en/studio-training/how_to/interact_with_the_objective_server_directly/interact_with_the_objective_server_directly.html) docs.
 
 ### Calling Objectives with call_do_objective.py
 
