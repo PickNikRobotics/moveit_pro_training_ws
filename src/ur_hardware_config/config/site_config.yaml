@@ -23,6 +23,10 @@ hardware:
           package: "ur_hardware_config"
           path: "calibration/kinematic_calibration.yaml"
 
+  hardware_launch_file:
+    package: "ur_hardware_config"
+    path: "launch/bringup.launch.py"
+
 objectives:
   waypoints_file:
     package_name: "ur_hardware_config"
