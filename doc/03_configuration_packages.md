@@ -1,5 +1,23 @@
 # Working with MoveIt Studio Configuration Packages
 
+### Overriding a Kinematics Solver Plugin
+
+To change the Kinematics solver from the default (KDL IK) to another (such as Pick IK), add a `kinematics` override parameter to the `site_config.yaml` `moveit_params` portion so that it looks like this afterwards:
+
+```python
+# Override MoveIt parameters
+moveit_params:
+  servo:
+    package: "ur_gazebo_config"
+    path: "config/moveit/ur5e_servo.yaml"
+  kinematics:
+    package: "ur_gazebo_config"
+    path: "config/moveit/pick_ik_kinematics.yaml"
+
+```
+
+This updates the path to the local config file for Pick IK kinematics for the Gazebo Site Config.
+
 ### Adding a Custom ROS Node Service to a Launch Configuration
 
 Consider if you needed another service to be available for a custom use-case.
