@@ -42,4 +42,3 @@ You can also run the following if you're only interested in building the code in
 cd ~/moveit_studio
 ./moveit_studio build_workspace
 ``` 
-
