@@ -1,7 +1,7 @@
 # Creating Objectives from Built-In Behaviors
 
 ### Building a Pick and Place Objective
-Use Wayponts and built-in Behaviors to make an Objective.
+Use Waypoints and built-in Behaviors to make an Objective.
 
 #### Save a New Waypoint
   - Move to desired waypoint via `Endpoint` and `Joints` tab.

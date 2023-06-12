@@ -3,7 +3,7 @@
 ### Adding a Custom ROS Node Service to a Launch Configuration
 
 Consider if you needed another service to be available for a custom use-case.
-For example, to detect April Tags, we would need a service like https://github.com/duckietown/lib-dt-apriltags to be available from within MoveIt Studio.  
+For example, to detect AprilTags, we would need a service like https://github.com/duckietown/lib-dt-apriltags to be available from within MoveIt Studio.  
 The first step would be to adapt this into a ROS Service, which is already finished as an example here: [../src/apriltag_ros_python/](../src/apriltag_ros_python).
 
 To automatically make this service start on launch, we will add it to the launch file:
@@ -38,7 +38,23 @@ And finally, add it to the node list in `LaunchDescription`:
     )
 ```
 
-And that's it. Congratiulations, an April Tag detection service is now present in the Gazebo site config, enabling April Tag Behaviors to work.
+And that's it. Congratiulations: an AprilTag detection service is now present in the Gazebo site config, enabling AprilTag Behaviors to work.
+If you want to test that things are working as intended you can `docker exec` into the container and check the ROS 2 node and service lists:
+
+```console
+docker exec -it moveit_studio-agent-1 bash
+studio-user@moveitstudio:/$ source /opt/overlay_ws/install/setup.bash
+studio-user@moveitstudio:/$ ros2 node list | grep apriltag
+  /apriltag_detection_server
+studio-user@moveitstudio:/$ ros2 service list | grep apriltag
+  /apriltag_detection_server/describe_parameters
+  /apriltag_detection_server/get_parameter_types
+  /apriltag_detection_server/get_parameters
+  /apriltag_detection_server/list_parameters
+  /apriltag_detection_server/set_parameters
+  /apriltag_detection_server/set_parameters_atomically
+  /detect_apriltags
+```
 
 ### Adding a Scene Camera
 
@@ -77,7 +93,7 @@ https://github.com/gazebosim/ros_gz/tree/ros2/ros_gz_image
 We will add a bridge for our new scene camera, one for each topic we want.
 The remappings are simply to name the topics in a format that MoveIt Studio expects (specified above in cameras.yaml)
 The topics we care about are the RGB image, the depth image, and the Camera Info.
-First, the RGB and depth image topic bridges are added to the launch file under the `# Camera Topic Bridges #` comment (currently line 129 in the file):
+First, the RGB and depth image topic bridges are added to the launch file under the `# Camera Topic Bridges #` comment:
 
 ```python
     # For the scene camera, enable RGB image topics only.
@@ -141,7 +157,7 @@ And finally, we add these nodes to our `Launch Description` so they are actually
 We will add the hardware realsense_d435 to the simulation world by adding it to the simulation world xacro.
 To do this, we use the realsense_d435 xacro macro (which is found in the MoveIt Studio `picknik_accessories` package and is already included in the simulation world xacro).
 
-To add an instance of this macro, after the `external_camera_link` (currently on line 104), add:
+To add an instance of this macro, after the `external_camera_link` definition, add:
 
 ```xml
   <xacro:realsense_d435 parent="external_camera_link" name="scene_camera" visible="false" simulate_depth="true">

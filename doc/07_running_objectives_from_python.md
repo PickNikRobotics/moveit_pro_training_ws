@@ -10,9 +10,9 @@ To use it, follow these steps:
 
 ```console
 docker exec -it moveit_studio-agent-1 bash
-root@moveitstudio:/# source /opt/overlay_ws/install/setup.bash
-root@moveitstudio:/# ros2 run moveit_studio_agent_examples call_do_objective.py "Open Gripper"
-root@moveitstudio:/# ros2 run moveit_studio_agent_examples call_do_objective.py "Close Gripper"
+studio-user@moveitstudio:/$ source /opt/overlay_ws/install/setup.bash
+studio-user@moveitstudio:/$ ros2 run moveit_studio_agent_examples call_do_objective.py "Open Gripper"
+studio-user@moveitstudio:/$ ros2 run moveit_studio_agent_examples call_do_objective.py "Close Gripper"
 ```
 
 This demonstrates how an external application can issue commands to the MoveIt Studio interface via the MoveIt Studio API. 
