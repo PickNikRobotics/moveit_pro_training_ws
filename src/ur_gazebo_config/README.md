@@ -1,4 +1,4 @@
-# picknik_ur_gazebo_config
+# ur_gazebo_config
 
 A MoveIt Studio site configuration for a UR5e simulated in Gazebo, based on the `ur_base_config` package.
 
