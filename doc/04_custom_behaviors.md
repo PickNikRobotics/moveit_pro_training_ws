@@ -99,7 +99,7 @@ You can add unit tests to the `tests` folder of your Behavior package.
 By default, the Behavior package template creates a set of Google Test (GTest) files.
 
   - Go to the `tests` folder.
-  - Either edit the existing `test_behavior_plugins.cpp` or create a new file in this folder (ensuring you bulid it in your package's `CMakeLists.txt` file).
+  - Either edit the existing `test_behavior_plugins.cpp` or create a new file in this folder (ensuring you build it in your package's `CMakeLists.txt` file).
   - Add a new test as follows:
     ```cpp
     TEST(BehaviorTests, test_transform_pose_valid_input)
