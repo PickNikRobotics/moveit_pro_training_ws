@@ -74,7 +74,8 @@ In this example, we will create a Behavior that accepts a pose and transforms it
     return BT::NodeStatus::SUCCESS;
   }
   ```
-  - Then, go to the `config/tree_nodes_model.xml` and fill out the information to render the Behavior in the web app.
+  - Then, go to the `config/tree_nodes_model.xml` file and fill out the information to render the Behavior in the web app.
+  This includes descriptions of the Behavior and its ports, as well as default port values.
   ```xml
     <TreeNodesModel>
       <Action ID="TransformPose">
@@ -94,12 +95,12 @@ In this example, we will create a Behavior that accepts a pose and transforms it
   ```
   - Next, you can try build your workspace using `./moveit_studio run build_workspace`
 
-### Creating Unit Test for your Behavior
+### Creating Unit Tests for your Behavior
 You can add unit tests to the `tests` folder of your Behavior package.
-By default, the Behavior package template creates a set of Google Test (GTest) files.
+By default, the Behavior package template is set up for Google Test (gtest).
 
   - Go to the `tests` folder.
-  - Either edit the existing `test_behavior_plugins.cpp` or create a new file in this folder (ensuring you build it in your package's `CMakeLists.txt` file).
+  - Either edit the existing `test_behavior_plugins.cpp` or create a new file in this folder (if so, ensure you add it to your package's `CMakeLists.txt` file).
   - Add a new test as follows:
     ```cpp
     TEST(BehaviorTests, test_transform_pose_valid_input)
@@ -120,7 +121,7 @@ By default, the Behavior package template creates a set of Google Test (GTest) f
       config.output_ports.insert(std::make_pair("output_pose", "="));
 
       // Initialize and tick the Behavior. This should succeed.
-      moveit_studio_training_behaviors::TransformPose transform_pose_behavior("TransformPose", config);
+      transform_pose::TransformPose transform_pose_behavior("TransformPose", config);
       ASSERT_EQ(transform_pose_behavior.executeTick(), BT::NodeStatus::SUCCESS);
 
       // Check the output data against expected outputs.
@@ -156,10 +157,10 @@ By default, the Behavior package template creates a set of Google Test (GTest) f
     config.output_ports.insert(std::make_pair("output_pose", "="));
 
     // Initialize and tick the Behavior. This should fail.
-    moveit_studio_training_behaviors::TransformPose transform_pose_behavior("TransformPose", config);
+    transform_pose::TransformPose transform_pose_behavior("TransformPose", config);
     ASSERT_EQ(transform_pose_behavior.executeTick(), BT::NodeStatus::FAILURE);
   }
   ```
   - To run your tests, you can run `./moveit_studio test_workspace`.
     - You can also enter into one of the Docker containers by entering, e.g., `docker compose exec -it agent bash` and then running `colcon test` as normal.
-    - For example, `colcon test --packages-select my_behavior_package`.
+    - For example, a common command may be: `colcon test --packages-select transform_pose --event-handlers console_direct+`.

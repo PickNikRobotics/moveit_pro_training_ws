@@ -62,7 +62,7 @@ And that's it. Congratulations: an AprilTag detection service is now present in 
 If you want to test that things are working as intended you can `docker exec` into the container and check the ROS 2 node and service lists:
 
 ```console
-docker exec -it moveit_studio-agent-1 bash
+docker compose exec -it agent bash
 ```
 
 ```console
@@ -203,7 +203,6 @@ To add an instance of this macro, after the `external_camera_link` definition, a
   <xacro:realsense_d435 parent="extra_scene_camera_link" name="extra_camera" visible="false" simulate_depth="false">
     <origin xyz="0 0 0" rpy="0 0 0" />
   </xacro:realsense_d435>
-
 ```
 
 Congratulations! You should now have a scene camera displayed in the MoveIt Studio UI dropdown!
