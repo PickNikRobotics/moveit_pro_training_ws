@@ -95,6 +95,10 @@ In this example, we will create a Behavior that accepts a pose and transforms it
   ```
   - Next, you can try build your workspace using `./moveit_studio run build_workspace`
 
+This finished Behavior is available for reference at [transform_pose.cpp](../src/moveit_studio_training_behaviors/src/transform_pose.cpp).
+
+---
+
 ### Creating Unit Tests for your Behavior
 You can add unit tests to the `tests` folder of your Behavior package.
 By default, the Behavior package template is set up for Google Test (gtest).
@@ -164,3 +168,5 @@ By default, the Behavior package template is set up for Google Test (gtest).
   - To run your tests, you can run `./moveit_studio test_workspace`.
     - You can also enter into one of the Docker containers by entering, e.g., `docker compose exec -it agent bash` and then running `colcon test` as normal.
     - For example, a common command may be: `colcon test --packages-select transform_pose --event-handlers console_direct+`.
+
+These finished unit tests are available for reference in [this file]](../src/moveit_studio_training_behaviors/test/test_behavior_plugins.cpp).

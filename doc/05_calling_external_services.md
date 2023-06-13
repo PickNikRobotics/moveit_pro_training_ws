@@ -134,3 +134,5 @@ Lastly, ensure this line is at the bottom of your `.cpp` file:
 ```cpp
 template class moveit_studio::behaviors::ServiceClientBehaviorBase<moveit_studio_training_behaviors::GetDetectionsService>;
 ```
+
+This finished Behavior is available for reference at [get_apriltag_detection_pose.cpp](../src/moveit_studio_training_behaviors/src/get_apriltag_detection_pose.cpp).
