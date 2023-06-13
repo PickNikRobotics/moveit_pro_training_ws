@@ -49,9 +49,11 @@ Add this at the end of the file just before the `return LaunchDescription(` port
 
 And finally, add it to the node list in `LaunchDescription`:
 
-```python3
-            camera_transforms_node,
-            apriltag_server_node, # new code
+```python
+    return LaunchDescription(
+        [
+            # original launch descriptions
+            apriltag_server_node,  # new code
         ]
     )
 ```
@@ -172,9 +174,11 @@ And finally, we add these nodes to our `Launch Description` so they are actually
 ```python
     return LaunchDescription
         [
+            # original launch descriptions
             scene_image_rgb_gazebo_bridge,
             scene_image_depth_gazebo_bridge,
             scene_camera_info_gazebo_bridge,
+        ]
 ```
 
 - description/ur5e_gazebo.xacro
