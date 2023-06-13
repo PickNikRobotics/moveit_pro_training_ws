@@ -48,9 +48,6 @@ hardware:
   simulated_robot_driver_persist_launch_file:
     package: "ur_base_config"
     path: "launch/sim/robot_drivers_to_persist_sim.launch.py"
-  simulated_hardware_launch_file:
-    package: "ur_base_config"
-    path: "launch/hardware.launch.py"
 
   # Configuration details for cameras and scene planning.
   # [Required]

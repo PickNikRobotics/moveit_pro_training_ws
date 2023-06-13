@@ -20,7 +20,7 @@ git clone https://github.com/PickNikRobotics/moveit_studio_training_ws.git
 Now we will configure MoveIt Studio to use this as a User Workspace:
 ```bash
 cd ~/moveit_studio
-./moveit_studio configure -c picknik_ur_site_config -w moveit_studio_training_ws
+./moveit_studio configure -c ur_site_config -w ~/moveit_studio/moveit_studio_training_ws
 ```
 This command sets the default MoveIt Studio Configuration to the `picknik_ur_site_config`, and the User Workspace as this tutorial workspace. 
 The purpose of using this tutorial as the workspace is to enable writing and executing custom written code against MoveIt Studio.
