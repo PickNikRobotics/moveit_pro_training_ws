@@ -3,7 +3,7 @@
 ### Building a Pick and Place Objective using Waypoints
 One way to create a simple pick and place Objective is by saving a set of Waypoints that the robot can move between.
 
-For example, we could create an Objective usinf the following hard-coded poses:
+For example, we could create an Objective using the following hard-coded poses:
 
 1. Open the gripper
 2. Move to approach pose
