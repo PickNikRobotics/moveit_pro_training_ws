@@ -23,5 +23,3 @@ You will also need to add:
   - the Behavior to [register_behaviors.cpp](../src/moveit_studio_training_behaviors/src/register_behaviors.cpp).
 
 These Behaviors and Objectives are also available in MoveIt Studio under `Behaviors` (in the `Objective Editor`) and `Objectives`.
-
-
