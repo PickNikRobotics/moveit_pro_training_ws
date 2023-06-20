@@ -44,7 +44,7 @@ geometry_msgs::msg::PoseStamped createTestPose()
   return test_pose;
 }
 
-/** @brief Tests that an input pose is transformed with valid input. */
+/** @brief Tests that an input pose is offset with valid input. */
 TEST(BehaviorTests, test_offset_pose_valid_input)
 {
   // Initialize the blackboard and parameters.
@@ -79,7 +79,7 @@ TEST(BehaviorTests, test_offset_pose_valid_input)
   EXPECT_NEAR(transformed_pose.pose.orientation.w, 0.0, tol);
 }
 
-/** @brief Tests that an input pose fails to be transformed with invalid input. */
+/** @brief Tests that an input pose fails to be offset with invalid input. */
 TEST(BehaviorTests, test_offset_pose_invalid_input)
 {
   // Initialize the blackboard and parameters.
