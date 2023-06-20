@@ -19,10 +19,10 @@ namespace moveit_studio_training_behaviors
  * | quaternion_xyzw | input     | std::vector<double>             |
  * | output_pose     | output    | geometry_msgs::msg::PoseStamped |
  */
-class TransformPose : public BT::SyncActionNode
+class OffsetPose : public BT::SyncActionNode
 {
 public:
-  TransformPose(const std::string& name, const BT::NodeConfiguration& config);
+  OffsetPose(const std::string& name, const BT::NodeConfiguration& config);
 
   static BT::PortsList providedPorts();
 

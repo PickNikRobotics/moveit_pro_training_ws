@@ -24,7 +24,7 @@
             <input_port name="grasp_pose" default="{grasp_pose}">Target grasp pose for the end effector.</input_port>
             <inout_port name="task" default="{mtc_task}">MoveIt Task Constructor task.</inout_port>
         </Action>
-        <Action ID="TransformPose">
+        <Action ID="OffsetPose">
             <description>
                 <p>
                     Transforms a pose by specified translation and orientation values.

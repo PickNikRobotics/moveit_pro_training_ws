@@ -1,4 +1,5 @@
 # Creating Motion Planning Behaviors with MoveIt Task Constructor
+
 MoveIt Task Constructor (MTC) is an advanced tool that uses MoveIt to plan over complex tasks consisting of multiple stages.
 Many application-focused Objectives included in MoveIt Studio, such as pick and place and door opening are implemented using MTC.
 
@@ -13,7 +14,14 @@ Our pick and place MTC Behavior should:
   - Retreat from object pose
 
 This finished Behavior is available for reference at [setup_mtc_pick_from_pose.cpp](../src/moveit_studio_training_behaviors/src/setup_mtc_pick_from_pose.cpp).
+Header file available at [setup_mtc_pick_from_pose.hpp](../src/moveit_studio_training_behaviors/include/moveit_studio_training_behaviors/setup_mtc_pick_from_pose.hpp).
 
 Finished Objectives that use this Behavior are also available for reference at [solution_pick_apriltag_annotated_object.xml](../src/ur_base_config/objectives/solution_pick_apriltag_annotated_object.xml) and [solution_pick_apriltag_annotated_object_subtree.xml](../src/ur_base_config/objectives/solution_pick_apriltag_annotated_object_subtree.xml) (for the Subtree version).
 
+You will also need to add:
+  - the Behavior definition to the [tree_nodes_model.xml](../src/moveit_studio_training_behaviors/config/tree_nodes_model.xml).
+  - the Behavior to [register_behaviors.cpp](../src/moveit_studio_training_behaviors/src/register_behaviors.cpp).
+
 These Behaviors and Objectives are also available in MoveIt Studio under `Behaviors` (in the `Objective Editor`) and `Objectives`.
+
+

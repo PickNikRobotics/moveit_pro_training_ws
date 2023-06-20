@@ -1,14 +1,14 @@
 # Creating Custom Behaviors
 
 ### Creating a Basic Behavior
-In this example, we will create a Behavior that accepts a pose and transforms it based on some inputs.
+In this example, we will create a Behavior that accepts a pose and offsets its position based on some inputs.
 
 - In the `Objective Builder` tab, select `+ Behavior` button.
 - Select `SimpleActionNode` as the node type.
 - Next, navigate to the location given and edit the file.
 - Implement `providedPorts()`:
   ```cpp
-  BT::PortsList TransformPose::providedPorts()
+  BT::PortsList OffsetPose::providedPorts()
   {
     // Returns an BT::PortsList containing the input and output ports for this Behavior.
     return {
@@ -23,7 +23,7 @@ In this example, we will create a Behavior that accepts a pose and transforms it
   ```
 - Implement `tick()`:
   ```cpp
-  BT::NodeStatus TransformPose::tick()
+  BT::NodeStatus OffsetPose::tick()
   {        
     // Validate input ports.
     const auto input_pose = getInput<geometry_msgs::msg::PoseStamped>("input_pose");
@@ -78,7 +78,7 @@ In this example, we will create a Behavior that accepts a pose and transforms it
   This includes descriptions of the Behavior and its ports, as well as default port values.
   ```xml
     <TreeNodesModel>
-      <Action ID="TransformPose">
+      <Action ID="OffsetPose">
         <description>
             <p>
                 Transforms a pose by specified translation and orientation values.
@@ -95,7 +95,7 @@ In this example, we will create a Behavior that accepts a pose and transforms it
   ```
   - Next, you can try build your workspace using `./moveit_studio run build_workspace`
 
-This finished Behavior is available for reference at [transform_pose.cpp](../src/moveit_studio_training_behaviors/src/transform_pose.cpp).
+This finished Behavior is available for reference at [offset_pose.cpp](../src/moveit_studio_training_behaviors/src/offset_pose.cpp).
 
 ---
 
@@ -107,7 +107,7 @@ By default, the Behavior package template is set up for Google Test (gtest).
   - Either edit the existing `test_behavior_plugins.cpp` or create a new file in this folder (if so, ensure you add it to your package's `CMakeLists.txt` file).
   - Add a new test as follows:
     ```cpp
-    TEST(BehaviorTests, test_transform_pose_valid_input)
+    TEST(BehaviorTests, test_offset_pose_valid_input)
     {
       // Initialize the blackboard and parameters.
       BT::NodeConfiguration config;
@@ -125,8 +125,8 @@ By default, the Behavior package template is set up for Google Test (gtest).
       config.output_ports.insert(std::make_pair("output_pose", "="));
 
       // Initialize and tick the Behavior. This should succeed.
-      transform_pose::TransformPose transform_pose_behavior("TransformPose", config);
-      ASSERT_EQ(transform_pose_behavior.executeTick(), BT::NodeStatus::SUCCESS);
+      offset_pose::OffsetPose offset_pose_behavior("OffsetPose", config);
+      ASSERT_EQ(offset_pose_behavior.executeTick(), BT::NodeStatus::SUCCESS);
 
       // Check the output data against expected outputs.
       const double tol = 1e-3;
@@ -143,7 +143,7 @@ By default, the Behavior package template is set up for Google Test (gtest).
   ```
 - You can also add another test to check for failure cases:
   ```cpp 
-  TEST(BehaviorTests, test_transform_pose_invalid_input)
+  TEST(BehaviorTests, test_offset_pose_invalid_input)
   {
     // Initialize the blackboard and parameters.
     BT::NodeConfiguration config;
@@ -161,12 +161,12 @@ By default, the Behavior package template is set up for Google Test (gtest).
     config.output_ports.insert(std::make_pair("output_pose", "="));
 
     // Initialize and tick the Behavior. This should fail.
-    transform_pose::TransformPose transform_pose_behavior("TransformPose", config);
-    ASSERT_EQ(transform_pose_behavior.executeTick(), BT::NodeStatus::FAILURE);
+    offset_pose::OffsetPose offset_pose_behavior("OffsetPose", config);
+    ASSERT_EQ(offset_pose_behavior.executeTick(), BT::NodeStatus::FAILURE);
   }
   ```
   - To run your tests, you can run `./moveit_studio test_workspace`.
     - You can also enter into one of the Docker containers by entering, e.g., `docker compose exec -it agent bash` and then running `colcon test` as normal.
-    - For example, a common command may be: `colcon test --packages-select transform_pose --event-handlers console_direct+`.
+    - For example, a common command may be: `colcon test --packages-select offset_pose --event-handlers console_direct+`.
 
 These finished unit tests are available for reference in [this file]](../src/moveit_studio_training_behaviors/test/test_behavior_plugins.cpp).

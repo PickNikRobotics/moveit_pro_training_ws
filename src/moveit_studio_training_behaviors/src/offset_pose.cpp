@@ -1,5 +1,5 @@
 #include <moveit_studio_behavior_interface/check_for_error.hpp>
-#include <moveit_studio_training_behaviors/transform_pose.hpp>
+#include <moveit_studio_training_behaviors/offset_pose.hpp>
 
 #include <geometry_msgs/msg/pose_stamped.hpp>
 #include <tf2_eigen/tf2_eigen.hpp>
@@ -16,12 +16,12 @@ namespace
 
 namespace moveit_studio_training_behaviors
 {
-  TransformPose::TransformPose(const std::string &name, const BT::NodeConfiguration &config)
+  OffsetPose::OffsetPose(const std::string &name, const BT::NodeConfiguration &config)
       : BT::SyncActionNode(name, config)
   {
   }
 
-  BT::PortsList TransformPose::providedPorts()
+  BT::PortsList OffsetPose::providedPorts()
   {
     // Returns an BT::PortsList containing the input and output ports for this Behavior.
     return {
@@ -34,7 +34,7 @@ namespace moveit_studio_training_behaviors
     };
   }
 
-  BT::NodeStatus TransformPose::tick()
+  BT::NodeStatus OffsetPose::tick()
   {        
     // Validate input ports.
     const auto input_pose = getInput<geometry_msgs::msg::PoseStamped>(kPortIDInputPose);

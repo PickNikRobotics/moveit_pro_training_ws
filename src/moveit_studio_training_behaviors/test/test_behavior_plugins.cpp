@@ -4,7 +4,7 @@
 #include <moveit_studio_behavior_interface/shared_resources_node_loader.hpp>
 #include <pluginlib/class_loader.hpp>
 
-#include <moveit_studio_training_behaviors/transform_pose.hpp>
+#include <moveit_studio_training_behaviors/offset_pose.hpp>
 
 /**
  * @brief This test makes sure that the Behaviors provided in this package can be successfully registered and
@@ -29,10 +29,10 @@ TEST(BehaviorTests, test_load_behavior_plugins)
                               BT::NodeConfiguration());
   factory.instantiateTreeNode("test_behavior_name", "SetupMTCPickFromPose",
                               BT::NodeConfiguration());
-  factory.instantiateTreeNode("test_behavior_name", "TransformPose", BT::NodeConfiguration());
+  factory.instantiateTreeNode("test_behavior_name", "OffsetPose", BT::NodeConfiguration());
 }
 
-/** @brief Creates a test input pose for the TransformPose Behavior. */
+/** @brief Creates a test input pose for the OffsetPose Behavior. */
 geometry_msgs::msg::PoseStamped createTestPose()
 {
   geometry_msgs::msg::PoseStamped test_pose;
@@ -45,7 +45,7 @@ geometry_msgs::msg::PoseStamped createTestPose()
 }
 
 /** @brief Tests that an input pose is transformed with valid input. */
-TEST(BehaviorTests, test_transform_pose_valid_input)
+TEST(BehaviorTests, test_offset_pose_valid_input)
 {
   // Initialize the blackboard and parameters.
   BT::NodeConfiguration config;
@@ -63,8 +63,8 @@ TEST(BehaviorTests, test_transform_pose_valid_input)
   config.output_ports.insert(std::make_pair("output_pose", "="));
 
   // Initialize and tick the Behavior. This should succeed.
-  moveit_studio_training_behaviors::TransformPose transform_pose_behavior("TransformPose", config);
-  ASSERT_EQ(transform_pose_behavior.executeTick(), BT::NodeStatus::SUCCESS);
+  moveit_studio_training_behaviors::OffsetPose offset_pose_behavior("OffsetPose", config);
+  ASSERT_EQ(offset_pose_behavior.executeTick(), BT::NodeStatus::SUCCESS);
 
   // Check the output data against expected outputs.
   const double tol = 1e-3;
@@ -80,7 +80,7 @@ TEST(BehaviorTests, test_transform_pose_valid_input)
 }
 
 /** @brief Tests that an input pose fails to be transformed with invalid input. */
-TEST(BehaviorTests, test_transform_pose_invalid_input)
+TEST(BehaviorTests, test_offset_pose_invalid_input)
 {
   // Initialize the blackboard and parameters.
   BT::NodeConfiguration config;
@@ -98,8 +98,8 @@ TEST(BehaviorTests, test_transform_pose_invalid_input)
   config.output_ports.insert(std::make_pair("output_pose", "="));
 
   // Initialize and tick the Behavior. This should fail.
-  moveit_studio_training_behaviors::TransformPose transform_pose_behavior("TransformPose", config);
-  ASSERT_EQ(transform_pose_behavior.executeTick(), BT::NodeStatus::FAILURE);
+  moveit_studio_training_behaviors::OffsetPose offset_pose_behavior("OffsetPose", config);
+  ASSERT_EQ(offset_pose_behavior.executeTick(), BT::NodeStatus::FAILURE);
 }
 
 int main(int argc, char** argv)
