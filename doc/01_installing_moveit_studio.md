@@ -7,7 +7,7 @@
 curl -sq https://docs.picknik.ai/en/studio-training/install_moveit_studio.py --output installer.py && python3 installer.py
 ```
 Then follow the prompts, including entering your license.
-Detailed documentation for this portion is provided at https://docs.picknik.ai/en/studio-training/getting_started/software_installation/software_installation.html
+Detailed documentation for this portion is provided at https://docs.picknik.ai/en/stable/getting_started/software_installation/software_installation.html
 
 ### Configuration
 
@@ -28,7 +28,7 @@ The purpose of using this tutorial as the workspace is to enable writing and exe
 Next, continue with the installation, following the prompts to select your download location and license key.  
 For the MoveIt Studio version number change from the default number to `studio-training`.  
 Next, continue following the prompts; leaving the default values for the "workspace containing user-defined packages" and the "Site configuration package".  
-Documentation for this portion is here: https://docs.picknik.ai/en/studio-training/getting_started/configuring_moveit_studio/configuring_moveit_studio.html
+Documentation for this portion is here: https://docs.picknik.ai/en/stable/getting_started/configuring_moveit_studio/configuring_moveit_studio.html
 
 ### Running MoveIt Studio
 
