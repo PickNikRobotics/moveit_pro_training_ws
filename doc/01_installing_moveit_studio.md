@@ -43,5 +43,5 @@ Feel free to play around with MoveIt Studio now!
 You can also run the following if you're only interested in building the code in the User Workspace.
 ```bash
 cd ~/moveit_studio
-./moveit_studio build_workspace
+./moveit_studio build
 ``` 
