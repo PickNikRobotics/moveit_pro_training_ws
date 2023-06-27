@@ -1,5 +1,5 @@
 #include <moveit_studio_behavior_interface/check_for_error.hpp>
-#include <moveit_studio_training_behaviors/transform_pose.hpp>
+#include <moveit_studio_training_behaviors/offset_pose.hpp>
 
 #include <geometry_msgs/msg/pose_stamped.hpp>
 #include <tf2_eigen/tf2_eigen.hpp>
@@ -12,30 +12,30 @@ namespace
   constexpr auto kPortIDTranslationZ = "translation_z";
   constexpr auto kPortIDQuaternionXYZW = "quaternion_xyzw";
   constexpr auto kPortIDOutputPose = "output_pose";
-}  // namespace
+} // namespace
 
 namespace moveit_studio_training_behaviors
 {
-  TransformPose::TransformPose(const std::string &name, const BT::NodeConfiguration &config)
+  OffsetPose::OffsetPose(const std::string &name, const BT::NodeConfiguration &config)
       : BT::SyncActionNode(name, config)
   {
   }
 
-  BT::PortsList TransformPose::providedPorts()
+  BT::PortsList OffsetPose::providedPorts()
   {
     // Returns an BT::PortsList containing the input and output ports for this Behavior.
     return {
-      BT::InputPort<geometry_msgs::msg::PoseStamped>(kPortIDInputPose),
-      BT::InputPort<double>(kPortIDTranslationX),
-      BT::InputPort<double>(kPortIDTranslationY),
-      BT::InputPort<double>(kPortIDTranslationZ),
-      BT::InputPort<std::vector<double>>(kPortIDQuaternionXYZW),
-      BT::OutputPort<geometry_msgs::msg::PoseStamped>(kPortIDOutputPose),
+        BT::InputPort<geometry_msgs::msg::PoseStamped>(kPortIDInputPose),
+        BT::InputPort<double>(kPortIDTranslationX),
+        BT::InputPort<double>(kPortIDTranslationY),
+        BT::InputPort<double>(kPortIDTranslationZ),
+        BT::InputPort<std::vector<double>>(kPortIDQuaternionXYZW),
+        BT::OutputPort<geometry_msgs::msg::PoseStamped>(kPortIDOutputPose),
     };
   }
 
-  BT::NodeStatus TransformPose::tick()
-  {        
+  BT::NodeStatus OffsetPose::tick()
+  {
     // Validate input ports.
     const auto input_pose = getInput<geometry_msgs::msg::PoseStamped>(kPortIDInputPose);
     const auto translation_x = getInput<double>(kPortIDTranslationX);
@@ -72,9 +72,10 @@ namespace moveit_studio_training_behaviors
     geometry_msgs::msg::PoseStamped output_pose;
     output_pose.header.frame_id = input_pose.value().header.frame_id;
     output_pose.pose = tf2::toMsg(output_pose_eigen);
-  
+
     // Print the transformed pose for debugging purposes.
-    std::cout << "Transformed pose" << "\n";
+    std::cout << "Transformed pose"
+              << "\n";
     std::cout << "  Frame ID: " << output_pose.header.frame_id << "\n";
     std::cout << "  Translation: " << output_pose_eigen.translation().x() << " " << output_pose_eigen.translation().y() << " " << output_pose_eigen.translation().z() << "\n";
     Eigen::Quaterniond q_out(output_pose_eigen.linear());
