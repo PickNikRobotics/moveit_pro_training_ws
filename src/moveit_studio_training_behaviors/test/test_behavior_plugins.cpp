@@ -63,8 +63,8 @@ TEST(BehaviorTests, test_offset_pose_valid_input)
   config.output_ports.insert(std::make_pair("output_pose", "="));
 
   // Initialize and tick the Behavior. This should succeed.
-  moveit_studio_training_behaviors::OffsetPose transform_pose_behavior("OffsetPose", config);
-  ASSERT_EQ(transform_pose_behavior.executeTick(), BT::NodeStatus::SUCCESS);
+  moveit_studio_training_behaviors::OffsetPose offset_pose_behavior("OffsetPose", config);
+  ASSERT_EQ(offset_pose_behavior.executeTick(), BT::NodeStatus::SUCCESS);
 
   // Check the output data against expected outputs.
   const double tol = 1e-3;
@@ -98,8 +98,8 @@ TEST(BehaviorTests, test_offset_pose_invalid_input)
   config.output_ports.insert(std::make_pair("output_pose", "="));
 
   // Initialize and tick the Behavior. This should fail.
-  moveit_studio_training_behaviors::OffsetPose transform_pose_behavior("OffsetPose", config);
-  ASSERT_EQ(transform_pose_behavior.executeTick(), BT::NodeStatus::FAILURE);
+  moveit_studio_training_behaviors::OffsetPose offset_pose_behavior("OffsetPose", config);
+  ASSERT_EQ(offset_pose_behavior.executeTick(), BT::NodeStatus::FAILURE);
 }
 
 int main(int argc, char **argv)
