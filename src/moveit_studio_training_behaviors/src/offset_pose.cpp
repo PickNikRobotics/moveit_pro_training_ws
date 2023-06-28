@@ -23,7 +23,7 @@ namespace moveit_studio_training_behaviors
 
   BT::PortsList OffsetPose::providedPorts()
   {
-    // Returns an BT::PortsList containing the input and output ports for this Behavior.
+    // Returns a BT::PortsList containing the input and output ports for this Behavior.
     return {
         BT::InputPort<geometry_msgs::msg::PoseStamped>(kPortIDInputPose),
         BT::InputPort<double>(kPortIDTranslationX),

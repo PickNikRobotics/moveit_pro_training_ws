@@ -49,8 +49,8 @@ For now, we can use a test pose that we
   - Make a new Objective.
   - Add a "Create Stamped Pose" Behavior and set the following parameters:
     - `reference_frame` : `world`
-    - `position_xyz` : `0.5;-0.3;0.15`
-    - `quaternion_xyzw` : `0.707;0.707;0.0;0.0`
+    - `position_xyz` : `-0.6;-0.3;0.15`
+    - `quaternion_xyzw` : `-0.707;0.707;0.0;0.0`
     - Set the output port `stamped_pose` : `{approach_pose}`
   - Add a "Move to Pose" Behavior and set the following parameters:
     - `target_pose` : `{approach_pose}`

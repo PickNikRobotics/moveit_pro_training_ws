@@ -7,16 +7,45 @@ These include:
 * `AsyncBehaviorBase`: Allow ticking a Behavior instead of blocking while waiting for long-running processes.
 * `GetMessageFromTopic` / `ServiceClientBehaviorBase` / `ActionClientBehaviorBase`: For common ROS 2 interoperability tasks.
 
+You can find information about these nodes in the [API documentation](https://docs.picknik.ai/en/stable/doxygen/moveit_studio_behavior_interface/html/annotated.html).
+
+## Implementing our AprilTag Detection Behavior
+
 Since our AprilTag node is a ROS 2 service server, we can write a Behavior that calls it using a `ServiceClientBehaviorBase` node.
-These packages can't be created automatically, but you can use the structure from the [Custom Behaviors section](./04_custom_behaviors.md).
+Packages that use this node type can't yet be created automatically, but you can use the structure from the [Custom Behaviors section](./04_custom_behaviors.md).
 For this example, we're using a different namespace named `moveit_studio_training_behaviors`, but you can use your own as needed.
 
-The service is of type `apriltag_ros_msgs::srv::GetAprilTagDetections`, sp we must ensure to do the following:
+The service is of type `apriltag_ros_msgs::srv::GetAprilTagDetections`, so we must ensure to do the following:
 
-- Ensure the `package.xml` and `CMakeLists.txt` files depend on the `apriltag_ros_msgs` package (and any other ROS packages needed).
-- Include the service definition headers:
+- Ensure the `package.xml` file depends on the following packages.
+  ```xml
+  <depend>apriltag_ros_msgs</depend>
+  <depend>geometry_msgs</depend>
+  <depend>sensor_msgs</depend>
+  ```
+- Ensure the `CMakeLists.txt` file also builds the Behavior library by linking against these packages.
+  ```cmake
+  find_package(apriltag_ros_msgs REQUIRED)
+  find_package(geometry_msgs REQUIRED)
+  find_package(moveit_studio_behavior_interface REQUIRED)
+  find_package(pluginlib REQUIRED)
+  find_package(sensor_msgs REQUIRED)
+
+  set(
+    THIS_PACKAGE_INCLUDE_DEPENDS
+    apriltag_ros_msgs
+    geometry_msgs
+    moveit_studio_behavior_interface
+    pluginlib
+    sensor_msgs
+  )
+  ```
+- Include the service and message definition headers in the Behavior header file:
   ```cpp
   #include <apriltag_ros_msgs/srv/get_april_tag_detections.hpp>
+  #include <geometry_msgs/msg/pose_stamped.hpp>
+  #include <sensor_msgs/msg/camera_info.hpp>
+  #include <sensor_msgs/msg/image.hpp>
   ```
 - Define a class that inherits from `ServiceClientBehaviorBase` for our required service type.
   ```cpp
