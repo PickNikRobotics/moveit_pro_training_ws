@@ -36,11 +36,7 @@ from launch import LaunchDescription
 from launch.actions import IncludeLaunchDescription, OpaqueFunction
 from launch_ros.actions import Node
 
-from moveit_studio_utils_py.launch_common import (
-    get_launch_file,
-    get_ros_path,
-    xacro_to_urdf,
-)
+from moveit_studio_utils_py.launch_common import get_launch_file, get_ros_path
 from moveit_studio_utils_py.system_config import get_config_folder, SystemConfigParser
 
 
@@ -66,7 +62,8 @@ def generate_simulation_description(context, *args, **settings):
     original_world_file = os.path.join(
         get_package_share_directory("ur_gazebo_config"),
         "description",
-        "space_station_apriltag_world.sdf",
+        "simulation_worlds",
+        "space_station_blocks_world.sdf",
     )
     modified_world_file = os.path.join(
         get_config_folder(), "auto_created", "gazebo_world.sdf"
@@ -252,30 +249,6 @@ def generate_launch_description():
         output="both",
     )
 
-    #####################
-    # Environment Scene #
-    #####################
-    scene_xacro_path = get_ros_path(
-        "ur_gazebo_config", "description/simulation_scene.urdf.xacro"
-    )
-    scene_urdf = xacro_to_urdf(scene_xacro_path, None)
-    scene_urdf_gazebo = replace_package_directives_with_full_path(scene_urdf)
-
-    spawn_scene = Node(
-        package="ros_gz_sim",
-        executable="create",
-        output="both",
-        arguments=[
-            "-string",
-            scene_urdf_gazebo,
-            "-name",
-            "cabinet",
-            "-allow_renaming",
-            "true",
-        ]
-        + init_pose_args,
-    )
-
     # AprilTag detection node
     apriltag_server_node = Node(
         package="apriltag_ros_python",
@@ -302,7 +275,6 @@ def generate_launch_description():
             fts_bridge,
             gazebo,
             spawn_robot,
-            spawn_scene,
             apriltag_server_node,
         ]
     )

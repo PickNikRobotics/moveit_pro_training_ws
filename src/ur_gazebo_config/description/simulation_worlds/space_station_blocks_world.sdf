@@ -194,7 +194,7 @@
 
     <!-- Pickable boxes -->
     <model name="box_red">
-      <pose>0.5 -0.3 1.1 0 0 0</pose>
+      <pose>-0.6 -0.3 1.1 0 0 0</pose>
       <link name="box_link">
         <inertial>
           <inertia>
@@ -249,7 +249,7 @@
     </model>
 
     <model name="box_green">
-      <pose>0.5 0.0 1.1 0 0 0</pose>
+      <pose>-0.6 0.0 1.1 0 0 0</pose>
       <link name="box_link">
         <inertial>
           <inertia>
@@ -304,7 +304,7 @@
     </model>
 
     <model name="box_blue">
-      <pose>0.5 0.3 1.1 0 0 0</pose>
+      <pose>-0.6 0.3 1.1 0 0 0</pose>
       <link name="box_link">
         <inertial>
           <inertia>
@@ -360,13 +360,13 @@
 
     <!-- AprilTags -->
     <model name="apriltag_01">
-      <pose>0.4 -0.3 1.03 0 0 0</pose>
+      <pose>-0.5 -0.3 1.03 0 0 0</pose>
       <link name="apriltag">
         <visual name="apriltag_visual">
           <geometry>
             <mesh>
               <scale>1 1 1</scale>
-              <uri>package://ur_gazebo_config/description/apriltags/tag36_11_00001.dae</uri>
+              <uri>package://picknik_ur_gazebo_config/description/apriltags/tag36_11_00001.dae</uri>
             </mesh>
           </geometry>
         </visual>
@@ -386,13 +386,13 @@
     </model>
 
     <model name="apriltag_02">
-      <pose>0.4 0.0 1.03 0 0 0</pose>
+      <pose>-0.5 0.0 1.03 0 0 0</pose>
       <link name="apriltag">
         <visual name="apriltag_visual">
           <geometry>
             <mesh>
               <scale>1 1 1</scale>
-              <uri>package://ur_gazebo_config/description/apriltags/tag36_11_00002.dae</uri>
+              <uri>package://picknik_ur_gazebo_config/description/apriltags/tag36_11_00002.dae</uri>
             </mesh>
           </geometry>
         </visual>
@@ -412,13 +412,13 @@
     </model>
 
     <model name="apriltag_03">
-      <pose>0.4 0.3 1.03 0 0 0</pose>
+      <pose>-0.5 0.3 1.03 0 0 0</pose>
       <link name="apriltag">
         <visual name="apriltag_visual">
           <geometry>
             <mesh>
               <scale>1 1 1</scale>
-              <uri>package://ur_gazebo_config/description/apriltags/tag36_11_00003.dae</uri>
+              <uri>package://picknik_ur_gazebo_config/description/apriltags/tag36_11_00003.dae</uri>
             </mesh>
           </geometry>
         </visual>

@@ -27,7 +27,7 @@
         <Action ID="OffsetPose">
             <description>
                 <p>
-                    Transforms a pose by specified translation and orientation values.
+                    Offsets a pose by specified translation and orientation values.
                 </p>
             </description>
             <input_port name="input_pose" default="{input_pose}">The input pose to transform.</input_port>

@@ -17,11 +17,11 @@ namespace
 
 namespace moveit_studio_training_behaviors
 {
-  GetAprilTagDetectionPose::GetAprilTagDetectionPose(const std::string &name, const BT::NodeConfiguration &config,
-                                                     const std::shared_ptr<moveit_studio::behaviors::BehaviorContext> &shared_resources)
-      : moveit_studio::behaviors::ServiceClientBehaviorBase<GetDetectionsService>(name, config, shared_resources)
-  {
-  }
+GetAprilTagDetectionPose::GetAprilTagDetectionPose(const std::string &name, const BT::NodeConfiguration &config,
+                                                   const std::shared_ptr<moveit_studio::behaviors::BehaviorContext> &shared_resources)
+    : moveit_studio::behaviors::ServiceClientBehaviorBase<GetDetectionsService>(name, config, shared_resources)
+{
+}
 
 BT::PortsList GetAprilTagDetectionPose::providedPorts()
 {

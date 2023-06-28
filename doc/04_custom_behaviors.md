@@ -81,7 +81,7 @@ In this example, we will create a Behavior that accepts a pose and offsets its p
       <Action ID="OffsetPose">
         <description>
             <p>
-                Transforms a pose by specified translation and orientation values.
+                Offsets a pose by specified translation and orientation values.
             </p>
         </description>
         <input_port name="input_pose" default="{input_pose}">The input pose to transform.</input_port>
@@ -93,7 +93,7 @@ In this example, we will create a Behavior that accepts a pose and offsets its p
       </Action>
     </TreeNodesModel>
   ```
-  - Next, you can try build your workspace using `./moveit_studio run build_workspace`
+  - Next, you can try build your workspace using `./moveit_studio build`
 
 This finished Behavior is available for reference at [offset_pose.cpp](../src/moveit_studio_training_behaviors/src/offset_pose.cpp).
 

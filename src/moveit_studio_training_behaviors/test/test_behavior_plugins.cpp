@@ -102,7 +102,7 @@ TEST(BehaviorTests, test_offset_pose_invalid_input)
   ASSERT_EQ(offset_pose_behavior.executeTick(), BT::NodeStatus::FAILURE);
 }
 
-int main(int argc, char** argv)
+int main(int argc, char **argv)
 {
   rclcpp::init(argc, argv);
 

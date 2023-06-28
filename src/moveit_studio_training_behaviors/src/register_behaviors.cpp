@@ -10,20 +10,20 @@
 
 namespace moveit_studio_training_behaviors
 {
-class MoveItStudioTrainingBehaviorsLoader : public moveit_studio::behaviors::SharedResourcesNodeLoaderBase
-{
-public:
-  void registerBehaviors(BT::BehaviorTreeFactory &factory,
-                         const std::shared_ptr<moveit_studio::behaviors::BehaviorContext> &shared_resources) override
+  class MoveItStudioTrainingBehaviorsLoader : public moveit_studio::behaviors::SharedResourcesNodeLoaderBase
   {
-    using namespace moveit_studio::behaviors;
+  public:
+    void registerBehaviors(BT::BehaviorTreeFactory &factory,
+                           const std::shared_ptr<moveit_studio::behaviors::BehaviorContext> &shared_resources) override
+    {
+      using namespace moveit_studio::behaviors;
 
-    registerBehavior<GetAprilTagDetectionPose>(factory, "GetAprilTagDetectionPose", shared_resources);
-    registerBehavior<SetupMTCPickFromPose>(factory, "SetupMTCPickFromPose", shared_resources);
-    registerBehavior<OffsetPose>(factory, "OffsetPose");
-  }
-};
-}  // namespace moveit_studio_training_behaviors
+      registerBehavior<GetAprilTagDetectionPose>(factory, "GetAprilTagDetectionPose", shared_resources);
+      registerBehavior<SetupMTCPickFromPose>(factory, "SetupMTCPickFromPose", shared_resources);
+      registerBehavior<OffsetPose>(factory, "OffsetPose");
+    }
+  };
+} // namespace moveit_studio_training_behaviors
 
 PLUGINLIB_EXPORT_CLASS(moveit_studio_training_behaviors::MoveItStudioTrainingBehaviorsLoader,
                        moveit_studio::behaviors::SharedResourcesNodeLoaderBase);
