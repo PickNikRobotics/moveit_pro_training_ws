@@ -6,7 +6,7 @@
 namespace moveit_studio_training_behaviors
 {
 /**
- * @brief Transforms an input pose (in geometry_msgs::msg::PoseStamped format)
+ * @brief Offsets an input pose (in geometry_msgs::msg::PoseStamped format)
  * by a transform (translation and orientation), keeping the same reference frame ID.
  *
  * @details
