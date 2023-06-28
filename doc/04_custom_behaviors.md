@@ -1,7 +1,7 @@
 # Creating Custom Behaviors
 
 ### Creating a Basic Behavior
-In this example, we will create a Behavior that accepts a pose and transforms it based on some inputs.
+In this example, we will create a Behavior that accepts a pose and offsets its position based on some inputs.
 
 - In the `Objective Builder` tab, select `+ Behavior` button.
 - Select `SimpleActionNode` as the node type.
