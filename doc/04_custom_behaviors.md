@@ -4,8 +4,12 @@
 In this example, we will create a Behavior that accepts a pose and offsets its position based on some inputs.
 
 - In the `Objective Builder` tab, select `+ Behavior` button.
-- Select `SyncActionNode` as the node type.
-- Next, navigate to the location given and edit the file.
+- Name the package `offset_pose` and select `SyncActionNode` as the node type.
+- Navigate to your user workspace and notice the `offset_pose` package created in the `src` folder.
+  This creates a Behavior class named `OffsetPose`.
+  The header file for your Behaviors should be located `offset_pose/include/offset_pose/offset_pose.hpp`,
+  and the corresponding source file should be at `offset_pose/src/offset_pose.cpp`.
+- Go to the source file and start implementing the necessary methods.
 - Implement `providedPorts()`:
   ```cpp
   BT::PortsList OffsetPose::providedPorts()
@@ -100,7 +104,7 @@ In this example, we will create a Behavior that accepts a pose and offsets its p
   ```
   - Next, you can try build your workspace using `./moveit_studio build`
 
-This finished Behavior is available for reference at [offset_pose.cpp](../src/moveit_studio_training_behaviors/src/offset_pose.cpp).
+This finished Behavior is available for reference at [offset_pose.cpp](../src/solution_offset_pose/src/offset_pose.cpp).
 
 ---
 
@@ -198,4 +202,4 @@ By default, the Behavior package template is set up for Google Test (gtest).
     - You can also enter into one of the Docker containers by entering, e.g., `docker compose exec -it agent bash` and then running `colcon test` from the user workspace directory at `/opt/moveit_studio/user_ws`.
     - For example, a common command may be: `colcon test --packages-select offset_pose --event-handlers console_direct+`.
 
-These finished unit tests are available for reference in [this file](../src/moveit_studio_training_behaviors/test/test_behavior_plugins.cpp).
+These finished unit tests are available for reference in [this file](../src/solution_offset_pose/test/test_behavior_plugins.cpp).

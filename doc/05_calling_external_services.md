@@ -13,7 +13,8 @@ You can find information about these nodes in the [API documentation](https://do
 
 Since our AprilTag node is a ROS 2 service server, we can write a Behavior that calls it using a `ServiceClientBehaviorBase` node.
 Packages that use this node type can't yet be created automatically, but you can use the structure from the [Custom Behaviors section](./04_custom_behaviors.md).
-For this example, we're using a different namespace named `moveit_studio_training_behaviors`, but you can use your own as needed.
+
+For this example, we're creating a package named `get_apriltag_detection_pose`.
 
 The service is of type `apriltag_ros_msgs::srv::GetAprilTagDetections`, so we must ensure to do the following:
 
@@ -47,16 +48,16 @@ The service is of type `apriltag_ros_msgs::srv::GetAprilTagDetections`, so we mu
   ```
 - Define a class that inherits from `ServiceClientBehaviorBase` for our required service type.
   ```cpp
-  namespace moveit_studio_training_behaviors
+  namespace get_apriltag_detection_pose
   {
 
   using GetDetectionsService = apriltag_ros_msgs::srv::GetAprilTagDetections;
 
-  class GetAprilTagDetectionPose : public moveit_studio::behaviors::ServiceClientBehaviorBase<GetDetectionsService>
+  class GetApriltagDetectionPose : public moveit_studio::behaviors::ServiceClientBehaviorBase<GetDetectionsService>
   {
   public:
   /** @brief Constructor for the get_apriltag_detections behavior. */
-  GetAprilTagDetectionPose(const std::string &name, const BT::NodeConfiguration &config, const std::shared_ptr<moveit_studio::behaviors::BehaviorContext> &shared_resources);
+  GetApriltagDetectionPose(const std::string &name, const BT::NodeConfiguration &config, const std::shared_ptr<moveit_studio::behaviors::BehaviorContext> &shared_resources);
 
   /** @brief Implementation of the required providedPorts() function for this Behavior. */
   static BT::PortsList providedPorts();
@@ -89,14 +90,14 @@ The service is of type `apriltag_ros_msgs::srv::GetAprilTagDetections`, so we mu
   /** @brief The target AprilTag ID to look for. */
   int target_id_;
   };
-  }  // namespace moveit_studio_training_behaviors
+  }  // namespace get_apriltag_detection_pose
   ```
 
 This then involves implementing the override methods:
 
 - Implement `providedPorts()`:
   ```cpp
-  BT::PortsList GetAprilTagDetectionPose::providedPorts()
+  BT::PortsList GetApriltagDetectionPose::providedPorts()
   {
     return {
       BT::InputPort<int>("apriltag_id"),
@@ -109,13 +110,13 @@ This then involves implementing the override methods:
   ```
 - Implement `getServiceName()`:
   ```cpp
-  fp::Result<std::string> GetAprilTagDetectionPose::getServiceName() {
+  fp::Result<std::string> GetApriltagDetectionPose::getServiceName() {
     return "/detect_apriltags";
   }
   ```
 - Implement `createRequest()`:
   ```cpp
-  fp::Result<GetDetectionsService::Request> GetAprilTagDetectionPose::createRequest()
+  fp::Result<GetDetectionsService::Request> GetApriltagDetectionPose::createRequest()
   {
     // Check that all required input data ports were set.
     const auto apriltag_id = getInput<int>("apriltag_id");
@@ -138,7 +139,7 @@ This then involves implementing the override methods:
   ```
 - Implement `processResponse()`:
   ```cpp
-  fp::Result<bool> GetAprilTagDetectionPose::processResponse(const GetDetectionsService::Response &response)
+  fp::Result<bool> GetApriltagDetectionPose::processResponse(const GetDetectionsService::Response &response)
   {
     // Filter by detection ID. Simply get the first instance of a particular ID, if one is found.
     for (const auto& detection : response.detections)
@@ -159,7 +160,7 @@ This then involves implementing the override methods:
 Lastly, ensure this line is at the bottom of your `.cpp` file:
 
 ```cpp
-template class moveit_studio::behaviors::ServiceClientBehaviorBase<moveit_studio_training_behaviors::GetDetectionsService>;
+template class moveit_studio::behaviors::ServiceClientBehaviorBase<get_apriltag_detection_pose::GetDetectionsService>;
 ```
 
-This finished Behavior is available for reference at [get_apriltag_detection_pose.cpp](../src/moveit_studio_training_behaviors/src/get_apriltag_detection_pose.cpp).
+This finished Behavior is available for reference at [get_apriltag_detection_pose.cpp](../src/solution_get_apriltag_detection_pose/src/get_apriltag_detection_pose.cpp).
