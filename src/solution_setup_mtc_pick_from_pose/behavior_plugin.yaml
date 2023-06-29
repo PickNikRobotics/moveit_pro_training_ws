@@ -1,0 +1,4 @@
+objectives:
+  behavior_loader_plugins:
+    setup_mtc_pick_from_pose:
+      - "setup_mtc_pick_from_pose::SetupMtcPickFromPoseBehaviorsLoader"

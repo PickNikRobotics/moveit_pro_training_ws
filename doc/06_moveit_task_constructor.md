@@ -13,13 +13,13 @@ Our pick and place MTC Behavior should:
   - Close the gripper around object
   - Retreat from object pose
 
-This finished Behavior is available for reference at [setup_mtc_pick_from_pose.cpp](../src/moveit_studio_training_behaviors/src/setup_mtc_pick_from_pose.cpp).
-Header file available at [setup_mtc_pick_from_pose.hpp](../src/moveit_studio_training_behaviors/include/moveit_studio_training_behaviors/setup_mtc_pick_from_pose.hpp).
+This finished Behavior is available for reference at [setup_mtc_pick_from_pose.cpp](../src/solution_setup_mtc_pick_from_pose/src/setup_mtc_pick_from_pose.cpp).
+Header file available at [setup_mtc_pick_from_pose.hpp](../src/solution_setup_mtc_pick_from_pose/include/setup_mtc_pick_from_pose/setup_mtc_pick_from_pose.hpp).
 
 Finished Objectives that use this Behavior are also available for reference at [solution_pick_apriltag_annotated_object.xml](../src/ur_base_config/objectives/solution_pick_apriltag_annotated_object.xml) and [solution_pick_apriltag_annotated_object_subtree.xml](../src/ur_base_config/objectives/solution_pick_apriltag_annotated_object_subtree.xml) (for the Subtree version).
 
 You will also need to add:
-  - the Behavior definition to the [tree_nodes_model.xml](../src/moveit_studio_training_behaviors/config/tree_nodes_model.xml).
-  - the Behavior to [register_behaviors.cpp](../src/moveit_studio_training_behaviors/src/register_behaviors.cpp).
+  - the Behavior definition to the [tree_nodes_model.xml](../src/solution_setup_mtc_pick_from_pose/config/tree_nodes_model.xml).
+  - the Behavior to [register_behaviors.cpp](../src/solution_setup_mtc_pick_from_pose/src/register_behaviors.cpp).
 
 These Behaviors and Objectives are also available in MoveIt Studio under `Behaviors` (in the `Objective Editor`) and `Objectives`.

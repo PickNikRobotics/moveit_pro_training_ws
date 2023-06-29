@@ -1,4 +1,4 @@
-SetupMTCPickFromPose:
+SetupMtcPickFromPose:
   # The lift vector points to the direction of the positive z-axis of the frame specified in "world_frame_name".
   world_frame_name: "world"
   # Name of the SRDF planning group for the arm.

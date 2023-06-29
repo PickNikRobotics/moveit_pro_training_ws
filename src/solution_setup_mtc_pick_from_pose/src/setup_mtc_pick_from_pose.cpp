@@ -1,4 +1,4 @@
-#include <moveit_studio_training_behaviors/setup_mtc_pick_from_pose.hpp>
+#include <setup_mtc_pick_from_pose/setup_mtc_pick_from_pose.hpp>
 
 #include <behaviortree_cpp/bt_factory.h>
 #include <moveit/task_constructor/stages.h>
@@ -38,15 +38,15 @@ constexpr int kMaxIKSolutions = 20;
 constexpr auto kSceneObjectNameOctomap = "<octomap>";
 }  // namespace
 
-namespace moveit_studio_training_behaviors
+namespace setup_mtc_pick_from_pose
 {
-SetupMTCPickFromPose::SetupMTCPickFromPose(const std::string &name, const BT::NodeConfiguration &config,
+SetupMtcPickFromPose::SetupMtcPickFromPose(const std::string &name, const BT::NodeConfiguration &config,
                                            const std::shared_ptr<moveit_studio::behaviors::BehaviorContext> &shared_resources)
     : moveit_studio::behaviors::SharedResourcesNode<BT::SyncActionNode>(name, config, shared_resources)
 {
 }
 
-BT::PortsList SetupMTCPickFromPose::providedPorts()
+BT::PortsList SetupMtcPickFromPose::providedPorts()
 {
   return {
     BT::BidirectionalPort<moveit::task_constructor::TaskPtr>(kPortIDTask),
@@ -55,7 +55,7 @@ BT::PortsList SetupMTCPickFromPose::providedPorts()
   };
 }
 
-BT::NodeStatus SetupMTCPickFromPose::tick()
+BT::NodeStatus SetupMtcPickFromPose::tick()
 {
   using namespace moveit_studio::behaviors;
 
@@ -278,4 +278,4 @@ BT::NodeStatus SetupMTCPickFromPose::tick()
 
   return BT::NodeStatus::SUCCESS;
 }
-}  // namespace moveit_studio::behaviors
+}  // namespace setup_mtc_pick_from_pose

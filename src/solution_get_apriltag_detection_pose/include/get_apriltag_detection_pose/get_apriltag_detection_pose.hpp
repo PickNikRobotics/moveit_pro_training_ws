@@ -5,7 +5,7 @@
 
 #include <apriltag_ros_msgs/srv/get_april_tag_detections.hpp>
 
-namespace moveit_studio_training_behaviors
+namespace get_apriltag_detection_pose
 {
 
 using GetDetectionsService = apriltag_ros_msgs::srv::GetAprilTagDetections;
@@ -23,11 +23,11 @@ using GetDetectionsService = apriltag_ros_msgs::srv::GetAprilTagDetections;
  * | image          | input     | sensor_msgs::msg::Image         |
  * | detection_pose | output    | geometry_msgs::msg::PoseStamped |
  */
-class GetAprilTagDetectionPose : public moveit_studio::behaviors::ServiceClientBehaviorBase<GetDetectionsService>
+class GetApriltagDetectionPose : public moveit_studio::behaviors::ServiceClientBehaviorBase<GetDetectionsService>
 {
 public:
   /** @brief Constructor for the get_apriltag_detections behavior. */
-  GetAprilTagDetectionPose(const std::string &name, const BT::NodeConfiguration &config, const std::shared_ptr<moveit_studio::behaviors::BehaviorContext> &shared_resources);
+  GetApriltagDetectionPose(const std::string &name, const BT::NodeConfiguration &config, const std::shared_ptr<moveit_studio::behaviors::BehaviorContext> &shared_resources);
 
   /** @brief Implementation of the required providedPorts() function for this Behavior. */
   static BT::PortsList providedPorts();
@@ -60,4 +60,4 @@ private:
   /** @brief The target AprilTag ID to look for. */
   int target_id_;
 };
-}  // namespace moveit_studio_training_behaviors
+}  // namespace get_apriltag_detection_pose

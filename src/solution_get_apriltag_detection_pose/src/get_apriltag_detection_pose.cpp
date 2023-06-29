@@ -1,5 +1,6 @@
+#include <get_apriltag_detection_pose/get_apriltag_detection_pose.hpp>
+
 #include <moveit_studio_behavior_interface/check_for_error.hpp>
-#include <moveit_studio_training_behaviors/get_apriltag_detection_pose.hpp>
 #include <geometry_msgs/msg/pose_stamped.hpp>
 #include <sensor_msgs/msg/camera_info.hpp>
 #include <sensor_msgs/msg/image.hpp>
@@ -15,15 +16,15 @@ namespace
   constexpr auto kGetAprilTagDetectionsServiceName = "/detect_apriltags";
 }  // namespace
 
-namespace moveit_studio_training_behaviors
+namespace get_apriltag_detection_pose
 {
-GetAprilTagDetectionPose::GetAprilTagDetectionPose(const std::string &name, const BT::NodeConfiguration &config,
+GetApriltagDetectionPose::GetApriltagDetectionPose(const std::string &name, const BT::NodeConfiguration &config,
                                                    const std::shared_ptr<moveit_studio::behaviors::BehaviorContext> &shared_resources)
     : moveit_studio::behaviors::ServiceClientBehaviorBase<GetDetectionsService>(name, config, shared_resources)
 {
 }
 
-BT::PortsList GetAprilTagDetectionPose::providedPorts()
+BT::PortsList GetApriltagDetectionPose::providedPorts()
 {
   return {
     BT::InputPort<int>(kPortIDAprilTagId),
@@ -34,11 +35,11 @@ BT::PortsList GetAprilTagDetectionPose::providedPorts()
   };
 }
 
-fp::Result<std::string> GetAprilTagDetectionPose::getServiceName() {
+fp::Result<std::string> GetApriltagDetectionPose::getServiceName() {
   return kGetAprilTagDetectionsServiceName;
 }
 
-fp::Result<GetDetectionsService::Request> GetAprilTagDetectionPose::createRequest()
+fp::Result<GetDetectionsService::Request> GetApriltagDetectionPose::createRequest()
 {
   // Check that all required input data ports were set.
   const auto apriltag_id = getInput<int>(kPortIDAprilTagId);
@@ -59,7 +60,7 @@ fp::Result<GetDetectionsService::Request> GetAprilTagDetectionPose::createReques
   return request;
 }
 
-fp::Result<bool> GetAprilTagDetectionPose::processResponse(const GetDetectionsService::Response &response)
+fp::Result<bool> GetApriltagDetectionPose::processResponse(const GetDetectionsService::Response &response)
 {
   // Filter by detection ID. Simply get the first instance of a particular ID, if one is found.
   for (const auto& detection : response.detections)
@@ -76,6 +77,6 @@ fp::Result<bool> GetAprilTagDetectionPose::processResponse(const GetDetectionsSe
       std::string("Did not find any AprilTag detections with ID: ").append(std::to_string(target_id_))));
 }
 
-}  // namespace moveit_studio_training_behaviors
+}  // namespace get_apriltag_detection_pose
 
-template class moveit_studio::behaviors::ServiceClientBehaviorBase<moveit_studio_training_behaviors::GetDetectionsService>;
+template class moveit_studio::behaviors::ServiceClientBehaviorBase<get_apriltag_detection_pose::GetDetectionsService>;

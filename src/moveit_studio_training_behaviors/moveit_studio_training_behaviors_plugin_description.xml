@@ -1,5 +1,0 @@
-<library path="moveit_studio_training_behaviors">
-  <class type="moveit_studio_training_behaviors::MoveItStudioTrainingBehaviorsLoader"
-         base_class_type="moveit_studio::behaviors::SharedResourcesNodeLoaderBase">
-  </class>
-</library>
