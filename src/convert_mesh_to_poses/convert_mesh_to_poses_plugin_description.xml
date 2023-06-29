@@ -1,0 +1,5 @@
+<library path="convert_mesh_to_poses">
+  <class type="convert_mesh_to_poses::ConvertMeshToPosesBehaviorsLoader"
+         base_class_type="moveit_studio::behaviors::SharedResourcesNodeLoaderBase">
+  </class>
+</library>

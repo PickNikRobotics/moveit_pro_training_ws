@@ -1,0 +1,11 @@
+<root>
+    <TreeNodesModel>
+        <Action ID="ConvertMeshToPoses">
+            <description>
+                <p>
+                    bla bla
+                </p>
+            </description>
+        </Action>
+    </TreeNodesModel>
+</root>

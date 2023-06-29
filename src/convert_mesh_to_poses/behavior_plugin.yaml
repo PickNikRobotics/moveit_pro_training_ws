@@ -1,0 +1,4 @@
+objectives:
+  behavior_loader_plugins:
+    convert_mesh_to_poses:
+      - "convert_mesh_to_poses::ConvertMeshToPosesBehaviorsLoader"
