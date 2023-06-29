@@ -23,7 +23,7 @@ cd ~/moveit_studio
 ./moveit_studio configure -c ur_site_config -w ~/moveit_studio/moveit_studio_training_ws
 ```
 
-This command sets the default MoveIt Studio Configuration to the `_ur_site_config`, and the User Workspace as this tutorial workspace. 
+This command sets the default MoveIt Studio Configuration to the `ur_site_config`, and the User Workspace as this tutorial workspace. 
 The purpose of using this tutorial as the workspace is to enable writing and executing custom written code against MoveIt Studio.
 
 Next, continue with the installation, following the prompts to select your download location and license key. 
