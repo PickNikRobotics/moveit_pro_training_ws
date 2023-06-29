@@ -1,0 +1,11 @@
+<root>
+    <TreeNodesModel>
+        <Action ID="IkBatch">
+            <description>
+                <p>
+                    call ik for multiple poses
+                </p>
+            </description>
+        </Action>
+    </TreeNodesModel>
+</root>

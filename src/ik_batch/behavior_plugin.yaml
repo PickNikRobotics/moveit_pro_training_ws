@@ -1,0 +1,4 @@
+objectives:
+  behavior_loader_plugins:
+    ik_batch:
+      - "ik_batch::IkBatchBehaviorsLoader"

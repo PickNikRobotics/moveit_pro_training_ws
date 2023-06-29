@@ -1,0 +1,5 @@
+<library path="ik_batch">
+  <class type="ik_batch::IkBatchBehaviorsLoader"
+         base_class_type="moveit_studio::behaviors::SharedResourcesNodeLoaderBase">
+  </class>
+</library>
