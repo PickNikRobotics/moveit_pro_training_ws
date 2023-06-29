@@ -4,7 +4,7 @@
 In this example, we will create a Behavior that accepts a pose and offsets its position based on some inputs.
 
 - In the `Objective Builder` tab, select `+ Behavior` button.
-- Select `SimpleActionNode` as the node type.
+- Select `SyncActionNode` as the node type.
 - Next, navigate to the location given and edit the file.
 - Implement `providedPorts()`:
   ```cpp

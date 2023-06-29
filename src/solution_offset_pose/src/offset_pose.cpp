@@ -1,5 +1,5 @@
 #include <moveit_studio_behavior_interface/check_for_error.hpp>
-#include <moveit_studio_training_behaviors/offset_pose.hpp>
+#include <offset_pose/offset_pose.hpp>
 
 #include <geometry_msgs/msg/pose_stamped.hpp>
 #include <tf2_eigen/tf2_eigen.hpp>
@@ -14,7 +14,7 @@ namespace
   constexpr auto kPortIDOutputPose = "output_pose";
 } // namespace
 
-namespace moveit_studio_training_behaviors
+namespace offset_pose
 {
 OffsetPose::OffsetPose(const std::string &name, const BT::NodeConfiguration &config)
     : BT::SyncActionNode(name, config)
@@ -85,4 +85,4 @@ BT::NodeStatus OffsetPose::tick()
   setOutput(kPortIDOutputPose, output_pose);
   return BT::NodeStatus::SUCCESS;
 }
-} // namespace moveit_studio_training_behaviors
+} // namespace offset_pose

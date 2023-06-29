@@ -5,7 +5,7 @@
 #include <moveit_studio_behavior_interface/behavior_context.hpp>
 #include <moveit_studio_behavior_interface/shared_resources_node.hpp>
 
-namespace moveit_studio_training_behaviors
+namespace setup_mtc_pick_from_pose
 {
 /**
  * @brief Given an existing MTC Task object and a target grasp pose, appends MTC stages to describe a motion plan to
@@ -18,14 +18,14 @@ namespace moveit_studio_training_behaviors
  * | grasp_pose     | Input         | geometry_msgs::msg::PoseStamped                 |
  * | parameters     | Input         | YAML::Node                                      |
  */
-class SetupMTCPickFromPose final : public moveit_studio::behaviors::SharedResourcesNode<BT::SyncActionNode>
+class SetupMtcPickFromPose final : public moveit_studio::behaviors::SharedResourcesNode<BT::SyncActionNode>
 {
 public:
-  SetupMTCPickFromPose(const std::string &name, const BT::NodeConfiguration &config,
+  SetupMtcPickFromPose(const std::string &name, const BT::NodeConfiguration &config,
                        const std::shared_ptr<moveit_studio::behaviors::BehaviorContext> &shared_resources);
 
   static BT::PortsList providedPorts();
 
   BT::NodeStatus tick() override;
 };
-}  // namespace moveit_studio::behaviors
+}  // namespace setup_mtc_pick_from_pose

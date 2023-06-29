@@ -1,0 +1,17 @@
+<root>
+    <TreeNodesModel>
+        <Action ID="OffsetPose">
+            <description>
+                <p>
+                    Offsets a pose by specified translation and orientation values.
+                </p>
+            </description>
+            <input_port name="input_pose" default="{input_pose}">The input pose to transform.</input_port>
+            <input_port name="translation_x" default="0.0">The x translation of the transform.</input_port>
+            <input_port name="translation_y" default="0.0">The y translation of the transform.</input_port>
+            <input_port name="translation_z" default="0.0">The z translation of the transform.</input_port>
+            <input_port name="quaternion_xyzw" default="0.0;0.0;0.0;1.0">The x, y, z, and w quaternion values of the transform.</input_port>
+            <output_port name="output_pose" default="{output_pose}">The transformed pose.</output_port>
+        </Action>
+    </TreeNodesModel>
+</root>

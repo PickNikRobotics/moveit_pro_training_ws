@@ -3,7 +3,7 @@
 #include <behaviortree_cpp/action_node.h>
 #include <moveit_studio_behavior_interface/check_for_error.hpp>
 
-namespace moveit_studio_training_behaviors
+namespace offset_pose
 {
 /**
  * @brief Offsets an input pose (in geometry_msgs::msg::PoseStamped format)
@@ -33,4 +33,4 @@ public:
    */
   BT::NodeStatus tick() override;
 };
-}  // namespace moveit_studio_training_behaviors
+}  // namespace offset_pose

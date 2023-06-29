@@ -27,16 +27,14 @@ The service is of type `apriltag_ros_msgs::srv::GetAprilTagDetections`, so we mu
   ```cmake
   find_package(apriltag_ros_msgs REQUIRED)
   find_package(geometry_msgs REQUIRED)
-  find_package(moveit_studio_behavior_interface REQUIRED)
-  find_package(pluginlib REQUIRED)
   find_package(sensor_msgs REQUIRED)
 
   set(
+    moveit_studio_behavior_interface
+    pluginlib
     THIS_PACKAGE_INCLUDE_DEPENDS
     apriltag_ros_msgs
     geometry_msgs
-    moveit_studio_behavior_interface
-    pluginlib
     sensor_msgs
   )
   ```

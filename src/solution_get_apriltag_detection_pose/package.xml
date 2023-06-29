@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
 <package format="3">
-  <name>moveit_studio_training_behaviors</name>
+  <name>get_apriltag_detection_pose</name>
   <version>1.0.0</version>
-  <description>Solution Behaviors for MoveIt Studio training.</description>
+  <description>Solution AprilTag Detection Behavior for MoveIt Studio training.</description>
 
   <maintainer email="sebastian.castro@picknik.ai">Sebastian Castro</maintainer>
   <author email="sebastian.castro@picknik.ai">Sebastian Castro</author>
@@ -13,12 +13,10 @@
 
   <build_depend>moveit_common</build_depend>
 
+  <depend>moveit_studio_behavior_interface</depend>
   <depend>apriltag_ros_msgs</depend>
   <depend>geometry_msgs</depend>
-  <depend>moveit_studio_behavior_interface</depend>
   <depend>sensor_msgs</depend>
-  <depend>tf2_eigen</depend>
-  <depend>yaml-cpp</depend>
 
   <test_depend>ament_lint_auto</test_depend>
   <test_depend>ament_cmake_gtest</test_depend>

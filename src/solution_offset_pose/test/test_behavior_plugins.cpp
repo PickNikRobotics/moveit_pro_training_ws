@@ -4,7 +4,7 @@
 #include <moveit_studio_behavior_interface/shared_resources_node_loader.hpp>
 #include <pluginlib/class_loader.hpp>
 
-#include <moveit_studio_training_behaviors/offset_pose.hpp>
+#include <offset_pose/offset_pose.hpp>
 
 /**
  * @brief This test makes sure that the Behaviors provided in this package can be successfully registered and
@@ -20,16 +20,13 @@ TEST(BehaviorTests, test_load_behavior_plugins)
 
   BT::BehaviorTreeFactory factory;
   {
-    auto plugin_instance = class_loader.createUniqueInstance("moveit_studio_training_behaviors::MoveItStudioTrainingBehaviorsLoader");
+    auto plugin_instance = class_loader.createUniqueInstance("offset_pose::OffsetPoseBehaviorsLoader");
     ASSERT_NO_THROW(plugin_instance->registerBehaviors(factory, shared_resources));
   }
 
   // Test that ClassLoader is able to find and instantiate each behavior using the package's plugin description info.
-  factory.instantiateTreeNode("test_behavior_name", "GetAprilTagDetectionPose",
+  factory.instantiateTreeNode("test_behavior_name", "OffsetPose",
                               BT::NodeConfiguration());
-  factory.instantiateTreeNode("test_behavior_name", "SetupMTCPickFromPose",
-                              BT::NodeConfiguration());
-  factory.instantiateTreeNode("test_behavior_name", "OffsetPose", BT::NodeConfiguration());
 }
 
 /** @brief Creates a test input pose for the OffsetPose Behavior. */
@@ -63,7 +60,7 @@ TEST(BehaviorTests, test_offset_pose_valid_input)
   config.output_ports.insert(std::make_pair("output_pose", "="));
 
   // Initialize and tick the Behavior. This should succeed.
-  moveit_studio_training_behaviors::OffsetPose offset_pose_behavior("OffsetPose", config);
+  offset_pose::OffsetPose offset_pose_behavior("OffsetPose", config);
   ASSERT_EQ(offset_pose_behavior.executeTick(), BT::NodeStatus::SUCCESS);
 
   // Check the output data against expected outputs.
@@ -98,7 +95,7 @@ TEST(BehaviorTests, test_offset_pose_invalid_input)
   config.output_ports.insert(std::make_pair("output_pose", "="));
 
   // Initialize and tick the Behavior. This should fail.
-  moveit_studio_training_behaviors::OffsetPose offset_pose_behavior("OffsetPose", config);
+  offset_pose::OffsetPose offset_pose_behavior("OffsetPose", config);
   ASSERT_EQ(offset_pose_behavior.executeTick(), BT::NodeStatus::FAILURE);
 }
 
