@@ -18,10 +18,9 @@ from geometry_msgs.msg import PoseStamped
 try:
     import dt_apriltags
 except ModuleNotFoundError:
-    import subprocess
-    import sys
-
-    subprocess.run([sys.executable, "-m", "pip", "install", "dt_apriltags"])
+    import pip
+    
+    pip.main(["install", "dt_apriltags"])
     import dt_apriltags
 
 
