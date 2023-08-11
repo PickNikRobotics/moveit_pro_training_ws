@@ -26,9 +26,8 @@ cd ~/moveit_studio
 This command sets the default MoveIt Studio Configuration to the `ur_site_config`, and the User Workspace as this tutorial workspace. 
 The purpose of using this tutorial as the workspace is to enable writing and executing custom written code against MoveIt Studio.
 
-Next, continue with the installation, following the prompts to select your download location and license key. 
-Next, continue following the prompts; leaving the default values for the "workspace containing user-defined packages" and the "Site configuration package".  
-Documentation for this portion is here: https://docs.picknik.ai/en/stable/getting_started/configuring_moveit_studio/configuring_moveit_studio.html
+Next, continue with the installation, following the prompts to select your download location and license key.  
+Documentation for this portion is [here](https://docs.picknik.ai/en/stable/getting_started/setup_tutorials/configuring_moveit_studio/configuring_moveit_studio.html).
 
 ### Running MoveIt Studio
 

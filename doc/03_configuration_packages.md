@@ -13,10 +13,9 @@ moveit_params:
   kinematics:
     package: "ur_gazebo_config"
     path: "config/moveit/pick_ik_kinematics.yaml"
-
 ```
 
-This updates the Gazebo Site Config to use the pick_ik inverse kinematics plugin instead of the default one defined in the Base Config.
+This updates the Gazebo configuration package to use the `pick_ik` inverse kinematics plugin instead of the default one defined in the parent configuration package.
 
 ### Adding a Custom ROS Node Service to a Launch Configuration
 
@@ -24,9 +23,7 @@ Consider if you needed another service to be available for a custom use-case.
 For example, to detect AprilTags, we could use a library like https://github.com/duckietown/lib-dt-apriltags from within MoveIt Studio.  
 The first step would be to adapt this into a ROS Service, which is already finished as an example here: [../src/apriltag_ros_python/](../src/apriltag_ros_python).
 
-To automatically make this service start on launch, we will add it to the launch file:
-
-- launch/sim/hardware_sim.launch.py
+To automatically make this service start on launch, we will add it to the launch file `launch/sim/hardware_sim.launch.py`.
 
 Add this at the end of the file just before the `return LaunchDescription(` portion:
 
@@ -44,7 +41,6 @@ Add this at the end of the file just before the `return LaunchDescription(` port
             }
         ],
     )
-
 ```
 
 And finally, add it to the node list in `LaunchDescription`:
@@ -58,11 +54,11 @@ And finally, add it to the node list in `LaunchDescription`:
     )
 ```
 
-And that's it. Congratulations: an AprilTag detection service is now present in the Gazebo site config, enabling AprilTag Behaviors to work.
-If you want to test that things are working as intended you can `docker exec` into the container and check the ROS 2 node and service lists:
+And that's it. Congratulations: an AprilTag detection service is now present in the Gazebo configuration package, enabling AprilTag Behaviors to work.
+If you want to test that things are working as intended you can go into a Terminal in the container and check the ROS 2 node and service lists:
 
 ```console
-docker compose exec -it agent bash
+./moveit_studio shell
 ```
 
 ```console
@@ -81,12 +77,10 @@ studio-user@moveitstudio:/$ ros2 service list | grep apriltag
 
 ### Adding a Scene Camera
 
-We now consider the example of adding a Scene Camera to the site config.
-This camera will be a Realsense d435 camera and serves as an overhead camera that can see the scene of the robot.
+We now consider the example of adding a Scene Camera to the configuration.
+This camera will be a RealSense d435 camera and serves as an overhead camera that can see the scene of the robot.
 
-- config/wrist_camera.yaml
-
-We first add the configuration of the new Scene Camera to our Camera config file:
+We first add the configuration of the new Scene Camera to our Camera configuration file at `config/wrist_camera.yaml`:
 
 ```python
 - scene_camera:
@@ -110,11 +104,10 @@ We first add the configuration of the new Scene Camera to our Camera config file
       registered_image: "/scene_camera/depth_registered/image_rect_raw"
 ```
 
-- launch/sim/hardware_sim.launch.py
 We need to get the images from Gazebo to ROS. 
 Luckily, there exists a package for just this thing: https://github.com/gazebosim/ros_gz/tree/ros2/ros_gz_image  
 
-We will add a bridge from this package for our new scene camera; one for each topic we want.
+We will add a bridge from this package for our new scene camera; one for each topic we want, the file `launch/sim/hardware_sim.launch.py`.
 
 The remappings are simply to name the topics in a format that MoveIt Studio expects (specified above in the Cameras yaml).
 The topics we care about are the RGB image, the depth image, and the Camera Info.
@@ -181,9 +174,7 @@ And finally, we add these nodes to our `Launch Description` so they are actually
         ]
 ```
 
-- description/ur5e_gazebo.xacro
-
-We will add the hardware realsense_d435 to the simulation world by adding it to the simulation world xacro.
+We will add the hardware realsense_d435 to the simulation world by adding it to the simulation world xacro found at `description/ur5e_gazebo.xacro`.
 To do this, we use the realsense_d435 xacro macro (which is found in the MoveIt Studio `picknik_accessories` package and is already included in the simulation world xacro).
 
 To add an instance of this macro, after the `external_camera_link` definition, add:
@@ -211,15 +202,15 @@ Feel free to change the location of this camera by modifying the `extra_scene_ca
 
 ### Cheatsheet
 
-If at any point you got lost or just want to skip to a working feature complete config you can update your `site_config.yaml` to point to finished configs:
+If at any point you got lost or just want to skip to a working feature complete config you can update your `config.yaml` to point to finished configs:
 
 - wrist_camera.yaml &rarr; wrist_and_scene_cameras.yaml
 - ur5e_gazebo.xacro &rarr; ur5e_with_scene_camera_gazebo.xacro
 - hardware_sim.launch.py &rarr; hardware_sim_cameras_apriltag.launch.py
 
-Or if you want to skip this straight to the finished working site_config.yaml:
+Or if you want to skip this straight to the finished working `config.yaml`:
 
 ```bash
 cd ~/moveit_studio/moveit_studio_training_ws/src/ur_gazebo_config
-cp config/SOLUTION_site_config.yaml config/site_config.yaml
+cp config/SOLUTION_cfg.yaml config/config.yaml
 ```

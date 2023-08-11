@@ -4,7 +4,7 @@
   <BehaviorTree ID="Solution Pick AprilTag Annotated Object" _description="Pick up and lift an AprilTag annotated object at a pose offset from the AprilTag pose.">
     <Control ID="Sequence" name="root">
       <SubTree ID="Open Gripper"/>
-      <Action ID="LoadObjectiveParameters" config_file_name="pick_from_pose_config.yaml" parameters="{parameters}"/>
+      <Action ID="LoadObjectiveParameters" config_file_name="solution_pick_from_pose_config.yaml" parameters="{parameters}"/>
       <Action ID="GetCameraInfo" topic_name="/wrist_mounted_camera/color/camera_info" message_out="{camera_info}"/>
       <Action ID="GetImage" topic_name="/wrist_mounted_camera/color/image_raw" message_out="{image}"/>
       <Control ID="Sequence">

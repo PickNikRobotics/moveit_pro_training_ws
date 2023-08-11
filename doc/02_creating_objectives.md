@@ -62,6 +62,6 @@ To launch the MoveIt Studio RViz configuration,
 
   - Open a new Terminal
   - Go to your MoveIt Studio install folder (e.g., `~/moveit_studio`)
-  - Enter `docker compose up rviz`.
+  - Enter `./moveit_studio rviz`.
 
 In later sections, we will see how to replace the "Create Stamped Pose" Behavior, which creates a test pose, with the output of a perception Behavior.

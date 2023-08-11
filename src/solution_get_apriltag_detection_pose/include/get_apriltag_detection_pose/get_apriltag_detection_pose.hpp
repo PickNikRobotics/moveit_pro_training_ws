@@ -4,6 +4,7 @@
 #include <moveit_studio_behavior_interface/shared_resources_node.hpp>
 
 #include <apriltag_ros_msgs/srv/get_april_tag_detections.hpp>
+#include <std_msgs/msg/header.hpp>
 
 namespace get_apriltag_detection_pose
 {
@@ -59,5 +60,8 @@ private:
 
   /** @brief The target AprilTag ID to look for. */
   int target_id_;
+
+  /** @brief The image message header, used for publishing to TF tree. */
+  std_msgs::msg::Header image_header_;
 };
 }  // namespace get_apriltag_detection_pose

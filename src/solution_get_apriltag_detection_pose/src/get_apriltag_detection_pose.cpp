@@ -51,6 +51,7 @@ fp::Result<GetDetectionsService::Request> GetApriltagDetectionPose::createReques
     return tl::make_unexpected(fp::Internal("Missing input port: " + error.value()));
   }
   target_id_ = apriltag_id.value();
+  image_header_ = image.value().header;
 
   // Create and return the service request.
   GetDetectionsService::Request request;
@@ -68,6 +69,20 @@ fp::Result<bool> GetApriltagDetectionPose::processResponse(const GetDetectionsSe
     if (detection.id == target_id_)
     {
       setOutput(kPortIDDetectionPose, detection.pose);
+
+      // Publish detection to the TF tree.
+      geometry_msgs::msg::TransformStamped tform;
+      tform.header = image_header_;
+      tform.child_frame_id = "apriltag_" + std::to_string(detection.id);
+      tform.transform.translation.x = detection.pose.pose.position.x;
+      tform.transform.translation.y = detection.pose.pose.position.y;
+      tform.transform.translation.z = detection.pose.pose.position.z;
+      tform.transform.rotation.w = detection.pose.pose.orientation.w;
+      tform.transform.rotation.x = detection.pose.pose.orientation.x;
+      tform.transform.rotation.y = detection.pose.pose.orientation.y;
+      tform.transform.rotation.z = detection.pose.pose.orientation.z;
+      shared_resources_->transform_broadcaster.sendTransform(tform);
+
       return true;
     }
   }
