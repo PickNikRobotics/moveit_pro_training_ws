@@ -1,0 +1,28 @@
+robot_calibration:
+  ros__parameters:
+    chains:
+      - arm
+    arm:
+      topic: /joint_trajectory_controller/follow_joint_trajectory
+      joints:
+        - shoulder_pan_joint
+        - shoulder_lift_joint
+        - elbow_joint
+        - wrist_1_joint
+        - wrist_2_joint
+        - wrist_3_joint
+    features:
+      - checkerboard_finder
+    checkerboard_finder:
+      type: robot_calibration::CheckerboardFinder
+      topic: /scene_camera/depth/color/points
+      camera_info_topic: /scene_camera/depth/camera_info
+      camera_sensor_name: camera
+      camera_link: scene_camera_link
+      chain_sensor_name: arm
+      frame_id: checkerboard  # Name of checkerboard frame (if not specified it defaults to: checkerboard)
+      debug: true
+      # Number of inner corners per a checkerboard row and column
+      points_x: 5
+      points_y: 4
+      size: 0.025

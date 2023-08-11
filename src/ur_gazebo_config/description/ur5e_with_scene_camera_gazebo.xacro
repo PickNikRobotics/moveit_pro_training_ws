@@ -176,6 +176,14 @@
     </sensor>
   </gazebo>
 
+  <!-- Dummy link for the checkerboard -->
+  <link name="checkerboard" />
+  <joint name="checkerboard_joint" type="fixed">
+    <parent link="grasp_link" />
+    <child link="checkerboard" />
+    <origin xyz="0.0 0.1 0.0" rpy="0.0 0.0 0.0" />
+  </joint>
+
   <!-- Gazebo Plugins -->
   <gazebo>
     <plugin filename="ign_ros2_control-system" name="ign_ros2_control::IgnitionROS2ControlPlugin">

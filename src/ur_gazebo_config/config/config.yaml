@@ -43,7 +43,7 @@ hardware:
       path: "config/moveit/ur5e_gazebo.srdf"
     urdf:
       package: "ur_gazebo_config"
-      path: "description/ur5e_gazebo.xacro"
+      path: "description/ur5e_with_scene_camera_gazebo.xacro"
     urdf_params:
       - name: "%>> hardware.type"
       # Using the ogre renderer as it is compatible with most host hardware.

@@ -1,0 +1,51 @@
+# Middle
+- features:
+    - checkerboard_finder
+  joints:
+    - shoulder_pan_joint
+    - shoulder_lift_joint
+    - elbow_joint
+    - wrist_1_joint
+    - wrist_2_joint
+    - wrist_3_joint
+  positions:
+    - 0
+    - -1.41
+    - -0.7
+    - -2.12
+    - 1.67
+    - 0
+# Left
+- features:
+    - checkerboard_finder
+  joints:
+    - shoulder_pan_joint
+    - shoulder_lift_joint
+    - elbow_joint
+    - wrist_1_joint
+    - wrist_2_joint
+    - wrist_3_joint
+  positions:
+    - 0.25
+    - -1.41
+    - -0.7
+    - -2.12
+    - 1.67
+    - 0
+# Right
+- features:
+    - checkerboard_finder
+  joints:
+    - shoulder_pan_joint
+    - shoulder_lift_joint
+    - elbow_joint
+    - wrist_1_joint
+    - wrist_2_joint
+    - wrist_3_joint
+  positions:
+    - -0.25
+    - -1.41
+    - -0.7
+    - -2.12
+    - 1.67
+    - 0
