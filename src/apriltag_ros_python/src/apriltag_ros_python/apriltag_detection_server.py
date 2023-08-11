@@ -19,7 +19,7 @@ try:
     import dt_apriltags
 except ModuleNotFoundError:
     import pip
-    
+
     pip.main(["install", "dt_apriltags"])
     import dt_apriltags
 
