@@ -40,6 +40,7 @@ setup(
     packages=find_packages(where="src"),
     data_files=[
         ("share/ament_index/resource_index/packages", ["resource/" + package_name]),
+        ("share/" + package_name, ["package.xml"]),
         (os.path.join("share", package_name, "data"), glob("data/*.png")),
         (os.path.join("share", package_name, "launch"), glob("launch/*.launch.py")),
     ],
