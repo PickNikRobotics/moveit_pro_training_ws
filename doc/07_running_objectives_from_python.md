@@ -5,7 +5,6 @@ For more information on this subject please see the [Python API](https://docs.pi
 ### Calling Objectives with call_do_objective.py
 
 As an example, a `call_do_objective.py` script exists in order to call Objectives directly -- no UI required. 
-This script is available in the public MoveIt Studio workspace in the `moveit_studio_agent_examples` package [here](https://github.com/PickNikRobotics/moveit_studio_ws/tree/main/src/moveit_studio_agent_examples/scripts).
 To use it, follow these steps:
 
 ```console

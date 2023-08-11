@@ -45,6 +45,7 @@ The service is of type `apriltag_ros_msgs::srv::GetAprilTagDetections`, so we mu
   #include <geometry_msgs/msg/pose_stamped.hpp>
   #include <sensor_msgs/msg/camera_info.hpp>
   #include <sensor_msgs/msg/image.hpp>
+  #include <std_msgs/msg/header.hpp>
   ```
 - Define a class that inherits from `ServiceClientBehaviorBase` for our required service type.
   ```cpp
@@ -89,6 +90,9 @@ The service is of type `apriltag_ros_msgs::srv::GetAprilTagDetections`, so we mu
 
   /** @brief The target AprilTag ID to look for. */
   int target_id_;
+
+  /** @brief The image message header, used for publishing to TF tree. */
+  std_msgs::msg::Header image_header_;
   };
   }  // namespace get_apriltag_detection_pose
   ```
@@ -128,6 +132,7 @@ This then involves implementing the override methods:
       return tl::make_unexpected(fp::Internal("Missing input port: " + error.value()));
     }
     target_id_ = apriltag_id.value();
+    image_header_ = image.value().header;
 
     // Create and return the service request.
     GetDetectionsService::Request request;
@@ -147,6 +152,20 @@ This then involves implementing the override methods:
       if (detection.id == target_id_)
       {
         setOutput(kPortIDDetectionPose, detection.pose);
+
+        // Publish detection to the TF tree.
+        geometry_msgs::msg::TransformStamped tform;
+        tform.header = image_header_;
+        tform.child_frame_id = "apriltag_" + std::to_string(detection.id);
+        tform.transform.translation.x = detection.pose.pose.position.x;
+        tform.transform.translation.y = detection.pose.pose.position.y;
+        tform.transform.translation.z = detection.pose.pose.position.z;
+        tform.transform.rotation.w = detection.pose.pose.orientation.w;
+        tform.transform.rotation.x = detection.pose.pose.orientation.x;
+        tform.transform.rotation.y = detection.pose.pose.orientation.y;
+        tform.transform.rotation.z = detection.pose.pose.orientation.z;
+        shared_resources_->transform_broadcaster.sendTransform(tform);
+
         return true;
       }
     }

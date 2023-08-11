@@ -9,7 +9,7 @@
             <Action ID="GetApriltagDetectionPose" apriltag_id="1" apriltag_size="0.08" camera_info="{camera_info}" image="{image}" detection_pose="{detection_pose}"/>
             <Action ID="TransformPoseFrame" input_pose="{detection_pose}" target_frame_id="world" output_pose="{detection_pose_world}"/>
             <Action ID="OffsetPose" input_pose="{detection_pose_world}" translation_x="-0.1" translation_y="0.0" translation_z="-0.05" quaternion_xyzw="0.0;0.0;0.707;0.707" output_pose="{grasp_pose}"/>
-            <Action ID="MoveToPose" target_pose="{target_pose}" ik_frame="manual_grasp_link" planning_group_name="manipulator" controller_names="/joint_trajectory_controller /robotiq_gripper_controller"/>
+            <Action ID="MoveToPose" target_pose="{grasp_pose}" ik_frame="manual_grasp_link" planning_group_name="manipulator" controller_names="/joint_trajectory_controller /robotiq_gripper_controller"/>
             <SubTree ID="Close Gripper"/>
         </Control>
     </BehaviorTree>
