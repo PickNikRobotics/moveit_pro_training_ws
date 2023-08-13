@@ -262,6 +262,27 @@ def generate_launch_description():
         ],
     )
 
+    ########################################
+    # Calibration Configuration (Optional) #
+    ########################################
+    calibration_config_dir = os.path.join(
+        get_package_share_directory("ur_gazebo_config"),
+        "config",
+        "calibration",
+    )
+    capture_config = os.path.join(calibration_config_dir, "capture.yaml")
+    calibration_config = os.path.join(calibration_config_dir, "calibrate.yaml")
+    calibration_poses = os.path.join(calibration_config_dir, "calibration_poses.yaml")
+
+    calibration_node = Node(
+        name="robot_calibration",
+        package="robot_calibration",
+        executable="calibrate_server",
+        arguments=[calibration_poses],
+        parameters=[capture_config, calibration_config],
+        output="screen",
+    )
+
     return LaunchDescription(
         [
             scene_image_rgb_gazebo_bridge,
@@ -276,5 +297,6 @@ def generate_launch_description():
             gazebo,
             spawn_robot,
             apriltag_server_node,
+            calibration_node,
         ]
     )
