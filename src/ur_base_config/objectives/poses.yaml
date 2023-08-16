@@ -1,0 +1,25 @@
+ReadYamlAndCreateStampedPoseVector:
+  - reference_frame: "world"
+    x: -0.6
+    y: -0.3
+    z: 0.25
+    qx: -0.707
+    qy: 0.707
+    qz: 0.0
+    qw: 0.0
+  - reference_frame: "world"
+    x: -0.443
+    y: 0.504
+    z: 0.05
+    qx: -0.707
+    qy: 0.707
+    qz: 0.0
+    qw: 0.0
+  - reference_frame: "world"
+    x: 0.443
+    y: 0.504
+    z: 0.05
+    qx: -0.707
+    qy: 0.707
+    qz: 0.0
+    qw: 0.0   
