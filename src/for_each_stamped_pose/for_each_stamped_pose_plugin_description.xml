@@ -1,0 +1,5 @@
+<library path="for_each_stamped_pose">
+  <class type="for_each_stamped_pose::ForEachStampedPoseBehaviorsLoader"
+         base_class_type="moveit_studio::behaviors::SharedResourcesNodeLoaderBase">
+  </class>
+</library>

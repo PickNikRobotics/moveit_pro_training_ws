@@ -1,0 +1,13 @@
+<root>
+    <TreeNodesModel>
+        <Decorator ID="ForEachStampedPose">
+            <description>
+                <p>
+                    for each but for stamped poses
+                </p>
+            </description>
+            <input_port name="vector_in" default="{input_poses}">Vector of poses</input_port>
+            <output_port name="out" default="{desired_pose}">A single pose</output_port>            
+        </Decorator>
+    </TreeNodesModel>
+</root>
