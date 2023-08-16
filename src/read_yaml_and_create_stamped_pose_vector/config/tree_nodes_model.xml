@@ -1,0 +1,13 @@
+<root>
+    <TreeNodesModel>
+        <Action ID="ReadYamlAndCreateStampedPoseVector">
+            <description>
+                <p>
+                    Reads a YAML file and creates a vector of poses
+                </p>
+            </description>
+            <input_port name="input_poses" default="{poses}">The YAML::Node object containing the poses</input_port>
+            <output_port name="output_pose_vector" default="{pose_vector}">The vector of poses</output_port>              
+        </Action>
+    </TreeNodesModel>
+</root>

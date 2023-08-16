@@ -1,0 +1,4 @@
+objectives:
+  behavior_loader_plugins:
+    read_yaml_and_create_stamped_pose_vector:
+      - "read_yaml_and_create_stamped_pose_vector::ReadYamlAndCreateStampedPoseVectorBehaviorsLoader"

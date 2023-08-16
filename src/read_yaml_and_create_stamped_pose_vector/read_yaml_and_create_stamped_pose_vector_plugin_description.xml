@@ -1,0 +1,5 @@
+<library path="read_yaml_and_create_stamped_pose_vector">
+  <class type="read_yaml_and_create_stamped_pose_vector::ReadYamlAndCreateStampedPoseVectorBehaviorsLoader"
+         base_class_type="moveit_studio::behaviors::SharedResourcesNodeLoaderBase">
+  </class>
+</library>
