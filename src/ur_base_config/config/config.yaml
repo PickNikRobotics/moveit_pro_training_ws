@@ -108,24 +108,33 @@ moveit_params:
   ompl_planning:
     package: "ur_base_config"
     path: "config/moveit/ompl_planning.yaml"
+  pilz_planning:
+    package: "ur_base_config"
+    path: "config/moveit/pilz_industrial_motion_planner_planning.yaml"
+  pilz_cartesian_limits:
+    package: "ur_base_config"
+    path: "config/moveit/pilz_cartesian_limits.yaml"
+  stomp_planning:
+    package: "picknik_ur_base_config"
+    path: "config/moveit/stomp_planning.yaml"
   kinematics:
-    package: "ur_base_config"
-    path: "config/moveit/kinematics.yaml"
-  servo:
-    package: "ur_base_config"
-    path: "config/moveit/ur5e_servo.yaml"
-  sensors_3d:
-    package: "ur_base_config"
-    path: "config/moveit/sensors_3d.yaml"
-  servo_kinematics:
     package: "ur_base_config"
     path: "config/moveit/kinematics.yaml"
   joint_limits:
     package: "ur_base_config"
     path: "config/moveit/joint_limits.yaml"
-  pilz_cartesian_limits:
+  sensors_3d:
     package: "ur_base_config"
-    path: "config/moveit/pilz_cartesian_limits.yaml"
+    path: "config/moveit/sensors_3d.yaml"
+  servo:
+    package: "ur_base_config"
+    path: "config/moveit/ur5e_servo.yaml"
+  servo_kinematics:
+    package: "ur_base_config"
+    path: "config/moveit/kinematics.yaml"
+  servo_joint_limits:
+    package: "ur_base_config"
+    path: "config/moveit/hard_joint_limits.yaml"
 
   publish:
     planning_scene: True
@@ -138,14 +147,6 @@ moveit_params:
     allowed_execution_duration_scaling: 2.0
     allowed_goal_duration_margin: 5.0
     allowed_start_tolerance: 0.01
-
-# Additional configurable parameters for the MoveIt Studio user interface.
-# [Required]
-ui_params:
-  # By default, MoveIt Studio uses a frame called "manual_grasp_link" for tool grasp pose rendering
-  # and planning.
-  # [Required]
-  servo_endpoint_frame_id: "manual_grasp_link"
 
 # Configuration for launching ros2_control processes.
 # [Required, if using ros2_control]

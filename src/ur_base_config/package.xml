@@ -1,21 +1,19 @@
 <?xml version="1.0"?>
 <package format="3">
   <name>ur_base_config</name>
-  <version>2.5.0</version>
+  <version>4.0.0</version>
 
   <description>Base configuration package for a UR5e that can be simulated with mock hardware</description>
 
-  <maintainer email="studio.maintainers@picknik.ai">MoveIt Studio Maintainer</maintainer>
+  <maintainer email="hello@picknik.ai">MoveIt Pro Maintainer</maintainer>
 
-  <license>BSD-3-Clause</license>
+  <license>BSD 3-Clause</license>
 
   <buildtool_depend>ament_cmake</buildtool_depend>
 
   <exec_depend>moveit_ros_perception</exec_depend>
   <exec_depend>moveit_studio_behavior</exec_depend>
-  <exec_depend>moveit_studio_training_behaviors</exec_depend>
   <exec_depend>moveit_studio_ur_pstop_manager</exec_depend>
-  <exec_depend>pick_ik</exec_depend>
   <exec_depend>picknik_accessories</exec_depend>
   <exec_depend>realsense2_description</exec_depend>
   <exec_depend>robotiq_description</exec_depend>

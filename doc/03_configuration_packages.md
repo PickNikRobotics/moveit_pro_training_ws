@@ -2,7 +2,7 @@
 
 ### Overriding a Kinematics Solver Plugin
 
-To change the Kinematics solver from the default (KDL IK) to another (such as pick_ik), add a `kinematics` override parameter to the `moveit_params` section in the `site_config.yaml` file so that it looks like this afterwards:
+To change the Kinematics solver from the default (KDL IK) to another (such as TRAC-IK), add a `kinematics` override parameter to the `moveit_params` section in the `site_config.yaml` file so that it looks like this afterwards:
 
 ```python
 # Override MoveIt parameters
@@ -12,10 +12,10 @@ moveit_params:
     path: "config/moveit/ur5e_servo.yaml"
   kinematics:
     package: "ur_gazebo_config"
-    path: "config/moveit/pick_ik_kinematics.yaml"
+    path: "config/moveit/trac_ik_kinematics.yaml"
 ```
 
-This updates the Gazebo configuration package to use the `pick_ik` inverse kinematics plugin instead of the default one defined in the parent configuration package.
+This updates the Gazebo configuration package to use the `trac_ik` inverse kinematics plugin instead of the default one defined in the parent configuration package.
 
 ### Adding a Custom ROS Node Service to a Launch Configuration
 

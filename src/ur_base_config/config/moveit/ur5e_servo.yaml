@@ -6,7 +6,7 @@
 enable_parameter_update: true
 
 ## Properties of incoming commands
-command_in_type: "unitless" # "unitless"> in the range [-1:1], as if from joystick. "speed_units"> cmds are in m/s and rad/s
+command_in_type: "unitless"  # "unitless"> in the range [-1:1], as if from joystick. "speed_units"> cmds are in m/s and rad/s
 scale:
   # Scale parameters are only used if command_in_type=="unitless"
   linear: 2.0  # Max linear velocity. Meters per publish_period. Unit is [m/s]. Only used for Cartesian commands.
@@ -19,6 +19,7 @@ override_velocity_scaling_factor: 0.5
 
 ## Properties of outgoing commands
 publish_period: 0.002  # 1/Nominal publish rate [seconds]
+max_expected_latency: 0.01 # delay between sending a command and the robot executing it [seconds]
 
 # What type of topic does your robot driver expect?
 # Currently supported are std_msgs/Float64MultiArray or trajectory_msgs/JointTrajectory
@@ -41,17 +42,13 @@ move_group_name: manipulator  # Often 'manipulator' or 'arm'
 planning_frame: base_link  # The MoveIt planning frame. Often 'base_link' or 'world'
 is_primary_planning_scene_monitor: false  # The MoveGroup node maintains the planning scene, so Servo needs to get its world info from there.
 
-## Other frames
-ee_frame: manual_grasp_link  # The name of the end effector link, used to return the EE pose
-robot_link_command_frame: base_link  # commands must be given in the frame of a robot link. Usually either the base or end effector
-
 ## Stopping behaviour
 incoming_command_timeout: 0.1  # Stop servoing if X seconds elapse without a new command
 
 ## Configure handling of singularities and joint limits
 lower_singularity_threshold: 30.0  # Start decelerating when the condition number hits this (close to singularity)
 hard_stop_singularity_threshold: 50.0 # Stop when the condition number hits this
-joint_limit_margin: 0.1 # added as a buffer to joint limits [radians]. If moving quickly, make this larger.
+joint_limit_margins: [0.1, 0.1, 0.1, 0.1, 0.1, 0.1] # added as a buffer to joint limits [radians]. If moving quickly, make this larger.
 
 ## Topic names
 cartesian_command_in_topic: ~/delta_twist_cmds  # Topic for incoming Cartesian twist commands
@@ -63,5 +60,5 @@ command_out_topic: /streaming_controller/commands # Publish outgoing commands he
 ## Collision checking for the entire robot body
 check_collisions: true # Check collisions?
 collision_check_rate: 10.0 # [Hz] Collision-checking can easily bog down a CPU if done too often.
-self_collision_proximity_threshold: 0.01 # Start decelerating when a self-collision is this far [m]
+self_collision_proximity_threshold: 0.006 # Start decelerating when a self-collision is this far [m]
 scene_collision_proximity_threshold: 0.02 # Start decelerating when a scene collision is this far [m]
