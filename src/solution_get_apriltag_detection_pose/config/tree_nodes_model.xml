@@ -1,7 +1,9 @@
 <root>
     <TreeNodesModel>
         <Action ID="GetApriltagDetectionPose">
-            <metadata subcategory="Perception"/>
+            <MetadataFields>
+                <Metadata subcategory="Perception"/>
+            </MetadataFields>
             <description>
                 <p>
                     Gets an AprilTag detection pose, if any, given a specific ID to filter by.

@@ -1,7 +1,9 @@
 <root>
     <TreeNodesModel>
         <Action ID="SetupMtcPickFromPose">
-            <metadata subcategory="MTC"/>
+            <MetadataFields>
+                <Metadata subcategory="Task Planning"/>
+            </MetadataFields>
             <description>
                 <p>
                     Given an existing MTC Task object and a target grasp pose, appends MTC stages to describe a motion plan to approach, grasp, and lift an object at that pose.

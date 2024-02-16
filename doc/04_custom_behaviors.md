@@ -88,6 +88,9 @@ In this example, we will create a Behavior that accepts a pose and offsets its p
   ```xml
     <TreeNodesModel>
       <Action ID="OffsetPose">
+        <MetadataFields>
+            <Metadata subcategory="Miscellaneous"/>
+        </MetadataFields>
         <description>
             <p>
                 Offsets a pose by specified translation and orientation values.
