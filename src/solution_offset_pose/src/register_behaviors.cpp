@@ -12,7 +12,7 @@ namespace offset_pose
   {
   public:
     void registerBehaviors(BT::BehaviorTreeFactory &factory,
-                           const std::shared_ptr<moveit_studio::behaviors::BehaviorContext> &shared_resources) override
+                           [[maybe_unused]] const std::shared_ptr<moveit_studio::behaviors::BehaviorContext> &shared_resources) override
     {
       using namespace moveit_studio::behaviors;
 

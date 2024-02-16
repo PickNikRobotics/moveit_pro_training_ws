@@ -4,6 +4,7 @@
     <BehaviorTree ID="Solution Detect AprilTag Pose and Pick Object" _description="Detects the pose of an AprilTag given a target ID and size, transforms it to a grasp target pose, and moves to that pose.">
         <Control ID="Sequence" name="TopLevelSequence">
             <SubTree ID="Open Gripper"/>
+            <Action ID="MoveToWaypoint" waypoint_name="Forward Down" planning_group_name="manipulator" controller_names="/joint_trajectory_controller /robotiq_gripper_controller"/>
             <Action ID="GetCameraInfo" topic_name="/wrist_mounted_camera/color/camera_info" message_out="{camera_info}"/>
             <Action ID="GetImage" topic_name="/wrist_mounted_camera/color/image_raw" message_out="{image}"/>
             <Action ID="GetApriltagDetectionPose" apriltag_id="1" apriltag_size="0.08" camera_info="{camera_info}" image="{image}" detection_pose="{detection_pose}"/>
