@@ -1,4 +1,4 @@
-# Working with MoveIt Studio Configuration Packages
+# Working with MoveIt Pro Configuration Packages
 
 ### Overriding a Kinematics Solver Plugin
 
@@ -20,7 +20,7 @@ This updates the Gazebo configuration package to use the TRAC-IK inverse kinemat
 ### Adding a Custom ROS Node Service to a Launch Configuration
 
 Consider if you needed another service to be available for a custom use-case.
-For example, to detect AprilTags, we could use a library like https://github.com/duckietown/lib-dt-apriltags from within MoveIt Studio.  
+For example, to detect AprilTags, we could use a library like https://github.com/duckietown/lib-dt-apriltags from within MoveIt Pro.  
 The first step would be to adapt this into a ROS Service, which is already finished as an example here: [../src/apriltag_ros_python/](../src/apriltag_ros_python).
 
 To automatically make this service start on launch, we will add it to the launch file `launch/sim/hardware_sim.launch.py`.
@@ -58,13 +58,13 @@ And that's it. Congratulations: an AprilTag detection service is now present in 
 If you want to test that things are working as intended you can go into a Terminal in the container and check the ROS 2 node and service lists:
 
 ```console
-./moveit_studio shell
+./moveit_pro shell
 ```
 
 ```console
-studio-user@moveitstudio:/$ ros2 node list | grep apriltag
+$ ros2 node list | grep apriltag
   /apriltag_detection_server
-studio-user@moveitstudio:/$ ros2 service list | grep apriltag
+$ ros2 service list | grep apriltag
   /apriltag_detection_server/describe_parameters
   /apriltag_detection_server/get_parameter_types
   /apriltag_detection_server/get_parameters
@@ -108,7 +108,7 @@ Luckily, there exists a package for just this thing: https://github.com/gazebosi
 
 We will add a bridge from this package for our new scene camera; one for each topic we want, the file `launch/sim/hardware_sim.launch.py`.
 
-The remappings are simply to name the topics in a format that MoveIt Studio expects (specified above in the Cameras yaml).
+The remappings are simply to name the topics in a format that MoveIt Pro expects (specified above in the Cameras yaml).
 The topics we care about are the RGB image, the depth image, and the Camera Info.
 
 First, the RGB and depth image topic bridges are added to the launch file under the `# Camera Topic Bridges #` comment:
@@ -174,7 +174,7 @@ And finally, we add these nodes to our `Launch Description` so they are actually
 ```
 
 We will add the hardware realsense_d435 to the simulation world by adding it to the simulation world xacro found at `description/ur5e_gazebo.xacro`.
-To do this, we use the realsense_d435 xacro macro (which is found in the MoveIt Studio `picknik_accessories` package and is already included in the simulation world xacro).
+To do this, we use the `realsense_d435` xacro macro (which is found in the `picknik_accessories` package and is already included in the simulation world xacro).
 
 To add an instance of this macro, after the `external_camera_link` definition, add:
 
@@ -195,7 +195,7 @@ To add an instance of this macro, after the `external_camera_link` definition, a
   </xacro:realsense_d435>
 ```
 
-Congratulations! You should now have a scene camera displayed in the MoveIt Studio UI dropdown!
+Congratulations! You should now have a scene camera displayed in the UI dropdown!
 Feel free to change the location of this camera by modifying the `extra_scene_camera_joint`'s `origin` `xyz` for translation (in meters) or `rpy` for roll pitch yaw rotations (in radians).
 
 

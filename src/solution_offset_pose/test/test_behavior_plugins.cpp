@@ -1,6 +1,7 @@
 #include <gtest/gtest.h>
 
 #include <behaviortree_cpp/bt_factory.h>
+#include <geometry_msgs/msg/pose_stamped.hpp>
 #include <moveit_studio_behavior_interface/shared_resources_node_loader.hpp>
 #include <pluginlib/class_loader.hpp>
 
@@ -52,12 +53,12 @@ TEST(BehaviorTests, test_offset_pose_valid_input)
   config.blackboard->set("translation_y", 0.2);
   config.blackboard->set("translation_z", 0.3);
   config.blackboard->set("quaternion_xyzw", std::vector<double>{0.707, 0.0, 0.707, 0.0});
-  config.input_ports.insert(std::make_pair("input_pose", "="));
-  config.input_ports.insert(std::make_pair("translation_x", "="));
-  config.input_ports.insert(std::make_pair("translation_y", "="));
-  config.input_ports.insert(std::make_pair("translation_z", "="));
-  config.input_ports.insert(std::make_pair("quaternion_xyzw", "="));
-  config.output_ports.insert(std::make_pair("output_pose", "="));
+  config.input_ports.try_emplace("input_pose", "=");
+  config.input_ports.try_emplace("translation_x", "=");
+  config.input_ports.try_emplace("translation_y", "=");
+  config.input_ports.try_emplace("translation_z", "=");
+  config.input_ports.try_emplace("quaternion_xyzw", "=");
+  config.output_ports.try_emplace("output_pose", "=");
 
   // Initialize and tick the Behavior. This should succeed.
   offset_pose::OffsetPose offset_pose_behavior("OffsetPose", config);

@@ -57,7 +57,7 @@ For now, we can use a test pose that we
   - Do the same with the Grasp pose, which is identical to the Approach pose but with a position Z value of 0.05.
 
 In this step, you may find it useful to select poses from RViz and using the TF widget to view poses.
-To launch the MoveIt Studio RViz configuration,
+To launch the MoveIt Pro RViz configuration,
 
   - Open a new Terminal
   - Go to your MoveIt Pro install folder (e.g., `~/moveit_pro`)

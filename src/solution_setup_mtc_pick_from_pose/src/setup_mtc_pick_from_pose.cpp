@@ -6,7 +6,7 @@
 #include <moveit/task_constructor/task.h>
 #include <moveit_studio_behavior_interface/behavior_context.hpp>
 #include <moveit_studio_behavior_interface/check_for_error.hpp>
-#include <moveit_studio_behavior_interface/parameter_tools.hpp>
+#include <moveit_studio_behavior_interface/yaml_parsing_tools.hpp>
 #include <sensor_msgs/msg/joint_state.hpp>
 #include <tf2_eigen/tf2_eigen.hpp>
 #include <yaml-cpp/yaml.h>
@@ -78,11 +78,11 @@ BT::NodeStatus SetupMtcPickFromPose::tick()
   // Load behavior specific parameters defined in a separate configuration file.
   // ---------------------------------------------------------------------------
   const auto behavior_parameters = parseParameter<YAML::Node>(objective_parameters.value(), name());
-  if (fp::has_error(behavior_parameters))
+  if (!behavior_parameters)
   {
     shared_resources_->logger->publishFailureMessage(
         name(),
-        "Could not find behavior specific parameters in the configuration file: " + behavior_parameters.error().what);
+        "Could not find behavior specific parameters in the configuration file: " + behavior_parameters.error());
     return BT::NodeStatus::FAILURE;
   }
 
@@ -96,11 +96,11 @@ BT::NodeStatus SetupMtcPickFromPose::tick()
   const auto approach_distance = parseParameter<double>(behavior_parameters.value(), kApproachDistanceParameter);
   const auto lift_distance = parseParameter<double>(behavior_parameters.value(), kLiftDistanceParameter);
 
-  if (const auto error = fp::maybe_error(world_frame_name, arm_group_name, end_effector_group_name, end_effector_name,
+  if (const auto error = maybe_error(world_frame_name, arm_group_name, end_effector_group_name, end_effector_name,
                                          hand_frame_name, approach_distance, lift_distance);
       error)
   {
-    shared_resources_->logger->publishFailureMessage(name(), "Parsing behavior parameters failed: " + error->what);
+    shared_resources_->logger->publishFailureMessage(name(), "Parsing behavior parameters failed: " + error.value());
     return BT::NodeStatus::FAILURE;
   }
 

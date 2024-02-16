@@ -1,6 +1,6 @@
 # Creating Behaviors that Call External ROS Services
 
-MoveIt Studio provides several convenient BehaviorTree.CPP nodes that help interact with ROS 2.
+MoveIt Pro provides several convenient BehaviorTree.CPP nodes that help interact with ROS 2.
 These include:
 
 * `SharedResourcesNode<NodeType>`: Pass common resources in like a ROS node handle, TF buffer, etc.
@@ -65,28 +65,28 @@ The service is of type `apriltag_ros_msgs::srv::GetAprilTagDetections`, so we mu
 
   private:
   /** @brief Returns the AprilTag detection service name. */
-  fp::Result<std::string> getServiceName() override;
+  tl::expected<std::string, std::string> getServiceName() override;
 
   /** 
   * @brief Packages the service request.
   * @details This request takes camera info and image messages from the blackboard input ports to this Behavior.
   */
-  fp::Result<GetDetectionsService::Request> createRequest() override;
+  tl::expected<GetDetectionsService::Request, std::string> createRequest() override;
 
   /**
   * @brief Processes the service response.
   * @details Looks for the first detection instance that matches the specified ID, and if available sets its pose to the blackboard output port.
   */
-  fp::Result<bool> processResponse(const GetDetectionsService::Response& response) override;
+  tl::expected<bool, std::string> processResponse(const GetDetectionsService::Response& response) override;
 
   /** @brief Classes derived from AsyncBehaviorBase must implement getFuture() so that it returns a shared_future class member */
-  std::shared_future<fp::Result<bool>>& getFuture() override
+  std::shared_future<tl::expected<bool, std::string>>& getFuture() override
   {
     return response_future_;
   }
 
   /** @brief Holds the result of calling the service asynchronously. */
-  std::shared_future<fp::Result<bool>> response_future_;
+  std::shared_future<tl::expected<bool, std::string>> response_future_;
 
   /** @brief The target AprilTag ID to look for. */
   int target_id_;
@@ -114,13 +114,13 @@ This then involves implementing the override methods:
   ```
 - Implement `getServiceName()`:
   ```cpp
-  fp::Result<std::string> GetApriltagDetectionPose::getServiceName() {
+  tl::expected<std::string, std::string> GetApriltagDetectionPose::getServiceName() {
     return "/detect_apriltags";
   }
   ```
 - Implement `createRequest()`:
   ```cpp
-  fp::Result<GetDetectionsService::Request> GetApriltagDetectionPose::createRequest()
+  tl::expected<GetDetectionsService::Request, std::string> GetApriltagDetectionPose::createRequest()
   {
     // Check that all required input data ports were set.
     const auto apriltag_id = getInput<int>("apriltag_id");
@@ -129,7 +129,7 @@ This then involves implementing the override methods:
     const auto image = getInput<sensor_msgs::msg::Image>("image");
     if (const auto error = moveit_studio::behaviors::maybe_error(apriltag_id, apriltag_size, camera_info, image); error)
     {
-      return tl::make_unexpected(fp::Internal("Missing input port: " + error.value()));
+      return tl::make_unexpected("Missing input port: " + error.value());
     }
     target_id_ = apriltag_id.value();
     image_header_ = image.value().header;
@@ -144,7 +144,7 @@ This then involves implementing the override methods:
   ```
 - Implement `processResponse()`:
   ```cpp
-  fp::Result<bool> GetApriltagDetectionPose::processResponse(const GetDetectionsService::Response &response)
+  tl::expected<bool, std::string> GetApriltagDetectionPose::processResponse(const GetDetectionsService::Response &response)
   {
     // Filter by detection ID. Simply get the first instance of a particular ID, if one is found.
     for (const auto& detection : response.detections)
@@ -171,8 +171,8 @@ This then involves implementing the override methods:
     }
 
     // If no matching detections were found, this Behavior should fail.
-    return tl::make_unexpected(fp::Internal(
-      std::string("Did not find any AprilTag detections with ID: ").append(std::to_string(target_id_))));
+    return tl::make_unexpected(
+      std::string("Did not find any AprilTag detections with ID: ").append(std::to_string(target_id_)));
   }
   ```
 

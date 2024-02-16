@@ -35,28 +35,28 @@ public:
 
 private:
   /** @brief Returns the AprilTag detection service name. */
-  fp::Result<std::string> getServiceName() override;
+  tl::expected<std::string, std::string> getServiceName() override;
 
   /** 
    * @brief Packages the service request.
    * @details This request takes camera info and image messages from the blackboard input ports to this Behavior.
    */
-  fp::Result<GetDetectionsService::Request> createRequest() override;
+  tl::expected<GetDetectionsService::Request, std::string> createRequest() override;
 
   /**
    * @brief Processes the service response.
    * @details Looks for the first detection instance that matches the specified ID, and if available sets its pose to the blackboard output port.
   */
-  fp::Result<bool> processResponse(const GetDetectionsService::Response& response) override;
+  tl::expected<bool, std::string> processResponse(const GetDetectionsService::Response& response) override;
 
   /** @brief Classes derived from AsyncBehaviorBase must implement getFuture() so that it returns a shared_future class member */
-  std::shared_future<fp::Result<bool>>& getFuture() override
+  std::shared_future<tl::expected<bool, std::string>>& getFuture() override
   {
     return response_future_;
   }
 
   /** @brief Holds the result of calling the service asynchronously. */
-  std::shared_future<fp::Result<bool>> response_future_;
+  std::shared_future<tl::expected<bool, std::string>> response_future_;
 
   /** @brief The target AprilTag ID to look for. */
   int target_id_;
