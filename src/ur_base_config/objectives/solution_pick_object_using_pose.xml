@@ -5,11 +5,11 @@
     <Control ID="Sequence" name="TopLevelSequence">
       <SubTree ID="Open Gripper"/>
       <Action ID="CreateStampedPose" reference_frame="world" position_xyz="-0.6;-0.3;0.15" orientation_xyzw="-0.707;0.707;0.0;0.0" stamped_pose="{approach_pose}"/>
-      <Action ID="MoveToPose" target_pose="{approach_pose}" ik_frame="manual_grasp_link" planning_group_name="manipulator" controller_names="/joint_trajectory_controller /robotiq_gripper_controller"/>
+      <Action ID="MoveToPose" target_pose="{approach_pose}" ik_frame="grasp_link" planning_group_name="manipulator" controller_names="/joint_trajectory_controller /robotiq_gripper_controller"/>
       <Action ID="CreateStampedPose" reference_frame="world" position_xyz="-0.6;-0.3;0.05" orientation_xyzw="-0.707;0.707;0.0;0.0" stamped_pose="{grasp_pose}"/>
-      <Action ID="MoveToPose" target_pose="{grasp_pose}" ik_frame="manual_grasp_link" planning_group_name="manipulator" controller_names="/joint_trajectory_controller /robotiq_gripper_controller"/>
+      <Action ID="MoveToPose" target_pose="{grasp_pose}" ik_frame="grasp_link" planning_group_name="manipulator" controller_names="/joint_trajectory_controller /robotiq_gripper_controller"/>
       <SubTree ID="Close Gripper"/>
-      <Action ID="MoveToJointState" waypoint_name="Place" planning_group_name="manipulator" controller_names="/joint_trajectory_controller /robotiq_gripper_controller"/>
+      <Action ID="MoveToWaypoint" waypoint_name="Place" planning_group_name="manipulator" controller_names="/joint_trajectory_controller /robotiq_gripper_controller"/>
       <SubTree ID="Open Gripper"/>
     </Control>
   </BehaviorTree>

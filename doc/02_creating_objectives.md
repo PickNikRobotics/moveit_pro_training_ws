@@ -15,19 +15,19 @@ For example, we could create an Objective using the following hard-coded poses:
 These "Approach", "Grasp", and "Place" Waypoints could be determined by manually moving the robot and then saving Waypoints.
 
 #### Save a New Waypoint
-  - Move to desired waypoint via `Endpoint` and `Joints` tab.
-  - In the `Endpoint` tab, click `+` to create a new Waypoint at current location.
+  - Move to desired waypoint using the `Teleoperate` option.
+  - In the `Waypoints` control mode, click `+` to create a new Waypoint at current location.
   - Do this for three waypoints named, e.g., "Approach", "Grasp", and "Place".
 
 #### Create a New Objective
   - In the `Objective Builder` tab click `+` to create a new Objective.
-  - Select `Edit Objective`
+  - Select `Edit`
   - Add the following Behaviors under the Sequence node:
     - Open Gripper
-    - Move to Joint State (Approach Waypoint)
-    - Move to Joint State (Grasp Waypoint)
+    - Move to Waypoint (Approach)
+    - Move to Waypoint (Grasp)
     - Close Gripper
-    - Move to Joint State (Place Waypoint)
+    - Move to Waypoint (Place)
     - Open Gripper
 
 #### Grouping Behaviors into Subtrees
@@ -37,8 +37,7 @@ For example, all the Behaviors pertaining to picking vs. placing could be their 
 To do this:
   - Place all the common Behaviors you want to group under a Sequence control node.
   - Select the Sequence node.
-    - In the options pane that appears on the right, click the three dots icon.
-    - Then, click `Convert to Subtree`.
+  - In the quick options that appear, click `Create Subtree`.
 
 ---
 
@@ -61,7 +60,12 @@ In this step, you may find it useful to select poses from RViz and using the TF 
 To launch the MoveIt Studio RViz configuration,
 
   - Open a new Terminal
-  - Go to your MoveIt Studio install folder (e.g., `~/moveit_studio`)
-  - Enter `./moveit_studio rviz`.
+  - Go to your MoveIt Pro install folder (e.g., `~/moveit_pro`)
+  - Enter `./moveit_pro rviz`.
+
+You can also use the tf2 command-line interface (CLI):
+
+  - Enter `./moveit_pro shell` to drop into an interactive shell
+  - Run a command, e.g., `ros2 run tf2_ros tf2_echo world grasp_link`
 
 In later sections, we will see how to replace the "Create Stamped Pose" Behavior, which creates a test pose, with the output of a perception Behavior.

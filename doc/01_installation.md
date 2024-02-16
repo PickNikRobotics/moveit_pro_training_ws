@@ -26,7 +26,7 @@ cd ~/moveit_pro
 ```
 
 When prompted, select:
-* Configuration package name: `ur_site_config`
+* Configuration package name: `ur_base_config`
 * Workspace location: `~/moveit_pro/moveit_pro_training_ws`
 * Yes to rebuilding the workspace.
 
