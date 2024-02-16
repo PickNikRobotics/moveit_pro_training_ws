@@ -9,13 +9,13 @@ To change the Kinematics solver from the default (KDL IK) to another (such as TR
 moveit_params:
   servo:
     package: "ur_gazebo_config"
-    path: "config/moveit/ur5e_servo.yaml"
+    path: "config/moveit/ur5e_gazebo_servo.yaml"
   kinematics:
     package: "ur_gazebo_config"
     path: "config/moveit/trac_ik_kinematics.yaml"
 ```
 
-This updates the Gazebo configuration package to use the `trac_ik` inverse kinematics plugin instead of the default one defined in the parent configuration package.
+This updates the Gazebo configuration package to use the TRAC-IK inverse kinematics plugin instead of the default one defined in the parent configuration package.
 
 ### Adding a Custom ROS Node Service to a Launch Configuration
 
@@ -62,7 +62,6 @@ If you want to test that things are working as intended you can go into a Termin
 ```
 
 ```console
-studio-user@moveitstudio:/$ source /opt/overlay_ws/install/setup.bash
 studio-user@moveitstudio:/$ ros2 node list | grep apriltag
   /apriltag_detection_server
 studio-user@moveitstudio:/$ ros2 service list | grep apriltag
@@ -82,7 +81,7 @@ This camera will be a RealSense d435 camera and serves as an overhead camera tha
 
 We first add the configuration of the new Scene Camera to our Camera configuration file at `config/wrist_camera.yaml`:
 
-```python
+```yaml
 - scene_camera:
     camera_name: "scene_camera"
     type: "sim"
@@ -211,6 +210,6 @@ If at any point you got lost or just want to skip to a working feature complete 
 Or if you want to skip this straight to the finished working `config.yaml`:
 
 ```bash
-cd ~/moveit_studio/moveit_studio_training_ws/src/ur_gazebo_config
+cd src/ur_gazebo_config
 cp config/SOLUTION_cfg.yaml config/config.yaml
 ```

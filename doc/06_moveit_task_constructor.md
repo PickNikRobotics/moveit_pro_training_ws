@@ -18,9 +18,9 @@ Header file available at [setup_mtc_pick_from_pose.hpp](../src/solution_setup_mt
 
 Finished Objectives that use this Behavior are also available for reference at
 
-* [solution_pick_from_pose_with_mtc.xml](../src/ur_site_config/objectives/solution_pick_from_pose_with_mtc.xml) for picking using a hard-coded pose.
-* [solution_pick_apriltag_annotated_object.xml](../src/ur_site_config/objectives/solution_pick_apriltag_annotated_object.xml) for picking using a detected AprilTag pose.
-* [solution_pick_apriltag_annotated_object_subtree.xml](../src/ur_site_config/objectives/solution_pick_apriltag_annotated_object_subtree.xml) for the Subtree version.
+* [solution_pick_from_pose_with_mtc.xml](../src/ur_base_config/objectives/solution_pick_from_pose_with_mtc.xml) for picking using a hard-coded pose.
+* [solution_pick_apriltag_annotated_object.xml](../src/ur_base_config/objectives/solution_pick_apriltag_annotated_object.xml) for picking using a detected AprilTag pose.
+* [solution_pick_apriltag_annotated_object_subtree.xml](../src/ur_base_config/objectives/solution_pick_apriltag_annotated_object_subtree.xml) for the Subtree version.
 
 You will also need to add:
   - the Behavior definition to the [tree_nodes_model.xml](../src/solution_setup_mtc_pick_from_pose/config/tree_nodes_model.xml).
