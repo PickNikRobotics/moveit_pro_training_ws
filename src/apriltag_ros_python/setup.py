@@ -31,7 +31,7 @@ from glob import glob
 from setuptools import find_packages, setup
 
 package_name = "apriltag_ros_python"
-package_version = "1.0.0"
+package_version = "4.0.0"
 
 setup(
     name=package_name,
@@ -47,7 +47,6 @@ setup(
     install_requires=["setuptools"],
     zip_safe=True,
     maintainer="Sebastian Castro",
-    maintainer_email="sebastian.castro@picknik.ai",
     description="Python nodes to perform AprilTag detection.",
     license="BSD 3-Clause",
     tests_require=["pytest"],

@@ -1,10 +1,10 @@
 ###############################################################
 #
-#  This configures the robot to work with Moveit Studio
+#  This configures the robot to work with Moveit Pro
 #
 ###############################################################
 
-# Baseline hardware configuration parameters for MoveIt Studio.
+# Baseline hardware configuration parameters for MoveIt Pro.
 # [Required]
 hardware:
   # Used by the ur_description package to set kinematics and geometry for a specific robot type.
@@ -18,16 +18,16 @@ hardware:
   # [Required]
   simulated: True
 
-  # If the MoveIt Studio Agent should launch the ros2 controller node.
+  # If the Agent should launch the ros2 controller node.
   # [Optional, default=True]
   launch_control_node: True
 
-  # If the MoveIt Studio Agent should launch the robot state publisher.
+  # If the Agent should launch the robot state publisher.
   # This should be false if you are launching the robot state publisher as part of drivers.
   # [Optional, default=True]
   launch_robot_state_publisher: True
 
-  # If the MoveIt Studio Agent should launch cameras when simulated.
+  # If the Agent should launch cameras when simulated.
   # This must be False when using mock hardware, since there are no cameras simulated.
   # [Optional, default=True]
   launch_cameras_when_simulated: False
@@ -157,7 +157,7 @@ ros2_control:
   config:
     package: "ur_base_config"
     path: "config/control/ur5e.ros2_control.yaml"
-  # MoveIt Studio will load and activate these controllers at start up to ensure they are available.
+  # MoveIt Pro will load and activate these controllers at start up to ensure they are available.
   # If not specified, it is up to the user to ensure the appropriate controllers are active and available
   # for running the application.
   # [Optional, default=[]]
@@ -174,7 +174,7 @@ ros2_control:
     - "joint_trajectory_controller"
     - "admittance_controller_open_door"
     - "joint_trajectory_controller_chained_open_door"
-  # Any controllers here will not be spawned by MoveIt Studio.
+  # Any controllers here will not be spawned by MoveIt Pro.
   # [Optional, default=[]]
   controllers_not_managed: []
   # Optionally configure remapping rules to let multiple controllers receive commands on the same topic.
@@ -187,23 +187,23 @@ octomap_manager:
   # the Octomap manager node is defined in sensors_3d.yaml.
   input_point_cloud_topic: "/wrist_mounted_camera/depth/color/points"
 
-# Configuration for loading behaviors and objectives.
+# Configuration for loading Behaviors and Objectives.
 # [Required]
 objectives:
-  # List of plugins for loading custom behaviors.
+  # List of plugins for loading custom Behaviors.
   # [Required]
   behavior_loader_plugins:
-    # This plugin will load the core MoveIt Studio behaviors.
+    # This plugin will load the core MoveIt Pro Behaviors.
     # Add additional plugin loaders as needed.
     core:
       - "moveit_studio::behaviors::CoreBehaviorsLoader"
-  # Specify source folder for objectives
+  # Specify source folder for Objectives
   # [Required]
   objective_library_paths:
     core:
       package_name: "ur_base_config"
       relative_path: "objectives"
-  # Specify the location of the saved waypoints file.
+  # Specify the location of the saved Waypoints file.
   # [Required]
   waypoints_file:
     package_name: "ur_base_config"

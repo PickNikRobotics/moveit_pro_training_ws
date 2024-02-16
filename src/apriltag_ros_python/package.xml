@@ -2,11 +2,11 @@
 <?xml-model href="http://download.ros.org/schema/package_format2.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
 <package format="3">
   <name>apriltag_ros_python</name>
-  <version>1.0.0</version>
+  <version>4.0.0</version>
   <description>Python nodes to perform AprilTag detection.</description>
 
-  <maintainer email="sebastian.castro@picknik.ai">Sebastian Castro</maintainer>
-  <author email="sebastian.castro@picknik.ai">Sebastian Castro</author>
+  <author>Sebastian Castro</author>
+  <maintainer email="hello@picknik.ai">MoveIt Pro maintainer</maintainer>
 
   <license>BSD 3-Clause</license>
 
