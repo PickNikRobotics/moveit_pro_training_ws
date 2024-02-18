@@ -15,7 +15,7 @@ Next, we need to install the tutorial repo to use as a User Workspace:
 
 ```bash
 cd ~/moveit_pro
-git clone https://github.com/PickNikRobotics/moveit_pro_training_ws.git
+git clone --recurse-submodules https://github.com/PickNikRobotics/moveit_pro_training_ws.git
 ```
 
 Now we will configure MoveIt Pro to use this as a User Workspace:
