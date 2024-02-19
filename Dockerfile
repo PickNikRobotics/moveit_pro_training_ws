@@ -57,9 +57,8 @@ RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
     --mount=type=cache,target=/var/lib/apt,sharing=locked \
     . /opt/overlay_ws/install/setup.sh && \
     apt-get update && \
-    rosdep install -q -y \
-      --from-paths src \
-      --ignore-src
+    rosdep install -q -y --from-paths src --ignore-src && \
+    pip3 install dt_apriltags
 
 ###################################################################
 # Target for the developer build which does not compile any code. #

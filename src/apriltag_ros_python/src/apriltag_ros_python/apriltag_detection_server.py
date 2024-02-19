@@ -4,7 +4,7 @@ ROS 2 Node hosting a service that performs AprilTag detections.
 
 import cv2
 import cv_bridge
-import importlib
+import dt_apriltags
 import numpy as np
 import rclpy
 from rclpy.executors import ExternalShutdownException
@@ -14,14 +14,6 @@ from scipy.spatial.transform import Rotation
 from apriltag_ros_msgs.msg import Detection
 from apriltag_ros_msgs.srv import GetAprilTagDetections
 from geometry_msgs.msg import PoseStamped
-
-# Hack to pip install dt_apriltags if not available
-if not importlib.util.find_spec("dt_apriltags"):
-    import subprocess
-
-    subprocess.run(["sudo", "pip3", "install", "dt_apriltags"])
-
-import dt_apriltags
 
 
 class AprilTagDetectionServer(Node):
