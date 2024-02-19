@@ -34,7 +34,8 @@ These "Approach", "Grasp", and "Place" Waypoints could be determined by manually
 To reduce visual complexity, you could group common functionality into Subtrees.
 For example, all the Behaviors pertaining to picking vs. placing could be their own Subtrees.
 
-To do this:
+Any Objective you create can be used as a Subtree.
+To convert an existing section of an Objective to a Subtree:
   - Place all the common Behaviors you want to group under a Sequence control node.
   - Select the Sequence node.
   - In the quick options that appear, click `Create Subtree`.
