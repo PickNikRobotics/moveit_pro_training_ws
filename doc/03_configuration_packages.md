@@ -106,7 +106,7 @@ We first add the configuration of the new Scene Camera to our Camera configurati
 We need to get the images from Gazebo to ROS. 
 Luckily, there exists a package for just this thing: https://github.com/gazebosim/ros_gz/tree/ros2/ros_gz_image  
 
-We will add a bridge from this package for our new scene camera; one for each topic we want, the file `launch/sim/hardware_sim.launch.py`.
+We will add a bridge from this package for our new scene camera; one for each topic we want, in the file `launch/sim/hardware_sim.launch.py`.
 
 The remappings are simply to name the topics in a format that MoveIt Pro expects (specified above in the Cameras yaml).
 The topics we care about are the RGB image, the depth image, and the Camera Info.
