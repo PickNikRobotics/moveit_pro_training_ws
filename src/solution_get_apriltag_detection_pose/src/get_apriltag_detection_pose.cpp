@@ -35,11 +35,11 @@ BT::PortsList GetApriltagDetectionPose::providedPorts()
   };
 }
 
-fp::Result<std::string> GetApriltagDetectionPose::getServiceName() {
+tl::expected<std::string, std::string> GetApriltagDetectionPose::getServiceName() {
   return kGetAprilTagDetectionsServiceName;
 }
 
-fp::Result<GetDetectionsService::Request> GetApriltagDetectionPose::createRequest()
+tl::expected<GetDetectionsService::Request, std::string> GetApriltagDetectionPose::createRequest()
 {
   // Check that all required input data ports were set.
   const auto apriltag_id = getInput<int>(kPortIDAprilTagId);
@@ -48,7 +48,7 @@ fp::Result<GetDetectionsService::Request> GetApriltagDetectionPose::createReques
   const auto image = getInput<sensor_msgs::msg::Image>(kPortIDImage);
   if (const auto error = moveit_studio::behaviors::maybe_error(apriltag_id, apriltag_size, camera_info, image); error)
   {
-    return tl::make_unexpected(fp::Internal("Missing input port: " + error.value()));
+    return tl::make_unexpected("Missing input port: " + error.value());
   }
   target_id_ = apriltag_id.value();
   image_header_ = image.value().header;
@@ -61,7 +61,7 @@ fp::Result<GetDetectionsService::Request> GetApriltagDetectionPose::createReques
   return request;
 }
 
-fp::Result<bool> GetApriltagDetectionPose::processResponse(const GetDetectionsService::Response &response)
+tl::expected<bool, std::string> GetApriltagDetectionPose::processResponse(const GetDetectionsService::Response &response)
 {
   // Filter by detection ID. Simply get the first instance of a particular ID, if one is found.
   for (const auto& detection : response.detections)
@@ -88,8 +88,8 @@ fp::Result<bool> GetApriltagDetectionPose::processResponse(const GetDetectionsSe
   }
 
   // If no matching detections were found, this Behavior should fail.
-  return tl::make_unexpected(fp::Internal(
-      std::string("Did not find any AprilTag detections with ID: ").append(std::to_string(target_id_))));
+  return tl::make_unexpected(
+      std::string("Did not find any AprilTag detections with ID: ").append(std::to_string(target_id_)));
 }
 
 }  // namespace get_apriltag_detection_pose

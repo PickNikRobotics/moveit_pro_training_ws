@@ -3,7 +3,7 @@
 #
 
 # Name of the package to specialize
-based_on_package: "ur_site_config"
+based_on_package: "ur_base_config"
 
 hardware:
   simulated: ${MOCK_HARDWARE:-true}

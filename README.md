@@ -1,9 +1,9 @@
-# MoveIt Studio Training Examples
+# MoveIt Pro Training Examples
 
-This is a user workspace for the MoveIt Studio training course.
-For more information, refer to the [MoveIt Studio Documentation](https://docs.picknik.ai/).
+This is a user workspace for the MoveIt Pro training course.
+For more information, refer to the [MoveIt Pro Documentation](https://docs.picknik.ai/).
 
-Copyright (c) 2023, PickNik Robotics
+Copyright (c) 2023-2024, PickNik Robotics
 
 ---
 

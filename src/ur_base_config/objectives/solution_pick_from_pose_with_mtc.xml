@@ -1,0 +1,19 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<root BTCPP_format="4" main_tree_to_execute="Solution Pick From Pose with MTC">
+  <!-- ////////// -->
+  <BehaviorTree ID="Solution Pick From Pose with MTC" _description="Pick up and lift an object at a specified pose.">
+    <Control ID="Sequence" name="root">
+      <SubTree ID="OpenGripper"/>
+      <Action ID="MoveToWaypoint" waypoint_name="Forward Down" planning_group_name="manipulator" controller_names="/joint_trajectory_controller /robotiq_gripper_controller"/>
+      <Control ID="Sequence" name="pick_from_pose_main">
+        <Action ID="CreateStampedPose" reference_frame="world" position_xyz="-0.6;-0.3;0.05" orientation_xyzw="-0.707;0.707;0.0;0.0" stamped_pose="{grasp_pose}"/>
+        <Action ID="InitializeMTCTask" task_id="pick_from_pose" controller_names="/joint_trajectory_controller /robotiq_gripper_controller" task="{pick_from_pose_task}"/>
+        <Action ID="SetupMTCCurrentState" task="{pick_from_pose_task}"/>
+        <Action ID="SetupMtcPickFromPose" task="{pick_from_pose_task}" grasp_pose="{grasp_pose}" world_frame_name="world" arm_group_name="manipulator" end_effector_group_name="gripper" end_effector_name="moveit_ee" hand_frame_name="grasp_link" hand_closed_pose_name="close" approach_distance="0.1" lift_distance="0.1"/>
+        <Action ID="PlanMTCTask" solution="{pick_from_pose_solution}" task="{pick_from_pose_task}"/>
+        <SubTree ID="Wait for Trajectory Approval if User Available" solution="{pick_from_pose_solution}"/>
+        <Action ID="ExecuteMTCTask" solution="{pick_from_pose_solution}"/>
+      </Control>
+    </Control>
+  </BehaviorTree>
+</root>

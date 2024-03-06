@@ -1,6 +1,9 @@
 <root>
     <TreeNodesModel>
         <Action ID="OffsetPose">
+            <MetadataFields>
+                <Metadata subcategory="Miscellaneous"/>
+            </MetadataFields>
             <description>
                 <p>
                     Offsets a pose by specified translation and orientation values.

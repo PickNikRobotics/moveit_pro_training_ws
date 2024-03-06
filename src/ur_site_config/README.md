@@ -1,5 +1,0 @@
-# ur_site_config
-
-A MoveIt Studio site configuration for a UR5e based on the `ur_base_config` package.
-
-For further documentation see: [MoveIt Studio Documentation](https://docs.picknik.ai/)

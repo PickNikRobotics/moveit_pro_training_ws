@@ -1,5 +1,5 @@
 # ur_base_config
 
-A MoveIt Studio base configuration for PickNik's UR5e simulation.
+A MoveIt Pro base configuration for PickNik's UR5e simulation.
 
-For detailed documentation see: [MoveIt Studio Documentation](https://docs.picknik.ai/)
+For detailed documentation see: [MoveIt Pro Documentation](https://docs.picknik.ai/)

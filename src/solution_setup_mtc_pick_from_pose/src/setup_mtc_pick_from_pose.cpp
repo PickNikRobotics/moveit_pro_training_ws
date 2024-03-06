@@ -6,10 +6,8 @@
 #include <moveit/task_constructor/task.h>
 #include <moveit_studio_behavior_interface/behavior_context.hpp>
 #include <moveit_studio_behavior_interface/check_for_error.hpp>
-#include <moveit_studio_behavior_interface/parameter_tools.hpp>
 #include <sensor_msgs/msg/joint_state.hpp>
 #include <tf2_eigen/tf2_eigen.hpp>
-#include <yaml-cpp/yaml.h>
 
 namespace
 {
@@ -18,18 +16,15 @@ using MoveItErrorCodes = moveit_msgs::msg::MoveItErrorCodes;
 
 // Port names for input and output ports.
 constexpr auto kPortIDTask = "task";
-constexpr auto kPortIDObjectiveParameters = "parameters";
 constexpr auto kPortIDGraspPose = "grasp_pose";
-
-// Parameter names for the behavior parameters.
-constexpr auto kWorldFrameNameParameter = "world_frame_name";
-constexpr auto kArmGroupNameParameter = "arm_group_name";
-constexpr auto kEndEffectorGroupNameParameter = "end_effector_group_name";
-constexpr auto kEndEffectorNameParameter = "end_effector_name";
-constexpr auto kHandFrameNameParameter = "hand_frame_name";
-constexpr auto kHandCloseNameParameter = "end_effector_closed_pose_name";
-constexpr auto kApproachDistanceParameter = "approach_distance";
-constexpr auto kLiftDistanceParameter = "lift_distance";
+constexpr auto kPortIDWorldFrameName = "world_frame_name";
+constexpr auto kPortIDArmGroupName = "arm_group_name";
+constexpr auto kPortIDEndEffectorGroupName = "end_effector_group_name";
+constexpr auto kPortIDEndEffectorName = "end_effector_name";
+constexpr auto kPortIDHandFrameName = "hand_frame_name";
+constexpr auto kPortIDHandClosedPoseName = "hand_closed_pose_name";
+constexpr auto kPortIDApproachDistance = "approach_distance";
+constexpr auto kPortIDLiftDistance = "lift_distance";
 
 // behavior constants
 constexpr auto kPropertyNameTrajectoryExecutionInfo = "trajectory_execution_info";
@@ -49,9 +44,16 @@ SetupMtcPickFromPose::SetupMtcPickFromPose(const std::string &name, const BT::No
 BT::PortsList SetupMtcPickFromPose::providedPorts()
 {
   return {
-    BT::BidirectionalPort<moveit::task_constructor::TaskPtr>(kPortIDTask),
+    BT::BidirectionalPort<moveit::task_constructor::TaskPtr>("task"),
     BT::InputPort<geometry_msgs::msg::PoseStamped>(kPortIDGraspPose),
-    BT::InputPort<YAML::Node>(kPortIDObjectiveParameters),
+    BT::InputPort<std::string>(kPortIDWorldFrameName),
+    BT::InputPort<std::string>(kPortIDArmGroupName),
+    BT::InputPort<std::string>(kPortIDEndEffectorGroupName),
+    BT::InputPort<std::string>(kPortIDEndEffectorName),
+    BT::InputPort<std::string>(kPortIDHandFrameName),
+    BT::InputPort<std::string>(kPortIDHandClosedPoseName),
+    BT::InputPort<double>(kPortIDApproachDistance),
+    BT::InputPort<double>(kPortIDLiftDistance),
   };
 }
 
@@ -59,51 +61,29 @@ BT::NodeStatus SetupMtcPickFromPose::tick()
 {
   using namespace moveit_studio::behaviors;
 
-  // ----------------------------------------
   // Load data from the behavior input ports.
-  // ----------------------------------------
-  const auto grasp_pose = getInput<geometry_msgs::msg::PoseStamped>(kPortIDGraspPose);
   const auto task = getInput<moveit::task_constructor::TaskPtr>(kPortIDTask);
-  const auto objective_parameters = getInput<YAML::Node>(kPortIDObjectiveParameters);
+  const auto grasp_pose = getInput<geometry_msgs::msg::PoseStamped>(kPortIDGraspPose);
+  const auto world_frame_name = getInput<std::string>(kPortIDWorldFrameName);
+  const auto arm_group_name = getInput<std::string>(kPortIDArmGroupName);
+  const auto end_effector_group_name = getInput<std::string>(kPortIDEndEffectorGroupName);
+  const auto end_effector_name = getInput<std::string>(kPortIDEndEffectorName);
+  const auto hand_frame_name = getInput<std::string>(kPortIDHandFrameName);
+  const auto hand_closed_pose_name = getInput<std::string>(kPortIDHandClosedPoseName);
+  const auto approach_distance = getInput<double>(kPortIDApproachDistance);
+  const auto lift_distance = getInput<double>(kPortIDLiftDistance);
 
   // Check that all required input data ports were set
-  if (const auto error = maybe_error(grasp_pose, task, objective_parameters); error)
+  if (const auto error = maybe_error(task, grasp_pose, world_frame_name, arm_group_name,
+                                     end_effector_group_name, end_effector_name, hand_frame_name, hand_closed_pose_name, approach_distance, lift_distance);
+      error)
   {
     shared_resources_->logger->publishFailureMessage(name(), "Failed to get required value from input data port: " +
                                                                  error.value());
     return BT::NodeStatus::FAILURE;
   }
 
-  // ---------------------------------------------------------------------------
-  // Load behavior specific parameters defined in a separate configuration file.
-  // ---------------------------------------------------------------------------
-  const auto behavior_parameters = parseParameter<YAML::Node>(objective_parameters.value(), name());
-  if (fp::has_error(behavior_parameters))
-  {
-    shared_resources_->logger->publishFailureMessage(
-        name(),
-        "Could not find behavior specific parameters in the configuration file: " + behavior_parameters.error().what);
-    return BT::NodeStatus::FAILURE;
-  }
-
-  const auto world_frame_name = parseParameter<std::string>(behavior_parameters.value(), kWorldFrameNameParameter);
-  const auto arm_group_name = parseParameter<std::string>(behavior_parameters.value(), kArmGroupNameParameter);
-  const auto end_effector_group_name =
-      parseParameter<std::string>(behavior_parameters.value(), kEndEffectorGroupNameParameter);
-  const auto end_effector_name = parseParameter<std::string>(behavior_parameters.value(), kEndEffectorNameParameter);
-  const auto hand_frame_name = parseParameter<std::string>(behavior_parameters.value(), kHandFrameNameParameter);
-  const auto hand_closed_name = parseParameter<std::string>(behavior_parameters.value(), kHandCloseNameParameter);
-  const auto approach_distance = parseParameter<double>(behavior_parameters.value(), kApproachDistanceParameter);
-  const auto lift_distance = parseParameter<double>(behavior_parameters.value(), kLiftDistanceParameter);
-
-  if (const auto error = fp::maybe_error(world_frame_name, arm_group_name, end_effector_group_name, end_effector_name,
-                                         hand_frame_name, approach_distance, lift_distance);
-      error)
-  {
-    shared_resources_->logger->publishFailureMessage(name(), "Parsing behavior parameters failed: " + error->what);
-    return BT::NodeStatus::FAILURE;
-  }
-
+  // Create MTC container, which contains individual stages
   auto container = std::make_unique<moveit::task_constructor::SerialContainer>("Pick From Pose");
   container->properties().set(kPropertyNameTrajectoryExecutionInfo,
                               boost::any_cast<moveit::task_constructor::TrajectoryExecutionInfo>(
@@ -183,7 +163,7 @@ BT::NodeStatus SetupMtcPickFromPose::tick()
     container->insert(std::move(stage));
   }
 
-  // Generate the Inverse Kinematic (IK) solutions to move to the pose specified in the "grasp_pose" input port.
+  // Generate the Inverse Kinematics (IK) solutions to move to the pose specified in the "grasp_pose" input port.
   // This will generate up to kMaxIKSolutions IK solution candidates to sample from, unless the timeout specified in
   // kIKTimeoutSeconds is reached first.
   // Collision checking is ignored for IK pose generation. Solutions that result in forbidden collisions will be
@@ -227,7 +207,7 @@ BT::NodeStatus SetupMtcPickFromPose::tick()
     auto stage =
         std::make_unique<moveit::task_constructor::stages::MoveTo>("close hand", mtc_joint_interpolation_planner);
     stage->setGroup(end_effector_group_name.value());
-    stage->setGoal(hand_closed_name.value());
+    stage->setGoal(hand_closed_pose_name.value());
     container->add(std::move(stage));
   }
 

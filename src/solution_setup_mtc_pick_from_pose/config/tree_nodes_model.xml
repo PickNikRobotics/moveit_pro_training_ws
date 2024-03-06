@@ -1,15 +1,24 @@
 <root>
     <TreeNodesModel>
         <Action ID="SetupMtcPickFromPose">
-            <metadata subcategory="MTC"/>
+            <MetadataFields>
+                <Metadata subcategory="Task Planning"/>
+            </MetadataFields>
             <description>
                 <p>
                     Given an existing MTC Task object and a target grasp pose, appends MTC stages to describe a motion plan to approach, grasp, and lift an object at that pose.
                 </p>
             </description>
-            <input_port name="parameters" default="{parameters}">Behavior parameters stored in a common configuration file for the objective.</input_port>
-            <input_port name="grasp_pose" default="{grasp_pose}">Target grasp pose for the end effector.</input_port>
             <inout_port name="task" default="{mtc_task}">MoveIt Task Constructor task.</inout_port>
+            <input_port name="grasp_pose" default="{grasp_pose}">Target grasp pose for the end effector.</input_port>
+            <input_port name="world_frame_name" default="world">Name of the world frame.</input_port>
+            <input_port name="arm_group_name" default="manipulator">Name of the planning group for the arm.</input_port>
+            <input_port name="end_effector_group_name" default="gripper">Name of the planning group for the hand.</input_port>
+            <input_port name="end_effector_name" default="moveit_ee">Name of the end effector in the SRDF file.</input_port>
+            <input_port name="hand_frame_name" default="grasp_link">Name of the end effector frame.</input_port>
+            <input_port name="hand_closed_pose_name" default="close">Name of the named state corresponding to the closed end effector joint values.</input_port>
+            <input_port name="approach_distance" default="0.1">Distance (in meters) to approach an object from before grabbing it.</input_port>
+            <input_port name="lift_distance" default="0.1">Distance (in meters) to lift an object after grabbing it.</input_port>
         </Action>
     </TreeNodesModel>
 </root>

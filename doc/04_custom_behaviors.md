@@ -3,7 +3,7 @@
 ### Creating a Basic Behavior
 In this example, we will create a Behavior that accepts a pose and offsets its position based on some inputs.
 
-- In the `Objective Builder` tab, select `+ Behavior` button.
+- While editing an Objective, select the `+ Behavior` button.
 - Name the package `offset_pose` and select `SyncActionNode` as the node type.
 - Navigate to your user workspace and notice the `offset_pose` package created in the `src` folder.
   This creates a Behavior class named `OffsetPose`.
@@ -88,6 +88,9 @@ In this example, we will create a Behavior that accepts a pose and offsets its p
   ```xml
     <TreeNodesModel>
       <Action ID="OffsetPose">
+        <MetadataFields>
+            <Metadata subcategory="Miscellaneous"/>
+        </MetadataFields>
         <description>
             <p>
                 Offsets a pose by specified translation and orientation values.
@@ -102,7 +105,7 @@ In this example, we will create a Behavior that accepts a pose and offsets its p
       </Action>
     </TreeNodesModel>
   ```
-  - Next, you can try build your workspace using `./moveit_studio build`
+  - Next, you can try build your workspace using `./moveit_pro build_workspace`
 
 This finished Behavior is available for reference at [offset_pose.cpp](../src/solution_offset_pose/src/offset_pose.cpp).
 
@@ -150,12 +153,12 @@ By default, the Behavior package template is set up for Google Test (gtest).
     config.blackboard->set("translation_y", 0.2);
     config.blackboard->set("translation_z", 0.3);
     config.blackboard->set("quaternion_xyzw", std::vector<double>{0.707, 0.0, 0.707, 0.0});
-    config.input_ports.insert(std::make_pair("input_pose", "="));
-    config.input_ports.insert(std::make_pair("translation_x", "="));
-    config.input_ports.insert(std::make_pair("translation_y", "="));
-    config.input_ports.insert(std::make_pair("translation_z", "="));
-    config.input_ports.insert(std::make_pair("quaternion_xyzw", "="));
-    config.output_ports.insert(std::make_pair("output_pose", "="));
+    config.input_ports.try_emplace("input_pose", "=");
+    config.input_ports.try_emplace("translation_x", "=");
+    config.input_ports.try_emplace("translation_y", "=");
+    config.input_ports.try_emplace("translation_z", "=");
+    config.input_ports.try_emplace("quaternion_xyzw", "=");
+    config.output_ports.try_emplace("output_pose", "=");
 
     // Initialize and tick the Behavior. This should succeed.
     offset_pose::OffsetPose offset_pose_behavior("OffsetPose", config);
@@ -186,20 +189,20 @@ By default, the Behavior package template is set up for Google Test (gtest).
     config.blackboard->set("translation_y", 0.2);
     config.blackboard->set("translation_z", 0.3);
     config.blackboard->set("quaternion_xyzw", std::vector<double>{0.0, 0.0, 0.0}); // Missing a fourth element.
-    config.input_ports.insert(std::make_pair("input_pose", "="));
-    config.input_ports.insert(std::make_pair("translation_x", "="));
-    config.input_ports.insert(std::make_pair("translation_y", "="));
-    config.input_ports.insert(std::make_pair("translation_z", "="));
-    config.input_ports.insert(std::make_pair("quaternion_xyzw", "="));
-    config.output_ports.insert(std::make_pair("output_pose", "="));
+    config.input_ports.try_emplace("input_pose", "=");
+    config.input_ports.try_emplace("translation_x", "=");
+    config.input_ports.try_emplace("translation_y", "=");
+    config.input_ports.try_emplace("translation_z", "=");
+    config.input_ports.try_emplace("quaternion_xyzw", "=");
+    config.output_ports.try_emplace("output_pose", "=");
 
     // Initialize and tick the Behavior. This should fail.
     offset_pose::OffsetPose offset_pose_behavior("OffsetPose", config);
     ASSERT_EQ(offset_pose_behavior.executeTick(), BT::NodeStatus::FAILURE);
   }
   ```
-  - To run your tests, you can run `./moveit_studio test`.
-    - You can also enter into one of the Docker containers by entering, e.g., `docker compose exec -it agent bash` and then running `colcon test` from the user workspace directory at `/opt/moveit_studio/user_ws`.
+  - To run your tests, you can run `./moveit_pro test`.
+    - You can also enter into one of the Docker containers by entering, e.g., `docker compose exec -it agent bash` and then running `colcon test` from the user workspace directory at `~/user_ws`.
     - For example, a common command may be: `colcon test --packages-select offset_pose --event-handlers console_direct+`.
 
 These finished unit tests are available for reference in [this file](../src/solution_offset_pose/test/test_behavior_plugins.cpp).
