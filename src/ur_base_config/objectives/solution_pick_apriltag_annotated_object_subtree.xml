@@ -20,7 +20,7 @@
         <Control ID="Sequence" name="root">
             <Action ID="InitializeMTCTask" task_id="pick_from_apriltag_pose" controller_names="/joint_trajectory_controller /robotiq_gripper_controller" task="{pick_from_apriltag_pose_task}"/>
             <Action ID="SetupMTCCurrentState" task="{pick_from_apriltag_pose_task}"/>
-            <Action ID="SetupMtcPickFromPose" task="{pick_from_pose_task}" grasp_pose="{grasp_pose}" world_frame_name="world" arm_group_name="manipulator" end_effector_group_name="gripper" end_effector_name="moveit_ee" hand_frame_name="grasp_link" hand_closed_pose_name="close" approach_distance="0.1" lift_distance="0.1"/>
+            <Action ID="SetupMtcPickFromPose" task="{pick_from_apriltag_pose_task}" grasp_pose="{grasp_pose}" world_frame_name="world" arm_group_name="manipulator" end_effector_group_name="gripper" end_effector_name="moveit_ee" hand_frame_name="grasp_link" hand_closed_pose_name="close" approach_distance="0.1" lift_distance="0.1"/>
             <Action ID="PlanMTCTask" solution="{pick_from_apriltag_pose_solution}" task="{pick_from_apriltag_pose_task}"/>
             <Fallback name="wait_for_approval_if_user_available">
                 <Inverter>
