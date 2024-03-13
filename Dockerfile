@@ -60,6 +60,19 @@ RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
     rosdep install -q -y --from-paths src --ignore-src && \
     pip3 install --no-cache-dir dt_apriltags==3.1.7
 
+# Set up colcon defaults for the new user
+USER ${USERNAME}
+RUN colcon mixin add default \
+    https://raw.githubusercontent.com/colcon/colcon-mixin-repository/master/index.yaml && \
+    colcon mixin update && \
+    colcon metadata add default \
+    https://raw.githubusercontent.com/colcon/colcon-metadata-repository/master/index.yaml && \
+    colcon metadata update
+COPY colcon-defaults.yaml /home/${USERNAME}/.colcon/defaults.yaml
+
+# hadolint ignore=DL3002
+USER root
+
 ###################################################################
 # Target for the developer build which does not compile any code. #
 ###################################################################
