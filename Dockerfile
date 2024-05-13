@@ -1,4 +1,4 @@
-# Docker image for extending MoveIt Pro with a user overlay.
+# Docker image for extending MoveIt Pro with a custom overlay.
 #
 # Example build command (with defaults):
 #
@@ -57,8 +57,9 @@ RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
     --mount=type=cache,target=/var/lib/apt,sharing=locked \
     . /opt/overlay_ws/install/setup.sh && \
     apt-get update && \
-    rosdep install -q -y --from-paths src --ignore-src && \
-    pip3 install --no-cache-dir dt_apriltags==3.1.7
+    rosdep install -q -y \
+      --from-paths src \
+      --ignore-src
 
 # Set up colcon defaults for the new user
 USER ${USERNAME}
