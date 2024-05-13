@@ -1,3 +1,0 @@
-[submodule "src/moveit_pro_ur_ws"]
-	path = src/moveit_pro_ur_ws
-	url = git@github.com:PickNikRobotics/moveit_studio_ur_ws.git
