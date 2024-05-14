@@ -24,7 +24,7 @@
     - 1.5615168254863208
     - -1.3999864602892913
     velocity: []
-  name: Gripper Down
+  name: Place
 - description: ''
   favorite: true
   joint_group_names:
