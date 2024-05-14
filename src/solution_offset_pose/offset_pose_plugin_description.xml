@@ -1,5 +1,0 @@
-<library path="offset_pose">
-  <class type="offset_pose::OffsetPoseBehaviorsLoader"
-         base_class_type="moveit_studio::behaviors::SharedResourcesNodeLoaderBase">
-  </class>
-</library>

@@ -1,4 +1,0 @@
-objectives:
-  behavior_loader_plugins:
-    offset_pose:
-      - "offset_pose::OffsetPoseBehaviorsLoader"

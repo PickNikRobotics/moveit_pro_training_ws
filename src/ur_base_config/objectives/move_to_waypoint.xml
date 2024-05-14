@@ -1,0 +1,17 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<root BTCPP_format="4" main_tree_to_execute="Move to Waypoint">
+  <BehaviorTree ID="Move to Waypoint" _description="This Objective is used when moving to one of the saved waypoints in your site configuration">
+    <Control ID="Sequence" name="root">
+      <Action ID="RetrieveWaypoint" waypoint_joint_state="{target_joint_state}" waypoint_name="{waypoint_name}" joint_group_name="{joint_group_name}"/>
+      <SubTree ID="Move to Joint State" _collapsed="false" target_joint_state="{target_joint_state}"/>
+    </Control>
+  </BehaviorTree>
+  <TreeNodesModel>
+    <SubTree ID="Move to Waypoint">
+      <input_port name="waypoint_name" default="Forward Down"/>
+      <input_port name="joint_group_name" default="manipulator"/>
+      <input_port name="controller_names" default="/joint_trajectory_controller /robotiq_gripper_controller"/>
+      <input_port name="use_all_planners" default="false"/>
+    </SubTree>
+  </TreeNodesModel>
+</root>

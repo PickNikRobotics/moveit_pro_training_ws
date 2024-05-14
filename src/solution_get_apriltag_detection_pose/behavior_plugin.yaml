@@ -1,4 +1,0 @@
-objectives:
-  behavior_loader_plugins:
-    get_apriltag_detection_pose:
-      - "get_apriltag_detection_pose::GetApriltagDetectionPoseBehaviorsLoader"

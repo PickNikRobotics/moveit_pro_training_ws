@@ -22,25 +22,23 @@ hardware:
   # [Optional, default=True]
   launch_control_node: True
 
-  # If the Agent should launch the robot state publisher.
+  # If the MoveIt Pro Agent should launch the robot state publisher.
   # This should be false if you are launching the robot state publisher as part of drivers.
   # [Optional, default=True]
   launch_robot_state_publisher: True
 
-  # If the Agent should launch cameras when simulated.
-  # This must be False when using mock hardware, since there are no cameras simulated.
-  # [Optional, default=True]
-  launch_cameras_when_simulated: False
-
   # The robot's IP address.
   # [Required]
-  ip: "0.0.0.0"  # !!! Please set the IP address of the robot
+  ip: "0.0.0.0"
 
   # Specify additional launch files for running the robot with real hardware.
-  # [Required]
+  # [Optional, defaults to a blank launch file if not specified]
   robot_driver_persist_launch_file:
-    package: "ur_base_config"
-    path: "launch/robot_drivers_to_persist.launch.py"
+    package: "moveit_studio_agent"
+    path: "launch/blank.launch.py"
+  hardware_launch_file:
+    package: "moveit_studio_agent"
+    path: "launch/blank.launch.py"
 
   # Specify any additional launch files for running the robot in simulation mode.
   # Used when simulated is True.
@@ -61,7 +59,7 @@ hardware:
   robot_description:
     urdf:
       package: "ur_base_config"
-      path: "description/ur5e.xacro"
+      path: "description/picknik_ur.xacro"
     srdf:
       package: "ur_base_config"
       path: "config/moveit/ur5e.srdf"
@@ -108,33 +106,33 @@ moveit_params:
   ompl_planning:
     package: "ur_base_config"
     path: "config/moveit/ompl_planning.yaml"
+  stomp_planning:
+    package: "ur_base_config"
+    path: "config/moveit/stomp_planning.yaml"
   pilz_planning:
     package: "ur_base_config"
     path: "config/moveit/pilz_industrial_motion_planner_planning.yaml"
-  pilz_cartesian_limits:
-    package: "ur_base_config"
-    path: "config/moveit/pilz_cartesian_limits.yaml"
-  stomp_planning:
-    package: "picknik_ur_base_config"
-    path: "config/moveit/stomp_planning.yaml"
   kinematics:
     package: "ur_base_config"
-    path: "config/moveit/kinematics.yaml"
-  joint_limits:
-    package: "ur_base_config"
-    path: "config/moveit/joint_limits.yaml"
-  sensors_3d:
-    package: "ur_base_config"
-    path: "config/moveit/sensors_3d.yaml"
+    path: "config/moveit/trac_ik_kinematics_distance.yaml"
   servo:
     package: "ur_base_config"
     path: "config/moveit/ur5e_servo.yaml"
+  sensors_3d:
+    package: "ur_base_config"
+    path: "config/moveit/sensors_3d.yaml"
   servo_kinematics:
     package: "ur_base_config"
-    path: "config/moveit/kinematics.yaml"
+    path: "config/moveit/trac_ik_kinematics_speed.yaml"
+  joint_limits:
+    package: "ur_base_config"
+    path: "config/moveit/joint_limits.yaml"
   servo_joint_limits:
     package: "ur_base_config"
     path: "config/moveit/hard_joint_limits.yaml"
+  pilz_cartesian_limits:
+    package: "ur_base_config"
+    path: "config/moveit/pilz_cartesian_limits.yaml"
 
   publish:
     planning_scene: True
@@ -147,6 +145,13 @@ moveit_params:
     allowed_execution_duration_scaling: 2.0
     allowed_goal_duration_margin: 5.0
     allowed_start_tolerance: 0.01
+
+# Additional configurable parameters for the MoveIt Pro user interface.
+# [Required]
+ui_params:
+  # By default, we use a frame named "grasp_link" for tool grasp pose rendering and planning.
+  # [Required]
+  servo_endpoint_frame_id: "grasp_link"
 
 # Configuration for launching ros2_control processes.
 # [Required, if using ros2_control]
@@ -162,15 +167,16 @@ ros2_control:
     - "force_torque_sensor_broadcaster"
     - "robotiq_gripper_controller"
     - "joint_state_broadcaster"
-    - "streaming_controller"
+    - "servo_controller"
     - "io_and_status_controller"
     - "robotiq_activation_controller"
   # Load but do not start these controllers so they can be activated later if needed.
   # [Optional, default=[]]
   controllers_inactive_at_startup:
     - "joint_trajectory_controller"
-    - "admittance_controller_open_door"
+    # - "admittance_controller_open_door"
     - "joint_trajectory_controller_chained_open_door"
+    - "joint_trajectory_admittance_controller"
   # Any controllers here will not be spawned by MoveIt Pro.
   # [Optional, default=[]]
   controllers_not_managed: []
@@ -184,23 +190,26 @@ octomap_manager:
   # the Octomap manager node is defined in sensors_3d.yaml.
   input_point_cloud_topic: "/wrist_mounted_camera/depth/color/points"
 
-# Configuration for loading Behaviors and Objectives.
+# Configuration for loading behaviors and objectives.
 # [Required]
 objectives:
-  # List of plugins for loading custom Behaviors.
+  # List of plugins for loading custom behaviors.
   # [Required]
   behavior_loader_plugins:
     # This plugin will load the core MoveIt Pro Behaviors.
     # Add additional plugin loaders as needed.
     core:
       - "moveit_studio::behaviors::CoreBehaviorsLoader"
-  # Specify source folder for Objectives
+      - "moveit_studio::behaviors::MTCCoreBehaviorsLoader"
+      - "moveit_studio::behaviors::ServoBehaviorsLoader"
+      - "moveit_studio::behaviors::VisionBehaviorsLoader"
+  # Specify source folder for objectives
   # [Required]
   objective_library_paths:
     core:
       package_name: "ur_base_config"
       relative_path: "objectives"
-  # Specify the location of the saved Waypoints file.
+  # Specify the location of the saved waypoints file.
   # [Required]
   waypoints_file:
     package_name: "ur_base_config"
