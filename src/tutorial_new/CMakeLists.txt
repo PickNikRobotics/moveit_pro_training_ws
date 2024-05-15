@@ -7,7 +7,6 @@ install(
   DIRECTORY
     config
     launch
-    meshes
     objectives
     waypoints
   DESTINATION
