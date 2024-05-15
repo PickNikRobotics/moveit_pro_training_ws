@@ -5,7 +5,7 @@
     <Control ID="Sequence">
       <Action ID="Script" code="teleop_mode := 0"/>
       <Control ID="Parallel" success_count="1" failure_count="1">
-        <Action ID="DoTeleoperateAction" enable_user_interaction="{enable_user_interaction}" user_interaction_prompt="{user_interaction_prompt}" initial_teleop_mode="{initial_teleop_mode}" current_teleop_mode="{teleop_mode}"/>
+        <Action ID="DoTeleoperateAction" user_interaction_prompt="{user_interaction_prompt}" initial_teleop_mode="{initial_teleop_mode}" current_teleop_mode="{teleop_mode}" enable_user_interaction="{enable_user_interaction}"/>
         <Decorator ID="KeepRunningUntilFailure">
           <Control ID="Sequence">
             <!--Closing and opening the gripper-->
@@ -19,21 +19,21 @@
             <Decorator ID="ForceSuccess" _while="teleop_mode == 5">
               <Control ID="Sequence">
                 <Action ID="SwitchUIPrimaryView" primary_view_name="Visualization"/>
-                <SubTree ID="Teleoperate Interpolate to Joint State" _collapsed="true"/>
+                <SubTree ID="Teleoperate Interpolate to Joint State" _collapsed="true" teleop_complete="{teleop_complete}"/>
               </Control>
             </Decorator>
             <!--Interactive markers move to pose-->
             <Decorator ID="ForceSuccess" _while="teleop_mode == 4">
               <Control ID="Sequence">
                 <Action ID="SwitchUIPrimaryView" primary_view_name="Visualization"/>
-                <SubTree ID="Teleoperate Move to Pose" controller_names="/joint_trajectory_controller" _collapsed="true"/>
+                <SubTree ID="Teleoperate Move to Pose" controller_names="/joint_trajectory_controller" _collapsed="true" teleop_complete="{teleop_complete}"/>
               </Control>
             </Decorator>
             <!--Waypoint buttons move to joint state-->
             <Decorator ID="ForceSuccess" _while="teleop_mode == 3">
               <Control ID="Sequence">
                 <Action ID="SwitchUIPrimaryView" primary_view_name="Visualization"/>
-                <SubTree ID="Teleoperate Move to Joint State" _collapsed="true"/>
+                <SubTree ID="Teleoperate Move to Joint State" _collapsed="true" teleop_complete="{teleop_complete}"/>
               </Control>
             </Decorator>
             <!--Cartesian and joint jogging-->
@@ -52,9 +52,9 @@
   </BehaviorTree>
   <TreeNodesModel>
     <SubTree ID="Request Teleoperation">
-      <input_port name="enable_user_interaction" default="false"/>
-      <input_port name="user_interaction_prompt" default=" "/>
-      <input_port name="initial_teleop_mode" default="4"/>
+      <input_port name="enable_user_interaction" default="true"/>
+      <input_port name="user_interaction_prompt" default="Please move to Pick"/>
+      <input_port name="initial_teleop_mode" default="3"/>
     </SubTree>
   </TreeNodesModel>
 </root>
